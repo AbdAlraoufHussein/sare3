@@ -5,9 +5,12 @@ class TextFdPassSignInUp extends StatelessWidget {
     super.key,
     required this.texthint,
     required this.txetlabel,
+    required this.onChanged,
   });
   final String texthint;
   final String txetlabel;
+
+  final void Function(String) onChanged;
 
   @override
   Widget build(BuildContext context) {

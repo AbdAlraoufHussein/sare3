@@ -4,19 +4,19 @@ import 'package:wael/data/model/onboardingmodel.dart';
 
 List<OnBoardingModel> onBoardingList = [
   OnBoardingModel(
-      title: '4'.tr,
+      title: 'Sare3 Store'.tr,
       image: AppImageAsset.onBoardingImageOne,
-      body: '5'.tr),
+      body: 'Welcome to our store'.tr),
   OnBoardingModel(
-    title: '6'.tr,
+    title: 'Our special one'.tr,
     image: AppImageAsset.onBoardingImageTwo,
     body:
-        '7'.tr,
+        'We offer you our application, which is a place where we collect exclusive discounts on a wide range of products'.tr,
   ),
   OnBoardingModel(
-    title: '8'.tr,
+    title: 'What else do we have?'.tr,
     image: AppImageAsset.onBoardingImageThree,
     body:
-        '9'.tr,
+        'We provide you with an electronic payment feature to reserve your goods to ensure your right to take them'.tr,
   )
 ];

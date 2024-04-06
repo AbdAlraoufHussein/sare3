@@ -29,7 +29,7 @@ class OnBoardingBtn extends GetView<OnBoardingControolerEmplement> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 12),
           child: Text(
-            '10'.tr,
+            'Continue'.tr,
             style: TextStyle(
               fontSize: 18,
               color: AppColor.white,

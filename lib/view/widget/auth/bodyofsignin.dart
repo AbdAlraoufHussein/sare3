@@ -11,7 +11,7 @@ class BodyofSignIn extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-            '19'.tr,
+            'If you want to create a page for your own store, contact us : 0968645606'.tr,
             style: const TextStyle(
                 fontSize: 13, color: Colors.grey, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wael/controller/onboarding_controller.dart';
+import 'package:wael/controller/signin_controller.dart';
 import 'package:wael/core/constant/routes.dart';
 import 'package:wael/view/widget/auth/btnsignin_up.dart';
 import 'package:wael/view/widget/auth/bodyofsignin.dart';
@@ -9,12 +10,26 @@ import 'package:wael/view/widget/auth/textbtnsignin_up.dart';
 import 'package:wael/view/widget/auth/textfdsignin_up.dart';
 import 'package:wael/view/widget/auth/textfdpasssignin_up.dart';
 
-class SignIn extends StatelessWidget {
+class SignIn extends StatefulWidget {
   const SignIn({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+  late final SigninControllerImplement signinController =
+      Get.put(SigninControllerImplement());
+
+  @override
+  void initState() {
+    super.initState();
+
     Get.put(OnBoardingControolerEmplement());
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: ListView(children: [
@@ -22,38 +37,40 @@ class SignIn extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              HeadOfSignInUp(text: '11'.tr),
+              HeadOfSignInUp(text: 'Sign In_top'.tr),
               const BodyofSignIn(),
               TextFdSignInUp(
-                texthint: '12'.tr,
-                textlabel: '13'.tr,
+                texthint: 'Enter your email here_signIn'.tr,
+                textlabel: 'Email_signIn'.tr,
                 keyboardType: TextInputType.emailAddress,
+                onChanged: (email) => signinController.email = email,
               ),
               const SizedBox(
                 height: 20,
               ),
               TextFdPassSignInUp(
-                texthint: '14'.tr,
-                txetlabel: '15'.tr,
+                texthint: 'Enter your Password here_signIn'.tr,
+                txetlabel: 'Password_signIn'.tr,
+                onChanged: (password) => signinController.password = password,
               ),
               const SizedBox(
                 height: 15,
               ),
               TextBtnSugnInUp(
-                text: '16'.tr,
-                onPressed: () {},
+                text: 'Forget Password'.tr,
+                onPressed: signinController.signin,
               ),
               TextBtnSugnInUp(
-                text: '17'.tr,
+                text: 'Create an acount ?'.tr,
                 onPressed: () {
                   Get.offAllNamed(AppRoute.signUp);
                 },
               ),
               const SizedBox(
-                height: 80,
+                height: 50,
               ),
               BtnSignInUp(
-                txet: '18'.tr,
+                txet: 'Sign In_btn'.tr,
                 onPressed: () {
                   Get.offNamed(AppRoute.signUp);
                 },

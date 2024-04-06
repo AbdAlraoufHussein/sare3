@@ -19,7 +19,7 @@ class Language extends GetView<LocaleController> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '1'.tr,
+                  'choose language'.tr,
                   style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -31,7 +31,7 @@ class Language extends GetView<LocaleController> {
               height: 20,
             ),
             LangaugeBtn(
-              text: '2'.tr,
+              text: 'Arabic'.tr,
               onPressed: () {
                 controller.changeLang('ar');
                 Get.toNamed(AppRoute.onBoarding);
@@ -41,11 +41,10 @@ class Language extends GetView<LocaleController> {
               height: 15,
             ),
             LangaugeBtn(
-              text: '3'.tr,
+              text: 'English'.tr,
               onPressed: () {
                 controller.changeLang('en');
                 Get.toNamed(AppRoute.onBoarding);
-
               },
             ),
           ],

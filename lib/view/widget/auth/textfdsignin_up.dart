@@ -6,9 +6,12 @@ class TextFdSignInUp extends StatelessWidget {
     required this.texthint,
     required this.keyboardType,
     required this.textlabel,
+    required this.onChanged,
   });
   final String texthint;
   final String textlabel;
+
+  final void Function(String) onChanged;
 
   final TextInputType? keyboardType;
   @override
@@ -17,6 +20,7 @@ class TextFdSignInUp extends StatelessWidget {
       height: 60,
       width: 310,
       child: TextField(
+        onChanged: onChanged,
         keyboardType: keyboardType,
         textAlign: TextAlign.start,
         decoration: InputDecoration(

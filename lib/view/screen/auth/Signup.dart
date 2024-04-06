@@ -23,57 +23,53 @@ class SignUp extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  HeadOfSignInUp(text: '20'.tr),
+                  HeadOfSignInUp(text: 'Sign Up_top'.tr),
                   const SizedBox(
-                    height: 50,
+                    height: 100,
                   ),
                   TextFdSignInUp(
-                    texthint: '21'.tr,
-                    textlabel: '22'.tr,
+                    texthint: 'Enter your name here'.tr,
+                    textlabel: 'Full Name'.tr,
                     keyboardType: TextInputType.name,
+                    onChanged: (p0) => 0,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   TextFdSignInUp(
-                    texthint: '23'.tr,
-                    textlabel: '24'.tr,
+                    texthint: 'Enter your email here_signUp'.tr,
+                    textlabel: 'Email_signUp'.tr,
                     keyboardType: TextInputType.emailAddress,
+                    onChanged: (p0) => 0,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   TextFdPassSignInUp(
-                    texthint: '25'.tr,
-                    txetlabel: '26'.tr,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFdPassSignInUp(
-                    texthint: '27'.tr,
-                    txetlabel: '28'.tr,
+                    texthint: 'Enter your Password here_signUp'.tr,
+                    txetlabel: 'Password_signUp'.tr,
+                    onChanged: (p0) => 0,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   TextFdNumSignInUp(
-                    textprefix: '29'.tr,
-                    textlabel: '30'.tr,
+                    textprefix: '+963'.tr,
+                    textlabel: 'Phone'.tr,
                     keyboardType: TextInputType.number,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   TextBtnSugnInUp(
-                      text: '31'.tr,
+                      text: 'Have an acount ?'.tr,
                       onPressed: () {
                         Get.offNamed(AppRoute.signIn);
                       }),
                   const SizedBox(
                     height: 70,
                   ),
-                  BtnSignInUp(txet: '32'.tr, onPressed: () {}),
+                  BtnSignInUp(txet: 'Sign Up_btn'.tr, onPressed: () {}),
                 ],
               ),
             ],

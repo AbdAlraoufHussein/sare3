@@ -1,6 +1,7 @@
 
 
 class AppRoute {
+  
   static const signIn = '/signin';
   static const signUp = '/signup';
 
