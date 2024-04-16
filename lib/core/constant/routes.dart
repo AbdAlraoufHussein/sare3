@@ -7,6 +7,8 @@ class AppRoute {
 
   static const chooselang = '/language';
   static const onBoarding = '/onboarding';
+  static const homePage = '/homepage';
+
   
 
 

@@ -5,13 +5,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wael/core/constant/routes.dart';
 import 'package:wael/core/services/authentication_service.dart';
 
-abstract class SigninController extends GetxController {
+abstract class SignupController extends GetxController {
   void signin();
 
   final AuthenticationService authenticationService = AuthenticationService();
 }
 
-class SigninControllerImplement extends SigninController {
+class SignupControllerImplement extends SignupController {
   String? email;
   String? password;
 

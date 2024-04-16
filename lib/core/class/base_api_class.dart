@@ -1,11 +1,15 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-class BaseApi extends GetConnect {
-  static String get _baseUrl => 'https://2dfb-2605-6440-4015-7000-ef53-42d4-ec7b-4eca.ngrok-free.app/';
+class BaseApi {
+  static String get baseUrl => 'http://localhost:1337/api/';
 
-  @override
-  void onInit() {
-    httpClient.baseUrl = _baseUrl;
-    super.onInit();
-  }
+  final dio = Dio(
+    BaseOptions(baseUrl: baseUrl, headers: {
+      HttpHeaders.acceptHeader: 'application/json',
+    }),
+  )..interceptors.add(PrettyDioLogger());
 }

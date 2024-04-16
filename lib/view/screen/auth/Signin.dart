@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:wael/controller/onboarding_controller.dart';
 import 'package:wael/controller/signin_controller.dart';
 import 'package:wael/core/constant/routes.dart';
+import 'package:wael/view/screen/home_page.dart';
 import 'package:wael/view/widget/auth/btnsignin_up.dart';
 import 'package:wael/view/widget/auth/bodyofsignin.dart';
 import 'package:wael/view/widget/auth/headofsignin_up.dart';
@@ -43,7 +44,8 @@ class _SignInState extends State<SignIn> {
                 texthint: 'Enter your email here_signIn'.tr,
                 textlabel: 'Email_signIn'.tr,
                 keyboardType: TextInputType.emailAddress,
-                onChanged: (email) => signinController.email = email,
+                onChanged: (p0) => 0,
+                // onChanged: (email) => signinController.email = email,
               ),
               const SizedBox(
                 height: 20,
@@ -51,7 +53,8 @@ class _SignInState extends State<SignIn> {
               TextFdPassSignInUp(
                 texthint: 'Enter your Password here_signIn'.tr,
                 txetlabel: 'Password_signIn'.tr,
-                onChanged: (password) => signinController.password = password,
+                onChanged: (p0) => 0,
+                // onChanged: (password) => signinController.password = password,
               ),
               const SizedBox(
                 height: 15,
@@ -66,13 +69,13 @@ class _SignInState extends State<SignIn> {
                   Get.offAllNamed(AppRoute.signUp);
                 },
               ),
-              const SizedBox(
+              SizedBox(
                 height: 50,
               ),
               BtnSignInUp(
                 txet: 'Sign In_btn'.tr,
                 onPressed: () {
-                  Get.offNamed(AppRoute.signUp);
+                  Get.off(HomePage());
                 },
               )
             ],

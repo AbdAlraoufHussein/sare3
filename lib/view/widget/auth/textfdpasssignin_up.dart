@@ -21,6 +21,7 @@ class TextFdPassSignInUp extends StatelessWidget {
         obscureText: true,
         keyboardType: TextInputType.visiblePassword,
         textAlign: TextAlign.start,
+        onChanged: onChanged,
         decoration: InputDecoration(
           hintText: texthint,
           hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
