@@ -6,7 +6,7 @@ import 'package:wael/core/services/services.dart';
 import 'package:wael/routes.dart';
 import 'package:wael/view/screen/main_page.dart';
 
-//test
+//test 2
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
