@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wael/core/constant/color.dart';
+import 'package:wael/view/screen/store.dart';
 
 class Market extends StatelessWidget {
   const Market({super.key});
@@ -10,21 +12,26 @@ class Market extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.all(3), // Border width
-            decoration: BoxDecoration(
-              color: AppColor.blue,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(5),
+          GestureDetector(
+            onTap: () {
+              Get.to(const StorePage());
+            },
+            child: Container(
+              padding: const EdgeInsets.all(3), // Border width
+              decoration: BoxDecoration(
+                color: AppColor.blue,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(5),
+                ),
               ),
-            ),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(5),
-              ),
-              child: SizedBox.fromSize(
-                size: Size.fromRadius(30), // Image radius
-                child: Image.asset("assets/images/hfhfe.png"),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(5),
+                ),
+                child: SizedBox.fromSize(
+                  size: Size.fromRadius(30), // Image radius
+                  child: Image.asset("assets/images/hfhfe.png"),
+                ),
               ),
             ),
           ),

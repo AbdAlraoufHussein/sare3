@@ -7,7 +7,7 @@ class Product extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 13),
+      padding: const EdgeInsets.only(right: 13),
       child: Column(
         children: [
           Stack(
@@ -25,9 +25,19 @@ class Product extends StatelessWidget {
                 height: 156,
                 width: 155,
               ),
-              Image.asset(
-                'assets/images/product_image_hfhfe.png',
-                width: 155,
+              SizedBox(
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(14),
+                    topRight: Radius.circular(14),
+                    bottomLeft: Radius.circular(0),
+                    bottomRight: Radius.circular(95),
+                  ),
+                  child: Image.asset(
+                    'assets/images/product_image_hfhfe.png',
+                    height: 156,
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 130, left: 120),
@@ -46,13 +56,7 @@ class Product extends StatelessWidget {
                   height: 100,
                   width: 155,
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      top: BorderSide(color: AppColor.blue),
-                      bottom: BorderSide(color: AppColor.blue),
-                      left: BorderSide(color: AppColor.blue),
-                      right: BorderSide(color: AppColor.blue),
-                    ),
+                    color: AppColor.greyfateh,
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(15),
                       bottomRight: Radius.circular(15),
@@ -75,7 +79,7 @@ class Product extends StatelessWidget {
                 child: Text(
                   'Hfhfe shampoo',
                   style: TextStyle(
-                      color: AppColor.black,
+                      color: AppColor.blue,
                       fontSize: 15,
                       fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,

@@ -4,7 +4,7 @@ import 'package:wael/core/localization/changelangauge.dart';
 import 'package:wael/core/localization/translation.dart';
 import 'package:wael/core/services/services.dart';
 import 'package:wael/routes.dart';
-import 'package:wael/view/screen/language.dart';
+import 'package:wael/view/screen/main_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +23,7 @@ class MyWidget extends StatelessWidget {
       locale: controller.langauge,
       translations: MyTranslation(),
       debugShowCheckedModeBanner: false,
-      home: const Language(),
+      home: const MainPage(),
     );
   }
 }
