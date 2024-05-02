@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:wael/controller/onboarding_controller.dart';
 import 'package:wael/controller/signin_controller.dart';
 import 'package:wael/core/constant/routes.dart';
-import 'package:wael/view/screen/home_page.dart';
+import 'package:wael/view/screen/main_page/home_page.dart';
 import 'package:wael/view/widget/auth/btnsignin_up.dart';
 import 'package:wael/view/widget/auth/bodyofsignin.dart';
 import 'package:wael/view/widget/auth/headofsignin_up.dart';

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:wael/core/constant/color.dart';
+import 'package:wael/view/screen/main_page/product_page.dart';
 
 class Product extends StatelessWidget {
   const Product({super.key});
@@ -25,17 +27,24 @@ class Product extends StatelessWidget {
                 height: 156,
                 width: 155,
               ),
-              SizedBox(
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(14),
-                    topRight: Radius.circular(14),
-                    bottomLeft: Radius.circular(0),
-                    bottomRight: Radius.circular(95),
-                  ),
-                  child: Image.asset(
-                    'assets/images/product_image_hfhfe.png',
-                    height: 156,
+              InkWell(
+                onTap: () {
+                  Get.to(const ProductPage());
+                },
+                child: SizedBox(
+                  height: 156,
+                  width: 155.3,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(14),
+                      topRight: Radius.circular(14),
+                      bottomLeft: Radius.circular(0),
+                      bottomRight: Radius.circular(95),
+                    ),
+                    child: Image.asset(
+                      fit: BoxFit.cover,
+                      'assets/images/product_image_hfhfe.png',
+                    ),
                   ),
                 ),
               ),

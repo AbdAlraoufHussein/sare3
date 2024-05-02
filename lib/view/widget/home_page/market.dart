@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wael/core/constant/color.dart';
-import 'package:wael/view/screen/store.dart';
+import 'package:wael/view/screen/main_page/store.dart';
 
 class Market extends StatelessWidget {
   const Market({super.key});

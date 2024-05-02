@@ -5,12 +5,8 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Center(
-          child: Text('Profile'),
-        )
-      ],
+    return const Column(
+      children: [Text('profile')],
     );
   }
 }

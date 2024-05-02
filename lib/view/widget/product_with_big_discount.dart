@@ -26,6 +26,8 @@ class ProductWithBigDiscount extends StatelessWidget {
                 width: 155,
               ),
               SizedBox(
+                height: 156,
+                width: 155.3,
                 child: ClipRRect(
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(14),
@@ -34,8 +36,8 @@ class ProductWithBigDiscount extends StatelessWidget {
                     bottomRight: Radius.circular(95),
                   ),
                   child: Image.asset(
+                    fit: BoxFit.cover,
                     'assets/images/product_image_shoes.png',
-                    height: 156,
                   ),
                 ),
               ),

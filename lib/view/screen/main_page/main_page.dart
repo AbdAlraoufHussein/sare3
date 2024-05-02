@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wael/controller/bottom_nav_controller.dart';
-import 'package:wael/view/widget/home_page/bottom_nav_bar.dart';
+import 'package:wael/view/widget/bottom_nav_bar.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wael/view/screen/cart_page.dart';
-import 'package:wael/view/screen/categories_page.dart';
-import 'package:wael/view/screen/home_page.dart';
-import 'package:wael/view/screen/profile_page.dart';
+import 'package:wael/view/screen/main_page/cart_page.dart';
+import 'package:wael/view/screen/main_page/categories_page.dart';
+import 'package:wael/view/screen/main_page/home_page.dart';
+import 'package:wael/view/screen/main_page/profile_page.dart';
 
 class BottomNavController extends GetxController {
   static const pages = [

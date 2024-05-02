@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wael/view/widget/home_page/carosel_slider.dart';
-import 'package:wael/view/widget/home_page/head_of_page.dart';
+import 'package:wael/view/widget/home_page/head_of_homepage.dart';
 import 'package:wael/view/widget/main_points.dart';
 import 'package:wael/view/widget/home_page/market.dart';
 import 'package:wael/view/widget/product.dart';
@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
         const SizedBox(
           height: 35,
         ),
-        const HeadOfPage(),
+        const HeadOfHomePage(),
         const SizedBox(
           height: 22,
         ),

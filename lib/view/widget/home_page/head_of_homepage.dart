@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wael/core/constant/color.dart';
-import 'package:wael/view/screen/favorite_page.dart';
-import 'package:wael/view/screen/notifications.dart';
+import 'package:wael/view/screen/main_page/favorite_page.dart';
 
-class HeadOfPage extends StatelessWidget {
-  const HeadOfPage({super.key});
+class HeadOfHomePage extends StatelessWidget {
+  const HeadOfHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +45,7 @@ class HeadOfPage extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    Get.to( ()=>const FavoratePage());
+                    Get.to(() => const FavoratePage());
                   },
                   icon: Icon(
                     Icons.favorite_rounded,
