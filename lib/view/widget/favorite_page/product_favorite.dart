@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wael/core/constant/color.dart';
 
 class ProductFavorite extends StatelessWidget {
@@ -7,68 +8,72 @@ class ProductFavorite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 130,
-      margin: const EdgeInsets.only(left: 25, right: 25, bottom: 10),
+      height: 130.h,
+      margin: EdgeInsets.only(left: 25.w, right: 25.w, bottom: 10.h),
       decoration: BoxDecoration(
-          color: AppColor.greyfateh, borderRadius: BorderRadius.circular(15)),
+        color: AppColor.greyfateh,
+        borderRadius: BorderRadius.circular(15.r),
+      ),
       child: Row(
         children: [
           Stack(
             clipBehavior: Clip.none,
             children: [
               Container(
-                height: 130,
-                width: 140,
+                height: 130.h,
+                width: 140.w,
                 decoration: BoxDecoration(
-                    color: AppColor.red,
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        bottomLeft: Radius.circular(15))),
+                  color: AppColor.red,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15.r),
+                    bottomLeft: Radius.circular(15.r),
+                  ),
+                ),
               ),
               SizedBox(
-                height: 130,
-                width: 141.5,
+                height: 130.h,
+                width: 141.5.w,
                 child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    bottomLeft: Radius.circular(15),
-                    bottomRight: Radius.circular(100),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15.r),
+                    bottomLeft: Radius.circular(15.r),
+                    bottomRight: Radius.circular(100.r),
                   ),
                   child: Image.asset(
-                    width: 142,
+                    width: 142.w,
                     'assets/images/product_image_bijama.png',
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
               Positioned(
-                bottom: 5,
-                right: 3,
+                bottom: 5.h,
+                right: 3.w,
                 child: Text(
                   '30%',
                   style: TextStyle(
                     color: AppColor.yellow,
-                    fontSize: 17,
+                    fontSize: 17.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
               Positioned(
-                right: -30,
-                top: 0,
-                bottom: 0,
+                right: -30.w,
+                top: 0.h,
+                bottom: 0.h,
                 child: IconButton(
                   onPressed: () {},
                   icon: Image.asset(
                     'assets/images/product_btn_addtocart.png',
-                    height: 45,
+                    height: 45.h,
                   ),
                 ),
               ),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 32, top: 24),
+            padding: EdgeInsets.only(left: 32.w, top: 24.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -76,18 +81,18 @@ class ProductFavorite extends StatelessWidget {
                   'Cotton Pajamas',
                   style: TextStyle(
                       color: AppColor.blue,
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,
                 ),
-                const SizedBox(
-                  height: 32,
+                SizedBox(
+                  height: 32.h,
                 ),
                 Text(
                   '500,000 L.S',
                   style: TextStyle(
                     color: AppColor.blue,
-                    fontSize: 15,
+                    fontSize: 15.sp,
                     fontWeight: FontWeight.bold,
                   ),
                   textAlign: TextAlign.start,
@@ -98,7 +103,7 @@ class ProductFavorite extends StatelessWidget {
                     decorationColor: AppColor.yellow,
                     decoration: TextDecoration.lineThrough,
                     color: AppColor.yellow,
-                    fontSize: 12,
+                    fontSize: 12.sp,
                   ),
                   textAlign: TextAlign.start,
                 ),
@@ -111,7 +116,7 @@ class ProductFavorite extends StatelessWidget {
               onPressed: () {},
               icon: Image.asset(
                 'assets/images/delete.png',
-                height: 20,
+                height: 20.h,
               ),
             ),
           ),

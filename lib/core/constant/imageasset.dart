@@ -8,4 +8,5 @@ class AppImageAsset {
   static const String caroselTwo = '$routeImage/carosel2.png';
   static const String caroselThree = '$routeImage/carosel3.png';
   static const String caroselFour = '$routeImage/carosel4.png';
+  static const String splashScreen = '$routeImage/splash_screen.png';
 }

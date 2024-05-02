@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wael/core/constant/routes.dart';
 import 'package:wael/view/widget/auth/btnsignin_up.dart';
@@ -24,8 +25,8 @@ class SignUp extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   HeadOfSignInUp(text: 'Sign Up_top'.tr),
-                  const SizedBox(
-                    height: 100,
+                   SizedBox(
+                    height: 100.h,
                   ),
                   TextFdSignInUp(
                     texthint: 'Enter your name here'.tr,
@@ -33,8 +34,8 @@ class SignUp extends StatelessWidget {
                     keyboardType: TextInputType.name,
                     onChanged: (p0) => 0,
                   ),
-                  const SizedBox(
-                    height: 20,
+                   SizedBox(
+                    height: 20.h,
                   ),
                   TextFdSignInUp(
                     texthint: 'Enter your email here_signUp'.tr,
@@ -42,32 +43,32 @@ class SignUp extends StatelessWidget {
                     keyboardType: TextInputType.emailAddress,
                     onChanged: (p0) => 0,
                   ),
-                  const SizedBox(
-                    height: 20,
+                   SizedBox(
+                    height: 20.h,
                   ),
                   TextFdPassSignInUp(
                     texthint: 'Enter your Password here_signUp'.tr,
                     txetlabel: 'Password_signUp'.tr,
                     onChanged: (p0) => 0,
                   ),
-                  const SizedBox(
-                    height: 20,
+                   SizedBox(
+                    height: 20.h,
                   ),
                   TextFdNumSignInUp(
                     textprefix: '+963'.tr,
                     textlabel: 'Phone'.tr,
                     keyboardType: TextInputType.number,
                   ),
-                  const SizedBox(
-                    height: 20,
+                   SizedBox(
+                    height: 20.h,
                   ),
                   TextBtnSugnInUp(
                       text: 'Have an acount ?'.tr,
                       onPressed: () {
                         Get.offNamed(AppRoute.signIn);
                       }),
-                  const SizedBox(
-                    height: 70,
+                   SizedBox(
+                    height: 70.h,
                   ),
                   BtnSignInUp(txet: 'Sign Up_btn'.tr, onPressed: () {}),
                 ],

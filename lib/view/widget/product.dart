@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wael/core/constant/color.dart';
 import 'package:wael/view/screen/main_page/product_page.dart';
@@ -9,37 +10,36 @@ class Product extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 13),
+      padding:  EdgeInsets.only(right: 13.w),
       child: Column(
         children: [
           Stack(
             children: [
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    topRight: Radius.circular(15),
-                    bottomLeft: Radius.circular(0),
-                    bottomRight: Radius.circular(0),
+                  borderRadius:  BorderRadius.only(
+                    topLeft: Radius.circular(15.r),
+                    topRight: Radius.circular(15.r),
+                    
                   ),
                   color: AppColor.red,
                 ),
-                height: 156,
-                width: 155,
+                height: 156.h,
+                width: 155.w,
               ),
               InkWell(
                 onTap: () {
                   Get.to(const ProductPage());
                 },
                 child: SizedBox(
-                  height: 156,
-                  width: 155.3,
+                  height: 156.h,
+                  width: 155.3.w,
                   child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(14),
-                      topRight: Radius.circular(14),
-                      bottomLeft: Radius.circular(0),
-                      bottomRight: Radius.circular(95),
+                    borderRadius:  BorderRadius.only(
+                      topLeft: Radius.circular(14.r),
+                      topRight: Radius.circular(14.r),
+
+                      bottomRight: Radius.circular(95.r),
                     ),
                     child: Image.asset(
                       fit: BoxFit.cover,
@@ -49,79 +49,79 @@ class Product extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 130, left: 120),
+                padding:  EdgeInsets.only(top: 130.h, left: 120.w),
                 child: Text(
                   '30%',
                   style: TextStyle(
                     color: AppColor.yellow,
-                    fontSize: 17,
+                    fontSize: 17.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 156),
+                padding:  EdgeInsets.only(top: 156.h),
                 child: Container(
-                  height: 100,
-                  width: 155,
+                  height: 100.h,
+                  width: 155.w,
                   decoration: BoxDecoration(
                     color: AppColor.greyfateh,
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15),
+                    borderRadius:  BorderRadius.only(
+                      bottomLeft: Radius.circular(15.r),
+                      bottomRight: Radius.circular(15.r),
                     ),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 128, left: 55),
+                padding:  EdgeInsets.only(top: 128.h, left: 55.w),
                 child: Image.asset(
                   'assets/images/product_btn_addtocart.png',
-                  height: 42,
+                  height: 42.h,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(
-                  top: 175,
-                  left: 8,
+                padding:  EdgeInsets.only(
+                  top: 175.h,
+                  left: 8.w,
                 ),
                 child: Text(
                   'Hfhfe shampoo',
                   style: TextStyle(
                       color: AppColor.blue,
-                      fontSize: 15,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 218, left: 118),
+                padding:  EdgeInsets.only(top: 218.h, left: 118.w),
                 child: Image.asset(
                   'assets/images/product_favorate.png',
-                  height: 30,
+                  height: 30.h,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 210, left: 8),
+                padding:  EdgeInsets.only(top: 210.h, left: 8.w),
                 child: Text(
                   '500,000 L.S',
                   style: TextStyle(
                     color: AppColor.blue,
-                    fontSize: 15,
+                    fontSize: 15.sp,
                     fontWeight: FontWeight.bold,
                   ),
                   textAlign: TextAlign.start,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 230, left: 8),
+                padding:  EdgeInsets.only(top: 230.h, left: 8.w),
                 child: Text(
                   '545,000 L.S',
                   style: TextStyle(
                     decorationColor: AppColor.yellow,
                     decoration: TextDecoration.lineThrough,
                     color: AppColor.yellow,
-                    fontSize: 12,
+                    fontSize: 12.sp,
                   ),
                   textAlign: TextAlign.start,
                 ),

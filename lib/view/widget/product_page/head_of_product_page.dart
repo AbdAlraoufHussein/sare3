@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wael/core/constant/color.dart';
 
-class HeadOfProfilePage extends StatelessWidget {
-  const HeadOfProfilePage({super.key});
+class HeadOfProductPage extends StatelessWidget {
+  const HeadOfProductPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,43 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wael/core/constant/color.dart';
 import 'package:wael/view/screen/main_page/favorite_page.dart';
 
-class HeadOfHomePage extends StatelessWidget {
-  const HeadOfHomePage({super.key});
+class HeadOfSearch_logo extends StatelessWidget {
+  const HeadOfSearch_logo({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image(
-                image: AssetImage("assets/images/logo.png"),
-                width: 58,
-                height: 58,
+                image: const AssetImage("assets/images/logo.png"),
+                width: 58.w,
+                height: 58.h,
               ),
             ],
           ),
-          const SizedBox(
-            width: 20,
+          SizedBox(
+            width: 20.w,
           ),
           Container(
-            height: 55,
-            width: 50,
+            height: 55.h,
+            width: 50.w,
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(25),
-                bottomLeft: Radius.circular(25),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25.r),
+                bottomLeft: Radius.circular(25.r),
               ),
               border: Border(
-                top: BorderSide(color: AppColor.blue, width: 2),
-                bottom: BorderSide(color: AppColor.blue, width: 2),
-                left: BorderSide(color: AppColor.blue, width: 2),
+                top: BorderSide(color: AppColor.blue, width: 2.w),
+                bottom: BorderSide(color: AppColor.blue, width: 2.w),
+                left: BorderSide(color: AppColor.blue, width: 2.w),
               ),
             ),
             child: Row(
@@ -57,8 +58,8 @@ class HeadOfHomePage extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 55,
-            width: 219,
+            height: 55.h,
+            width: 219.w,
             child: TextField(
               onChanged: null,
               keyboardType: TextInputType.text,
@@ -73,32 +74,26 @@ class HeadOfHomePage extends StatelessWidget {
                   ),
                 ),
                 hintText: ' search',
-                hintStyle: const TextStyle(
+                hintStyle:  TextStyle(
                     color: Colors.grey,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(0),
-                    bottomRight: Radius.circular(0),
-                    bottomLeft: Radius.circular(0),
-                    topLeft: Radius.circular(0),
-                  ),
                   borderSide: BorderSide(
                     color: AppColor.blue,
-                    width: 2,
+                    width: 2.w,
                   ),
                 ),
-                enabledBorder: const OutlineInputBorder(
+                enabledBorder:  OutlineInputBorder(
                   borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(0),
-                    bottomRight: Radius.circular(25),
-                    topLeft: Radius.circular(0),
-                    topRight: Radius.circular(25),
+
+                    bottomRight: Radius.circular(25.r),
+                  
+                    topRight: Radius.circular(25.r),
                   ),
                   borderSide: BorderSide(
-                    color: Color.fromARGB(255, 0, 69, 126),
-                    width: 2,
+                    color:AppColor.blue,
+                    width: 2.w,
                   ),
                 ),
               ),

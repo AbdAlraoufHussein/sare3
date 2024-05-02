@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wael/controller/onboarding_controller.dart';
 import 'package:wael/controller/signin_controller.dart';
 import 'package:wael/core/constant/routes.dart';
 import 'package:wael/view/screen/main_page/home_page.dart';
+import 'package:wael/view/screen/main_page/main_page.dart';
 import 'package:wael/view/widget/auth/btnsignin_up.dart';
 import 'package:wael/view/widget/auth/bodyofsignin.dart';
 import 'package:wael/view/widget/auth/headofsignin_up.dart';
@@ -47,8 +49,8 @@ class _SignInState extends State<SignIn> {
                 onChanged: (p0) => 0,
                 // onChanged: (email) => signinController.email = email,
               ),
-              const SizedBox(
-                height: 20,
+               SizedBox(
+                height: 20.h,
               ),
               TextFdPassSignInUp(
                 texthint: 'Enter your Password here_signIn'.tr,
@@ -56,8 +58,8 @@ class _SignInState extends State<SignIn> {
                 onChanged: (p0) => 0,
                 // onChanged: (password) => signinController.password = password,
               ),
-              const SizedBox(
-                height: 15,
+               SizedBox(
+                height: 15.h,
               ),
               TextBtnSugnInUp(
                 text: 'Forget Password'.tr,
@@ -70,12 +72,12 @@ class _SignInState extends State<SignIn> {
                 },
               ),
               SizedBox(
-                height: 50,
+                height: 50.h,
               ),
               BtnSignInUp(
                 txet: 'Sign In_btn'.tr,
                 onPressed: () {
-                  Get.off(HomePage());
+                  Get.off(MainPage());
                 },
               )
             ],

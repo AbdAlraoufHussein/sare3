@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wael/core/constant/color.dart';
 
 class TextFdPassSignInUp extends StatelessWidget {
   const TextFdPassSignInUp({
@@ -15,8 +17,8 @@ class TextFdPassSignInUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 60,
-      width: 310,
+      height: 60.h,
+      width: 310.w,
       child: TextField(
         obscureText: true,
         keyboardType: TextInputType.visiblePassword,
@@ -24,39 +26,39 @@ class TextFdPassSignInUp extends StatelessWidget {
         onChanged: onChanged,
         decoration: InputDecoration(
           hintText: texthint,
-          hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
+          hintStyle:  TextStyle(color: Colors.grey, fontSize: 14.sp),
           suffixIcon: IconButton(
             onPressed: () {},
-            icon: const Image(
-              image: AssetImage(
+            icon: Image(
+              image:const  AssetImage(
                 'assets/images/eye.png',
               ),
-              height: 14,
+              height: 14.h,
             ),
           ),
-          focusedBorder: const OutlineInputBorder(
+          focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(20),
+              Radius.circular(20.r),
             ),
             borderSide: BorderSide(
-              color: Color.fromARGB(255, 0, 69, 126),
-              width: 2,
+              color: AppColor.blue,
+              width: 2.w,
             ),
           ),
           floatingLabelBehavior: FloatingLabelBehavior.always,
           floatingLabelAlignment: FloatingLabelAlignment.start,
           contentPadding:
-              const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+              EdgeInsets.symmetric(horizontal: 20.w, vertical: 25.h),
           label: Text(txetlabel),
-          labelStyle: const TextStyle(
-            fontSize: 21,
+          labelStyle: TextStyle(
+            fontSize: 21.sp,
             fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 0, 69, 126),
+            color: AppColor.blue,
           ),
-          enabledBorder: const OutlineInputBorder(
+          enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Color.fromARGB(255, 0, 69, 126),
-              width: 3,
+              color: AppColor.blue,
+              width: 3.w,
             ),
           ),
         ),

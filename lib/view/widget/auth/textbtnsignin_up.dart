@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wael/core/constant/color.dart';
 
 class TextBtnSugnInUp extends StatelessWidget {
   const TextBtnSugnInUp(
@@ -9,14 +11,14 @@ class TextBtnSugnInUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 190),
+      padding: EdgeInsets.only(left: 190.w),
       child: TextButton(
         onPressed: onPressed,
         child: Text(
           text,
-          style: const TextStyle(
-              fontSize: 15,
-              color: Color.fromARGB(255, 0, 69, 126),
+          style: TextStyle(
+              fontSize: 15.sp,
+              color: AppColor.blue,
               fontWeight: FontWeight.bold),
         ),
       ),

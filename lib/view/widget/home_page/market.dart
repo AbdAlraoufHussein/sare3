@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wael/core/constant/color.dart';
 import 'package:wael/view/screen/main_page/store.dart';
@@ -9,7 +10,7 @@ class Market extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding:  EdgeInsets.symmetric(horizontal: 8.w),
       child: Column(
         children: [
           GestureDetector(
@@ -17,30 +18,30 @@ class Market extends StatelessWidget {
               Get.to(const StorePage());
             },
             child: Container(
-              padding: const EdgeInsets.all(3), // Border width
+              padding:  EdgeInsets.all(3.r), // Border width
               decoration: BoxDecoration(
                 color: AppColor.blue,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(5),
+                borderRadius:  BorderRadius.all(
+                  Radius.circular(5.r),
                 ),
               ),
               child: ClipRRect(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(5),
+                borderRadius:  BorderRadius.all(
+                  Radius.circular(5.r),
                 ),
                 child: SizedBox.fromSize(
-                  size: Size.fromRadius(30), // Image radius
+                  size: Size.fromRadius(30.r), // Image radius
                   child: Image.asset("assets/images/hfhfe.png"),
                 ),
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 5),
+            padding:  EdgeInsets.only(top: 5.h),
             child: Text(
               "hfhfe",
               style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   color: AppColor.grey,
                   fontWeight: FontWeight.bold),
             ),

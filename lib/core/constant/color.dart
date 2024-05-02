@@ -8,6 +8,7 @@ class AppColor {
   static Color greyfateh = const Color.fromARGB(255, 228, 228, 228);
   static Color red = Colors.red;
   static Color green = Colors.green;
+  static Color pink = Colors.pink;
 
   static Color yellow = const Color.fromARGB(249, 255, 187, 0);
 }

@@ -31,7 +31,7 @@ class ImageStore extends StatelessWidget {
           child: Text(
             "Adidas",
             style: TextStyle(
-                fontSize: 18,
+                fontSize: 22,
                 color: AppColor.blue,
                 fontWeight: FontWeight.bold),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wael/core/constant/color.dart';
 import 'package:wael/view/widget/favorite_page/product_favorite.dart';
@@ -13,40 +14,34 @@ class FavoratePage extends StatelessWidget {
         body: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 50, left: 25),
+              padding:  EdgeInsets.only(top: 50.h, left: 25.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(),
-                    child: IconButton(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      icon: Image.asset(
-                        'assets/images/btn_back.png',
-                        height: 15,
-                      ),
+                  IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: Image.asset(
+                      'assets/images/btn_back.png',
+                      height: 15.h,
                     ),
                   ),
-                  const SizedBox(
-                    width: 60,
+                   SizedBox(
+                    width: 60.h,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(),
-                    child: Text(
-                      'Favorites List',
-                      style: TextStyle(
-                          fontSize: 21,
-                          fontWeight: FontWeight.bold,
-                          color: AppColor.blue),
-                    ),
+                  Text(
+                    'Favorites List',
+                    style: TextStyle(
+                        fontSize: 21.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColor.blue),
                   ),
                 ],
               ),
             ),
-            const SizedBox(
-              height: 40,
+             SizedBox(
+              height: 40.h,
             ),
             Expanded(
               child: ListView(

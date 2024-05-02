@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wael/controller/onboarding_controller.dart';
 import 'package:wael/core/constant/color.dart';
@@ -18,15 +19,15 @@ class SliderOnBoarding extends GetView<OnBoardingControolerEmplement> {
       itemBuilder: (context, i) => Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(
-            height: 45,
+           SizedBox(
+            height: 45.h,
           ),
           Container(
-            height: 60,
-            width: 290,
+            height: 60.h,
+            width: 290.w,
             decoration: BoxDecoration(
               color: AppColor.blue,
-              borderRadius: BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(5.r),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -35,39 +36,39 @@ class SliderOnBoarding extends GetView<OnBoardingControolerEmplement> {
                   //write
                   onBoardingList[i].title!,
                   style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 24.sp,
                       fontWeight: FontWeight.bold,
                       color: AppColor.white),
                 ),
               ],
             ),
           ),
-          const SizedBox(
-            height: 20,
+           SizedBox(
+            height: 20.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
                 onBoardingList[i].image!,
-                height: 350,
-                width: 350,
+                height: 350.h,
+                width: 350.w,
               ),
             ],
           ),
-          const SizedBox(
-            height: 10,
+           SizedBox(
+            height: 10.h,
           ),
           Container(
-            width: 300,
+            width: 300.w,
             alignment: Alignment.center,
             child: Text(
               //write
               onBoardingList[i].body!,
               textAlign: TextAlign.center,
               style: TextStyle(
-                  height: 2,
-                  fontSize: 15,
+                  height: 2.h,
+                  fontSize: 15.sp,
                   color: AppColor.grey,
                   fontWeight: FontWeight.bold),
             ),

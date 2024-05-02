@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wael/core/constant/color.dart';
 
 class MainPoints extends StatelessWidget {
@@ -9,7 +10,7 @@ class MainPoints extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25),
+      padding: EdgeInsets.symmetric(horizontal: 25.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -17,7 +18,7 @@ class MainPoints extends StatelessWidget {
             text,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 20,
+                fontSize: 20.sp,
                 color: AppColor.blue),
           ),
           SizedBox(
@@ -29,7 +30,7 @@ class MainPoints extends StatelessWidget {
               'Show All',
               style: TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 15,
+                fontSize: 15.sp,
                 color: AppColor.blue,
               ),
             ),

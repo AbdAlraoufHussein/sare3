@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wael/controller/onboarding_controller.dart';
 import 'package:wael/core/constant/color.dart';
@@ -9,17 +10,17 @@ class OnBoardingBtn extends GetView<OnBoardingControolerEmplement> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 50),
+      padding:  EdgeInsets.only(bottom: 50.h),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColor.blue,
           shape: RoundedRectangleBorder(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(5),
+            borderRadius:  BorderRadius.all(
+              Radius.circular(5.r),
             ),
             side: BorderSide(
               color: AppColor.blue,
-              width: 3,
+              width: 3.w,
             ),
           ),
         ),
@@ -27,11 +28,11 @@ class OnBoardingBtn extends GetView<OnBoardingControolerEmplement> {
           controller.next();
         },
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 12),
+          padding:  EdgeInsets.symmetric(horizontal: 60.w, vertical: 12.h),
           child: Text(
             'Continue'.tr,
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 18.sp,
               color: AppColor.white,
             ),
           ),

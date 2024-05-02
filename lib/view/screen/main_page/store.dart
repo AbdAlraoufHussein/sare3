@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wael/view/widget/main_points.dart';
 import 'package:wael/view/widget/product.dart';
 import 'package:wael/view/widget/product_with_big_discount.dart';
-import 'package:wael/view/widget/store_page/followers.dart';
 import 'package:wael/view/widget/store_page/head_of_storepage.dart';
 import 'package:wael/view/widget/store_page/image_store.dart';
 import 'package:wael/view/widget/store_page/information_of_store.dart';
@@ -21,15 +20,15 @@ class StorePage extends StatelessWidget {
               child: ListView(
                 children: const [
                   Padding(
-                    padding: EdgeInsets.only(top: 30),
+                    padding: EdgeInsets.only(top: 30,left: 40),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         ImageStore(),
                         SizedBox(
                           width: 70,
                         ),
-                        Followers(),
+                        // Followers(),
                       ],
                     ),
                   ),

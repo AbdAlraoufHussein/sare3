@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wael/controller/onboarding_controller.dart';
 import 'package:wael/core/constant/color.dart';
@@ -16,13 +17,13 @@ class DotControllerOnBoarding extends StatelessWidget {
           ...List.generate(
             onBoardingList.length,
             (index) => AnimatedContainer(
-              margin: const EdgeInsets.only(right: 10),
+              margin:  EdgeInsets.only(right: 10.w),
               duration: const Duration(milliseconds: 900),
-              width: controller.currenIndexPage == index ? 20 : 6,
-              height: 6,
+              width: controller.currenIndexPage == index ? 20.w : 6.w,
+              height: 6.h,
               decoration: BoxDecoration(
                 color: AppColor.blue,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10.r),
               ),
             ),
           ),

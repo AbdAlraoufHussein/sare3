@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wael/core/constant/color.dart';
 
 class BtnSignInUp extends StatelessWidget {
   const BtnSignInUp({super.key, required this.txet, required this.onPressed});
@@ -8,26 +10,26 @@ class BtnSignInUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
+      padding:  EdgeInsets.only(bottom: 10.h),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color.fromARGB(255, 0, 69, 126),
-          shape: const RoundedRectangleBorder(
+          backgroundColor:AppColor.blue,
+          shape:  RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
-                Radius.circular(5),
+                Radius.circular(5.r),
               ),
               side: BorderSide(
-                color: Color.fromARGB(255, 0, 69, 126),
-                width: 3,
+                color:AppColor.blue,
+                width: 3.w,
               )),
         ),
         onPressed:onPressed,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 12),
+          padding:  EdgeInsets.symmetric(horizontal: 60.w, vertical: 12.h),
           child: Text(
             txet,
-            style: const TextStyle(
-              fontSize: 18,
+            style:  TextStyle(
+              fontSize: 18.sp,
               color: Colors.white,
             ),
           ),

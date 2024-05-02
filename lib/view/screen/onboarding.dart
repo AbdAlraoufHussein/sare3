@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wael/controller/onboarding_controller.dart';
 import 'package:wael/view/widget/onboarding/dotcontroller.dart';
@@ -11,11 +12,11 @@ class OnBoarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(OnBoardingControolerEmplement());
-    return const Scaffold(
+    return  Scaffold(
         body: SafeArea(
       child: Column(
         children: [
-          Expanded(
+          const Expanded(
             flex: 3,
             child: SliderOnBoarding(),
           ),
@@ -24,11 +25,11 @@ class OnBoarding extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                DotControllerOnBoarding(),
+                const DotControllerOnBoarding(),
                 SizedBox(
-                  height: 80,
+                  height: 80.h,
                 ),
-                OnBoardingBtn(),
+                const OnBoardingBtn(),
               ],
             ),
           ),

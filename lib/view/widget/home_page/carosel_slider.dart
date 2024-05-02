@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wael/core/constant/imageasset.dart';
 
 class CaroselSlider extends StatelessWidget {
@@ -15,7 +16,7 @@ class CaroselSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding:  EdgeInsets.symmetric(horizontal: 20.w),
       child: CarouselSlider.builder(
         itemCount: 3,
         itemBuilder: (_, int itemIndex, __) => SizedBox(
@@ -24,7 +25,7 @@ class CaroselSlider extends StatelessWidget {
           ),
         ),
         options: CarouselOptions(
-          height: 130,
+          height: 130.h,
           aspectRatio: 16 / 9,
           viewportFraction: 0.8,
           initialPage: 0,
