@@ -8,32 +8,39 @@ class TextFdPassSignInUp extends StatelessWidget {
     required this.texthint,
     required this.txetlabel,
     required this.onChanged,
+    required this.validator,
   });
   final String texthint;
   final String txetlabel;
-
+  final String? Function(String? value)? validator;
   final void Function(String) onChanged;
 
   @override
   Widget build(BuildContext context) {
+    bool isSecure = true;
     return SizedBox(
       height: 60.h,
       width: 310.w,
-      child: TextField(
-        obscureText: true,
+      child: TextFormField(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        obscureText: isSecure,
         keyboardType: TextInputType.visiblePassword,
         textAlign: TextAlign.start,
         onChanged: onChanged,
+        validator: validator,
         decoration: InputDecoration(
           hintText: texthint,
-          hintStyle:  TextStyle(color: Colors.grey, fontSize: 14.sp),
+          hintStyle: TextStyle(color: Colors.grey, fontSize: 14.sp),
           suffixIcon: IconButton(
             onPressed: () {},
-            icon: Image(
-              image:const  AssetImage(
-                'assets/images/eye.png',
-              ),
-              height: 14.h,
+            icon: IconButton(
+              padding: const EdgeInsets.all(0),
+              onPressed: () {
+                isSecure = !isSecure;
+              },
+              icon: isSecure == true
+                  ? const Icon(Icons.visibility_off)
+                  : const Icon(Icons.visibility),
             ),
           ),
           focusedBorder: OutlineInputBorder(
@@ -48,7 +55,7 @@ class TextFdPassSignInUp extends StatelessWidget {
           floatingLabelBehavior: FloatingLabelBehavior.always,
           floatingLabelAlignment: FloatingLabelAlignment.start,
           contentPadding:
-              EdgeInsets.symmetric(horizontal: 20.w, vertical: 25.h),
+              EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
           label: Text(txetlabel),
           labelStyle: TextStyle(
             fontSize: 21.sp,

@@ -12,11 +12,12 @@ import 'package:wael/view/screen/main_page/notifications.dart';
 import 'package:wael/view/screen/onboarding.dart';
 import 'package:wael/view/screen/main_page/profile_page.dart';
 import 'package:wael/view/screen/main_page/store.dart';
+import 'package:wael/view/screen/splash_screen.dart';
 
 Map<String, Widget Function(BuildContext)> routes = {
+  AppRoute.splashScreen: (context) => const SplashScreen(),
   AppRoute.signIn: (context) => const SignIn(),
   AppRoute.signUp: (context) => const SignUp(),
-  AppRoute.chooselang: (context) => const Language(),
   AppRoute.onBoarding: (context) => const OnBoarding(),
   AppRoute.favoritePage: (context) => const FavoratePage(),
   AppRoute.notifications: (context) => const Notifications(),

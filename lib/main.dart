@@ -2,11 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
+import 'package:wael/controller/middleware/middleware.dart';
+import 'package:wael/core/constant/routes.dart';
 import 'package:wael/core/localization/changelangauge.dart';
 import 'package:wael/core/localization/translation.dart';
 import 'package:wael/core/services/services.dart';
-import 'package:wael/routes.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:wael/view/screen/auth/Signin.dart';
+import 'package:wael/view/screen/auth/Signup.dart';
+import 'package:wael/view/screen/main_page/cart_page.dart';
+import 'package:wael/view/screen/main_page/categories_page.dart';
+import 'package:wael/view/screen/main_page/favorite_page.dart';
+import 'package:wael/view/screen/main_page/home_page.dart';
+import 'package:wael/view/screen/main_page/main_page.dart';
+import 'package:wael/view/screen/main_page/notifications.dart';
+import 'package:wael/view/screen/main_page/profile_page.dart';
+import 'package:wael/view/screen/main_page/store.dart';
 import 'package:wael/view/screen/onboarding.dart';
 import 'package:wael/view/screen/splash_screen.dart';
 
@@ -31,11 +42,29 @@ class MyWidget extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, child) => GetMaterialApp(
-        routes: routes,
         locale: controller.langauge,
         translations: MyTranslation(),
         debugShowCheckedModeBanner: false,
         home: const SplashScreen(),
+        getPages: [
+          GetPage(
+              name: AppRoute.splashScreen, page: () => const SplashScreen(), middlewares: [MyMiddleWare()]),
+          GetPage(name: AppRoute.signIn, page: () => const SignIn()),
+          GetPage(name: AppRoute.signUp, page: () => const SignUp()),
+          GetPage(name: AppRoute.onBoarding, page: () => const OnBoarding()),
+          GetPage(
+              name: AppRoute.favoritePage, page: () => const FavoratePage()),
+          GetPage(
+              name: AppRoute.notifications, page: () => const Notifications()),
+          GetPage(name: AppRoute.storePage, page: () => const StorePage()),
+          GetPage(name: AppRoute.mainPage, page: () => const MainPage()),
+          GetPage(name: AppRoute.homePage, page: () => const HomePage()),
+          GetPage(
+              name: AppRoute.cateroriesPage,
+              page: () => const CategoriesPage()),
+          GetPage(name: AppRoute.cartPage, page: () => const CartPage()),
+          GetPage(name: AppRoute.profilePage, page: () => const ProfilePage()),
+        ],
       ),
     );
   }

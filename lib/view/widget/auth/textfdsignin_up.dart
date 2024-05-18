@@ -9,10 +9,11 @@ class TextFdSignInUp extends StatelessWidget {
     required this.keyboardType,
     required this.textlabel,
     required this.onChanged,
+    required this.validator,
   });
   final String texthint;
   final String textlabel;
-
+  final String? Function(String? value)? validator;
   final void Function(String) onChanged;
 
   final TextInputType? keyboardType;
@@ -21,9 +22,10 @@ class TextFdSignInUp extends StatelessWidget {
     return SizedBox(
       height: 60.h,
       width: 310.w,
-      child: TextField(
-        
+      child: TextFormField(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         onChanged: onChanged,
+        validator: validator,
         keyboardType: keyboardType,
         textAlign: TextAlign.start,
         decoration: InputDecoration(
@@ -43,7 +45,7 @@ class TextFdSignInUp extends StatelessWidget {
           floatingLabelBehavior: FloatingLabelBehavior.always,
           floatingLabelAlignment: FloatingLabelAlignment.start,
           contentPadding:
-              EdgeInsets.symmetric(horizontal: 20.w, vertical: 25.h),
+              EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
           label: Text(textlabel),
           labelStyle: TextStyle(
             fontSize: 21.sp,

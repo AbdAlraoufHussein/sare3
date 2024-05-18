@@ -1,8 +1,8 @@
 class AppRoute {
+  static const splashScreen = '/splashScreen';
   static const signIn = '/signin';
   static const signUp = '/signup';
 
-  static const chooselang = '/language';
   static const onBoarding = '/onboarding';
   static const favoritePage = '/favoritepage';
   static const notifications = '/notifications';
