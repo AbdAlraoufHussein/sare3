@@ -16,9 +16,8 @@ class TextFdNumSignInUp extends StatelessWidget {
   final TextInputType? keyboardType;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 60.h,
-      width: 310.w,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 24.w),
       child: TextFormField(
         validator: validator,
         keyboardType: keyboardType,
@@ -28,6 +27,15 @@ class TextFdNumSignInUp extends StatelessWidget {
           // prefixStyle: const TextStyle(color: Colors.grey, fontSize: 16),
           hintText: textprefix,
           hintStyle: TextStyle(color: Colors.grey, fontSize: 15.sp),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.r),
+            ),
+            borderSide: BorderSide(
+              color: AppColor.blue,
+              width: 2.w,
+            ),
+          ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(20.r),
@@ -40,7 +48,7 @@ class TextFdNumSignInUp extends StatelessWidget {
           floatingLabelBehavior: FloatingLabelBehavior.always,
           floatingLabelAlignment: FloatingLabelAlignment.start,
           contentPadding:
-              EdgeInsets.symmetric(horizontal: 20.w, vertical: 25.h),
+              EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
           label: Text(textlabel),
           labelStyle: TextStyle(
             fontSize: 21.sp,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wael/controller/onboarding_controller.dart';
 import 'package:wael/controller/signin_controller.dart';
 import 'package:wael/core/constant/routes.dart';
-import 'package:wael/view/screen/main_page/main_page.dart';
 import 'package:wael/view/widget/auth/btnsignin_up.dart';
 import 'package:wael/view/widget/auth/bodyofsignin.dart';
 import 'package:wael/view/widget/auth/headofsignin_up.dart';
@@ -31,6 +31,7 @@ class _SignInState extends State<SignIn> {
   }
 
   GlobalKey<FormState> _formState = GlobalKey();
+  bool isSecure = true;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -64,6 +65,17 @@ class _SignInState extends State<SignIn> {
                   height: 20.h,
                 ),
                 TextFdPassSignInUp(
+                  isSecure: isSecure,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isSecure = !isSecure;
+                      });
+                    },
+                    icon: isSecure == true
+                        ? const Icon(Icons.visibility_off)
+                        : const Icon(Icons.visibility),
+                  ),
                   texthint: 'Enter your Password here_signIn'.tr,
                   txetlabel: 'Password_signIn'.tr,
                   onChanged: (p0) => 0,
@@ -71,7 +83,7 @@ class _SignInState extends State<SignIn> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Password is required';
-                    } else if (value.length > 8) {
+                    } else if (value.length < 8) {
                       return 'Password must be equel or more than 8 character.';
                     }
                   },
@@ -94,10 +106,12 @@ class _SignInState extends State<SignIn> {
                 ),
                 BtnSignInUp(
                   txet: 'Sign In_btn'.tr,
-                  onPressed: () {
-                      if (_formState.currentState!.validate()) {
-                            Get.toNamed(AppRoute.mainPage);
-                          }
+                  onPressed: () async {
+                    final sharedPrefs = await SharedPreferences.getInstance();
+                    if (_formState.currentState!.validate()) {
+                      sharedPrefs.setString('token', 'abood');
+                      Get.toNamed(AppRoute.mainPage);
+                    }
                   },
                 )
               ],

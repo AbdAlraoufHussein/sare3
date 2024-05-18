@@ -9,18 +9,19 @@ class TextFdPassSignInUp extends StatelessWidget {
     required this.txetlabel,
     required this.onChanged,
     required this.validator,
+    required this.isSecure, required this.suffixIcon,
   });
   final String texthint;
   final String txetlabel;
   final String? Function(String? value)? validator;
   final void Function(String) onChanged;
+  final bool isSecure;
+  final Widget suffixIcon;
 
   @override
   Widget build(BuildContext context) {
-    bool isSecure = true;
-    return SizedBox(
-      height: 60.h,
-      width: 310.w,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 24.w),
       child: TextFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         obscureText: isSecure,
@@ -31,16 +32,14 @@ class TextFdPassSignInUp extends StatelessWidget {
         decoration: InputDecoration(
           hintText: texthint,
           hintStyle: TextStyle(color: Colors.grey, fontSize: 14.sp),
-          suffixIcon: IconButton(
-            onPressed: () {},
-            icon: IconButton(
-              padding: const EdgeInsets.all(0),
-              onPressed: () {
-                isSecure = !isSecure;
-              },
-              icon: isSecure == true
-                  ? const Icon(Icons.visibility_off)
-                  : const Icon(Icons.visibility),
+          suffixIcon: suffixIcon,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.r),
+            ),
+            borderSide: BorderSide(
+              color: AppColor.blue,
+              width: 2.w,
             ),
           ),
           focusedBorder: OutlineInputBorder(
@@ -55,7 +54,7 @@ class TextFdPassSignInUp extends StatelessWidget {
           floatingLabelBehavior: FloatingLabelBehavior.always,
           floatingLabelAlignment: FloatingLabelAlignment.start,
           contentPadding:
-              EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+              EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
           label: Text(txetlabel),
           labelStyle: TextStyle(
             fontSize: 21.sp,

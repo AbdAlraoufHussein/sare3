@@ -9,12 +9,18 @@ import 'package:wael/view/widget/auth/textfdnumsignin_up.dart';
 import 'package:wael/view/widget/auth/textfdpasssignin_up.dart';
 import 'package:wael/view/widget/auth/textfdsignin_up.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
   @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  @override
   Widget build(BuildContext context) {
     GlobalKey<FormState> _formState = GlobalKey();
+    bool isSecure = true;
     return SafeArea(
       child: Scaffold(
         body: Form(
@@ -65,13 +71,24 @@ class SignUp extends StatelessWidget {
                       height: 20.h,
                     ),
                     TextFdPassSignInUp(
+                      isSecure: isSecure,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isSecure = !isSecure;
+                          });
+                        },
+                        icon: isSecure == true
+                            ? const Icon(Icons.visibility_off)
+                            : const Icon(Icons.visibility),
+                      ),
                       texthint: 'Enter your Password here_signUp'.tr,
                       txetlabel: 'Password_signUp'.tr,
                       onChanged: (p0) => 0,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Password is required';
-                        } else if (value.length > 8) {
+                        } else if (value.length < 8) {
                           return 'Password must be equel or more than 8 character.';
                         }
                         return null;
