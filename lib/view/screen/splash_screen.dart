@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
 import 'package:wael/controller/splash_controller.dart';
 import 'package:wael/core/constant/imageasset.dart';
-import 'package:wael/core/constant/routes.dart';
+import 'package:wael/view/screen/onboarding.dart';
 
 class SplashScreen extends HookWidget {
   const SplashScreen({super.key});
@@ -12,6 +12,10 @@ class SplashScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    useEffect(() {
+      Future.delayed(const Duration(seconds: 3))
+          .then((value) => Get.to(const OnBoarding()));
+    }, const []);
     return SafeArea(
         child: Scaffold(
       body: SizedBox(

@@ -18,9 +18,9 @@ class StorePage extends StatelessWidget {
             const HeadOfStorePage(),
             Expanded(
               child: ListView(
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.only(top: 30,left: 40),
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(top: 30, left: 40),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -32,18 +32,22 @@ class StorePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      InformationOfStore(),
-                      SizedBox(
+                      const InformationOfStore(),
+                      const SizedBox(
                         height: 20,
                       ),
-                      MainPoints(text: 'New Products', widthspace: 110),
-                      Padding(
+                      MainPoints(
+                        text: 'New Products',
+                        widthspace: 110,
+                        onTap: () {},
+                      ),
+                      const Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 25, vertical: 8),
                         child: SingleChildScrollView(
@@ -60,11 +64,15 @@ class StorePage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
-                      MainPoints(text: 'The Big Discounts', widthspace: 71),
-                      Padding(
+                      MainPoints(
+                        text: 'The Big Discounts',
+                        widthspace: 71,
+                        onTap: () {},
+                      ),
+                      const Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 25, vertical: 8),
                         child: SingleChildScrollView(
@@ -81,7 +89,7 @@ class StorePage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 50,
                       ),
                     ],

@@ -30,6 +30,8 @@ class OnBoarding extends StatelessWidget {
                   height: 80.h,
                 ),
                 const OnBoardingBtn(),
+               
+                
               ],
             ),
           ),

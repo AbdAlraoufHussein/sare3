@@ -1,28 +1,34 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wael/core/class/base_api_class.dart';
 import 'package:wael/core/constant/imageasset.dart';
 
 class CaroselSlider extends StatelessWidget {
-  const CaroselSlider({super.key});
+  const CaroselSlider({super.key, required this.carosellImages});
 
-  static final carosellImages = [
+  final List<String> carosellImages;
+
+  static final _carosellImages = [
     AppImageAsset.caroselOne,
     AppImageAsset.caroselTwo,
     AppImageAsset.caroselThree,
     AppImageAsset.caroselFour,
   ];
 
+  List<String> getImages() =>
+      carosellImages.isNotEmpty ? carosellImages : _carosellImages;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.symmetric(horizontal: 20.w),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: CarouselSlider.builder(
-        itemCount: 3,
+        itemCount: getImages().length,
         itemBuilder: (_, int itemIndex, __) => SizedBox(
-          child: Image(
-            image: AssetImage(carosellImages[itemIndex]),
-          ),
+          child: carosellImages.isEmpty
+              ? Image.asset(getImages()[itemIndex])
+              : Image.network(BaseApi.domain + getImages()[itemIndex]),
         ),
         options: CarouselOptions(
           height: 130.h,
