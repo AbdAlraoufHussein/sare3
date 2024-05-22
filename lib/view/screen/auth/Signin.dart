@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wael/controller/onboarding_controller.dart';
 import 'package:wael/controller/signin_controller.dart';
 import 'package:wael/core/constant/routes.dart';
@@ -107,9 +106,7 @@ class _SignInState extends State<SignIn> {
                 BtnSignInUp(
                   txet: 'Sign In_btn'.tr,
                   onPressed: () async {
-                    final sharedPrefs = await SharedPreferences.getInstance();
                     if (_formState.currentState!.validate()) {
-                      sharedPrefs.setString('token', 'abood');
                       Get.toNamed(AppRoute.mainPage);
                     }
                   },

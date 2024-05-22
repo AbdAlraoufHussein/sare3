@@ -41,20 +41,16 @@ class HeadOfSearch_logo extends StatelessWidget {
                 left: BorderSide(color: AppColor.blue, width: 2.w),
               ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Get.to(() => const FavoratePage());
-                  },
-                  icon: Icon(
-                    Icons.favorite_rounded,
-                    color: AppColor.blue,
-                    size: 25,
-                  ),
-                ),
-              ],
+            child: IconButton(
+              onPressed: () {
+                Get.to(() => const FavoratePage());
+              },
+              padding: const EdgeInsets.all(0),
+              icon: Icon(
+                Icons.favorite_rounded,
+                color: AppColor.blue,
+                size: 25,
+              ),
             ),
           ),
           SizedBox(
@@ -74,7 +70,7 @@ class HeadOfSearch_logo extends StatelessWidget {
                   ),
                 ),
                 hintText: ' search',
-                hintStyle:  TextStyle(
+                hintStyle: TextStyle(
                     color: Colors.grey,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold),
@@ -84,15 +80,13 @@ class HeadOfSearch_logo extends StatelessWidget {
                     width: 2.w,
                   ),
                 ),
-                enabledBorder:  OutlineInputBorder(
+                enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.only(
-
                     bottomRight: Radius.circular(25.r),
-                  
                     topRight: Radius.circular(25.r),
                   ),
                   borderSide: BorderSide(
-                    color:AppColor.blue,
+                    color: AppColor.blue,
                     width: 2.w,
                   ),
                 ),

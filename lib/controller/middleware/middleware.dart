@@ -7,7 +7,7 @@ class MyMiddleWare extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
     final token = MiddleWarePrefs.getToken();
-    if (token == null) return const RouteSettings(name: AppRoute.splashScreen);
+    if (token == null) return const RouteSettings(name: AppRoute.splashScreen,);
     return const RouteSettings(name: AppRoute.mainPage);
   }
 }

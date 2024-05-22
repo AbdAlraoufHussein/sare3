@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
-import 'package:wael/controller/middleware/middleware.dart';
 import 'package:wael/core/constant/routes.dart';
 import 'package:wael/core/localization/changelangauge.dart';
 import 'package:wael/core/localization/translation.dart';
@@ -45,19 +44,22 @@ class MyWidget extends StatelessWidget {
         locale: controller.langauge,
         translations: MyTranslation(),
         debugShowCheckedModeBanner: false,
-        home: const SplashScreen(),
+        initialRoute: AppRoute.splashScreen,
         getPages: [
           GetPage(
-              name: AppRoute.splashScreen, page: () => const SplashScreen(), middlewares: [MyMiddleWare()]),
+              name: AppRoute.splashScreen,
+              page: () => const SplashScreen(),
+              // middlewares: [MyMiddleWare()]
+              ),
+          GetPage(name: AppRoute.onBoarding, page: () => const OnBoarding()),
           GetPage(name: AppRoute.signIn, page: () => const SignIn()),
           GetPage(name: AppRoute.signUp, page: () => const SignUp()),
-          GetPage(name: AppRoute.onBoarding, page: () => const OnBoarding()),
+          GetPage(name: AppRoute.mainPage, page: () => const MainPage()),
           GetPage(
               name: AppRoute.favoritePage, page: () => const FavoratePage()),
           GetPage(
               name: AppRoute.notifications, page: () => const Notifications()),
           GetPage(name: AppRoute.storePage, page: () => const StorePage()),
-          GetPage(name: AppRoute.mainPage, page: () => const MainPage()),
           GetPage(name: AppRoute.homePage, page: () => const HomePage()),
           GetPage(
               name: AppRoute.cateroriesPage,

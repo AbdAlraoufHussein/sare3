@@ -145,8 +145,8 @@ class ProductOfCart extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
-            width: 18.w,
+          const Spacer(
+            flex: 1,
           ),
           Align(
             alignment: Alignment.centerRight,

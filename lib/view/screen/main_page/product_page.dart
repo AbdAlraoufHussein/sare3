@@ -114,7 +114,7 @@ class ProductPage extends StatelessWidget {
                           fontSize: 20.sp,
                         ),
                       ),
-                       SizedBox(
+                      SizedBox(
                         height: 10.h,
                       ),
                       Row(
@@ -129,7 +129,7 @@ class ProductPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(50.r),
                             ),
                           ),
-                           SizedBox(
+                          SizedBox(
                             width: 15.w,
                           ),
                           AnimatedContainer(
@@ -142,7 +142,7 @@ class ProductPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(50.r),
                             ),
                           ),
-                           SizedBox(
+                          SizedBox(
                             width: 15.w,
                           ),
                           AnimatedContainer(
@@ -155,7 +155,7 @@ class ProductPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(50.r),
                             ),
                           ),
-                           SizedBox(
+                          SizedBox(
                             width: 15.w,
                           ),
                           AnimatedContainer(
@@ -170,7 +170,7 @@ class ProductPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                       SizedBox(
+                      SizedBox(
                         height: 15.h,
                       ),
                       Text(
@@ -191,7 +191,7 @@ class ProductPage extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                       SizedBox(
+                      SizedBox(
                         height: 15.h,
                       ),
                       Text(
@@ -202,7 +202,7 @@ class ProductPage extends StatelessWidget {
                           fontSize: 20.sp,
                         ),
                       ),
-                       Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(vertical: 8.h),
                         child: SingleChildScrollView(
                           // reverse: true,
@@ -258,8 +258,8 @@ class ProductPage extends StatelessWidget {
                             fontSize: 20,
                           ),
                         ),
-                        const SizedBox(
-                          width: 80,
+                        const Spacer(
+                          flex: 1,
                         ),
                         Container(
                           height: 50,

@@ -17,20 +17,18 @@ class HeadOfProductPage extends StatelessWidget {
               const SizedBox(
                 width: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.only(),
-                child: IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  icon: Image.asset(
-                    'assets/images/btn_back.png',
-                    height: 15,
-                  ),
+              IconButton(
+                onPressed: () {
+                  Get.back();
+                },
+                padding: const EdgeInsets.all(0),
+                icon: Image.asset(
+                  'assets/images/btn_back.png',
+                  height: 15,
                 ),
               ),
-              const SizedBox(
-                width: 220,
+              const Spacer(
+                flex: 1,
               ),
               IconButton(
                 onPressed: () {},

@@ -72,43 +72,43 @@ class ProductFavorite extends StatelessWidget {
               ),
             ],
           ),
-          Padding(
-            padding: EdgeInsets.only(left: 32.w, top: 24.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Cotton Pajamas',
-                  style: TextStyle(
-                      color: AppColor.blue,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.start,
-                ),
-                SizedBox(
-                  height: 32.h,
-                ),
-                Text(
-                  '500,000 L.S',
-                  style: TextStyle(
+          const Spacer(
+            flex: 1,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Cotton Pajamas',
+                style: TextStyle(
                     color: AppColor.blue,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.start,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.start,
+              ),
+              SizedBox(
+                height: 32.h,
+              ),
+              Text(
+                '500,000 L.S',
+                style: TextStyle(
+                  color: AppColor.blue,
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
                 ),
-                Text(
-                  '545,000 L.S',
-                  style: TextStyle(
-                    decorationColor: AppColor.yellow,
-                    decoration: TextDecoration.lineThrough,
-                    color: AppColor.yellow,
-                    fontSize: 12.sp,
-                  ),
-                  textAlign: TextAlign.start,
+                textAlign: TextAlign.start,
+              ),
+              Text(
+                '545,000 L.S',
+                style: TextStyle(
+                  decorationColor: AppColor.yellow,
+                  decoration: TextDecoration.lineThrough,
+                  color: AppColor.yellow,
+                  fontSize: 12.sp,
                 ),
-              ],
-            ),
+                textAlign: TextAlign.start,
+              ),
+            ],
           ),
           Align(
             alignment: Alignment.bottomRight,

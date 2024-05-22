@@ -95,7 +95,6 @@ class HomePage extends HookWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 8.h),
                 child: const SingleChildScrollView(
-                  // reverse: true,
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [

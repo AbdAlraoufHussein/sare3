@@ -7,8 +7,7 @@ import 'package:wael/view/screen/onboarding.dart';
 
 class SplashScreen extends HookWidget {
   const SplashScreen({super.key});
-
-  static final SplashController _splashScreen = Get.put(SplashController());
+  static final SplashController splashC = Get.put(SplashController());
 
   @override
   Widget build(BuildContext context) {

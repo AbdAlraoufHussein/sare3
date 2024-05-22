@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:wael/core/constant/routes.dart';
 import 'package:wael/view/widget/profile_page/haed_of_profile_page.dart';
 import 'package:wael/view/widget/profile_page/logout_profile.dart';
 import 'package:wael/view/widget/profile_page/row_profile.dart';
@@ -42,7 +44,12 @@ class ProfilePage extends StatelessWidget {
           SizedBox(
             height: 15.h,
           ),
-          const LogoutProfilePage(),
+          LogoutProfilePage(
+            onTap: () async {
+              
+              Get.offAllNamed(AppRoute.splashScreen);
+            },
+          ),
         ],
       ),
     );

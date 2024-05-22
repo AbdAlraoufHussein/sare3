@@ -4,23 +4,33 @@ import 'package:get/get.dart';
 import 'package:wael/core/constant/color.dart';
 import 'package:wael/view/screen/main_page/product_page.dart';
 
-class Product extends StatelessWidget {
+class Product extends StatefulWidget {
   const Product({super.key});
 
   @override
+  State<Product> createState() => _ProductState();
+}
+
+class _ProductState extends State<Product> {
+  bool isFavorite = false;
+  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding:  EdgeInsets.only(right: 13.w),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      width: 155.w,
+      decoration: BoxDecoration(
+          color: AppColor.greyfateh, borderRadius: BorderRadius.circular(15.r)),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
+            clipBehavior: Clip.none,
             children: [
               Container(
                 decoration: BoxDecoration(
-                  borderRadius:  BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(15.r),
                     topRight: Radius.circular(15.r),
-                    
                   ),
                   color: AppColor.red,
                 ),
@@ -35,10 +45,9 @@ class Product extends StatelessWidget {
                   height: 156.h,
                   width: 155.3.w,
                   child: ClipRRect(
-                    borderRadius:  BorderRadius.only(
-                      topLeft: Radius.circular(14.r),
-                      topRight: Radius.circular(14.r),
-
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15.r),
+                      topRight: Radius.circular(15.r),
                       bottomRight: Radius.circular(95.r),
                     ),
                     child: Image.asset(
@@ -48,8 +57,9 @@ class Product extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding:  EdgeInsets.only(top: 130.h, left: 120.w),
+              Positioned(
+                right: 2,
+                bottom: 2,
                 child: Text(
                   '30%',
                   style: TextStyle(
@@ -59,33 +69,25 @@ class Product extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding:  EdgeInsets.only(top: 156.h),
-                child: Container(
-                  height: 100.h,
-                  width: 155.w,
-                  decoration: BoxDecoration(
-                    color: AppColor.greyfateh,
-                    borderRadius:  BorderRadius.only(
-                      bottomLeft: Radius.circular(15.r),
-                      bottomRight: Radius.circular(15.r),
-                    ),
+              Positioned(
+                right: 0,
+                left: 0,
+                bottom: -20,
+                child: GestureDetector(
+                  child: Image.asset(
+                    'assets/images/product_btn_addtocart.png',
+                    height: 42.h,
                   ),
                 ),
               ),
-              Padding(
-                padding:  EdgeInsets.only(top: 128.h, left: 55.w),
-                child: Image.asset(
-                  'assets/images/product_btn_addtocart.png',
-                  height: 42.h,
-                ),
-              ),
-              Padding(
-                padding:  EdgeInsets.only(
-                  top: 175.h,
-                  left: 8.w,
-                ),
-                child: Text(
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8, top: 24, bottom: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
                   'Hfhfe shampoo',
                   style: TextStyle(
                       color: AppColor.blue,
@@ -93,43 +95,67 @@ class Product extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,
                 ),
-              ),
-              Padding(
-                padding:  EdgeInsets.only(top: 218.h, left: 118.w),
-                child: Image.asset(
-                  'assets/images/product_favorate.png',
-                  height: 30.h,
+                SizedBox(
+                  height: 8.h,
                 ),
-              ),
-              Padding(
-                padding:  EdgeInsets.only(top: 210.h, left: 8.w),
-                child: Text(
-                  '500,000 L.S',
-                  style: TextStyle(
-                    color: AppColor.blue,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.start,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '500,000 L.S',
+                          style: TextStyle(
+                            color: AppColor.blue,
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                        Text(
+                          '545,000 L.S',
+                          style: TextStyle(
+                            decorationColor: AppColor.yellow,
+                            decoration: TextDecoration.lineThrough,
+                            color: AppColor.yellow,
+                            fontSize: 12.sp,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ],
+                    ),
+                    IconButton(
+                      padding: const EdgeInsets.all(0),
+                      onPressed: () {
+                        setState(() {
+                          isFavorite = !isFavorite;
+                        });
+                      },
+                      icon: Container(
+                          height: 32.h,
+                          width: 32.w,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: AppColor.blue,
+                              )),
+                          child: Icon(
+                            isFavorite == false
+                                ? Icons.favorite_border
+                                : Icons.favorite,
+                            size: 20,
+                            color: AppColor.blue,
+                          )),
+                    )
+                  ],
                 ),
-              ),
-              Padding(
-                padding:  EdgeInsets.only(top: 230.h, left: 8.w),
-                child: Text(
-                  '545,000 L.S',
-                  style: TextStyle(
-                    decorationColor: AppColor.yellow,
-                    decoration: TextDecoration.lineThrough,
-                    color: AppColor.yellow,
-                    fontSize: 12.sp,
-                  ),
-                  textAlign: TextAlign.start,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 }
+

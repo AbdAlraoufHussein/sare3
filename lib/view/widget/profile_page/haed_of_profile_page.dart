@@ -28,26 +28,22 @@ class HeadOfProfilePage extends StatelessWidget {
         SizedBox(
           height: 10.h,
         ),
-        Container(
-          height: 40.h,
-          width: 150.w,
-          child: ElevatedButton(
-            onPressed: () {},
-            child: Text(
-              'Edit your number',
-              style: TextStyle(color: AppColor.white, fontSize: 13.sp),
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColor.blue,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(5.r),
-                  ),
-                  side: BorderSide(
-                    color: AppColor.yellow,
-                    width: 2.w,
-                  )),
-            ),
+        ElevatedButton(
+          onPressed: () {},
+          child: Text(
+            'Edit your info',
+            style: TextStyle(color: AppColor.white, fontSize: 13.sp),
+          ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColor.blue,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(5.r),
+                ),
+                side: BorderSide(
+                  color: AppColor.yellow,
+                  width: 2.w,
+                )),
           ),
         ),
         SizedBox(
