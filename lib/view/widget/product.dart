@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wael/core/constant/color.dart';
 import 'package:wael/view/screen/main_page/product_page.dart';
+import 'package:wael/view/widget/product_page/favorite_button.dart';
 
 class Product extends StatefulWidget {
   const Product({super.key});
@@ -125,29 +126,14 @@ class _ProductState extends State<Product> {
                         ),
                       ],
                     ),
-                    IconButton(
-                      padding: const EdgeInsets.all(0),
+                    FavoriteButton(
+                      isFavorite: isFavorite,
                       onPressed: () {
                         setState(() {
                           isFavorite = !isFavorite;
                         });
                       },
-                      icon: Container(
-                          height: 32.h,
-                          width: 32.w,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: AppColor.blue,
-                              )),
-                          child: Icon(
-                            isFavorite == false
-                                ? Icons.favorite_border
-                                : Icons.favorite,
-                            size: 20,
-                            color: AppColor.blue,
-                          )),
-                    )
+                    ),
                   ],
                 ),
               ],
@@ -158,4 +144,3 @@ class _ProductState extends State<Product> {
     );
   }
 }
-

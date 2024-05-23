@@ -14,7 +14,7 @@ class SplashScreen extends HookWidget {
     useEffect(() {
       Future.delayed(const Duration(seconds: 3))
           .then((value) => Get.to(const OnBoarding()));
-    }, const []);
+    });
     return SafeArea(
         child: Scaffold(
       body: SizedBox(

@@ -47,9 +47,9 @@ class StorePage extends StatelessWidget {
                         widthspace: 110,
                         onTap: () {},
                       ),
-                      const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 25, vertical: 8),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 25, vertical: 8),
                         child: SingleChildScrollView(
                           // reverse: true,
                           scrollDirection: Axis.horizontal,

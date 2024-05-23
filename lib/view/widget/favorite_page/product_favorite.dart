@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wael/core/constant/color.dart';
+import 'package:wael/view/widget/product_page/favorite_button.dart';
 
-class ProductFavorite extends StatelessWidget {
+class ProductFavorite extends StatefulWidget {
   const ProductFavorite({super.key});
 
+  @override
+  State<ProductFavorite> createState() => _ProductFavoriteState();
+}
+
+class _ProductFavoriteState extends State<ProductFavorite> {
+  bool isFavorite = true;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,8 +54,8 @@ class ProductFavorite extends StatelessWidget {
                 ),
               ),
               Positioned(
-                bottom: 5.h,
-                right: 3.w,
+                bottom: 2,
+                right: 2,
                 child: Text(
                   '30%',
                   style: TextStyle(
@@ -59,8 +66,8 @@ class ProductFavorite extends StatelessWidget {
                 ),
               ),
               Positioned(
-                right: -30.w,
-                top: 0.h,
+                right: -30,
+                top: 0,
                 bottom: 0.h,
                 child: IconButton(
                   onPressed: () {},
@@ -110,16 +117,13 @@ class ProductFavorite extends StatelessWidget {
               ),
             ],
           ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: IconButton(
-              onPressed: () {},
-              icon: Image.asset(
-                'assets/images/delete.png',
-                height: 20.h,
-              ),
-            ),
-          ),
+          FavoriteButton(
+              isFavorite: isFavorite,
+              onPressed: () {
+                setState(() {
+                  isFavorite = !isFavorite; 
+                });
+              })
         ],
       ),
     );
