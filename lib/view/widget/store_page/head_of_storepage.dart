@@ -11,26 +11,23 @@ class HeadOfStorePage extends StatelessWidget {
       children: [
         Padding(
           padding:
-              const EdgeInsets.only(left: 20, right: 25, top: 55, bottom: 10),
+              const EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 8),
           child: Row(
             children: [
               const SizedBox(
-                width: 20,
+                width: 16,
               ),
-              Padding(
-                padding: const EdgeInsets.only(),
-                child: IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  icon: Image.asset(
-                    'assets/images/btn_back.png',
-                    height: 15,
-                  ),
+              IconButton(
+                onPressed: () {
+                  Get.back();
+                },
+                icon: Image.asset(
+                  'assets/images/btn_back.png',
+                  height: 15,
                 ),
               ),
-              const SizedBox(
-                width: 220,
+              const Spacer(
+                flex: 1,
               ),
               IconButton(
                 onPressed: () {},
@@ -39,6 +36,9 @@ class HeadOfStorePage extends StatelessWidget {
                   size: 25,
                 ),
                 color: AppColor.blue,
+              ),
+              const SizedBox(
+                width: 16,
               ),
             ],
           ),

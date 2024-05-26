@@ -1,109 +1,207 @@
 import 'package:flutter/material.dart';
 import 'package:wael/core/constant/color.dart';
 
-class InformationOfStore extends StatelessWidget {
-  const InformationOfStore({super.key});
+class CategoryInfo extends StatelessWidget {
+  const CategoryInfo(
+      {super.key,
+      required this.image,
+      required this.name,
+      required this.categories,
+      required this.address,
+      required this.telephone,
+      required this.phone,
+      required this.description});
+  final String image;
+  final String name;
+  final List categories;
+  final String address;
+  final String telephone;
+  final String phone;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 30,
-          ),
-          child: Text(
-            '. Category: Clothing ',
-            maxLines: null,
-            overflow: TextOverflow.clip,
-            style: TextStyle(
-              color: AppColor.black,
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 30,
-          ),
-          child: Text(
-            '. Address: Damascus Branch / Mezzeh Project opposite Khaled Ibn Al-Walid Mosque',
-            maxLines: null,
-            overflow: TextOverflow.clip,
-            style: TextStyle(
-              color: AppColor.black,
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 30,
-          ),
-          child: Text(
-            '. Telephone: 3156294',
-            maxLines: null,
-            overflow: TextOverflow.clip,
-            style: TextStyle(
-              color: AppColor.black,
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 30,
-          ),
-          child: Text(
-            '. Phone: 0956265849',
-            maxLines: null,
-            overflow: TextOverflow.clip,
-            style: TextStyle(
-              color: AppColor.black,
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 30,
-          ),
-          child: Text(
-            '. We guarantee that any product we sell can be exchanged up to three days from the date of receipt or the purchase date',
-            maxLines: null,
-            overflow: TextOverflow.clip,
-            style: TextStyle(
-              color: AppColor.black,
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Products',
-              style: TextStyle(
-                decoration: TextDecoration.underline,
-                decorationColor: AppColor.yellow,
-                decorationThickness: 2,
-                fontSize: 22,
-                color: AppColor.blue,
-                fontWeight: FontWeight.bold,
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(3), // Border width
+            decoration: BoxDecoration(
+              color: AppColor.blue,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(5),
               ),
             ),
-          ],
-        ),
-      ],
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(5),
+              ),
+              child: SizedBox.fromSize(
+                size: const Size.fromRadius(50), // Image radius
+                child: Image.network(image),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Text(
+            name,
+            style: TextStyle(
+                fontSize: 22,
+                color: AppColor.blue,
+                fontWeight: FontWeight.bold),
+          ),
+          Text(
+            '. Category: $categories ',
+            maxLines: null,
+            overflow: TextOverflow.clip,
+            style: TextStyle(
+              color: AppColor.black,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Text(
+            '. Address: $address',
+            maxLines: null,
+            overflow: TextOverflow.clip,
+            style: TextStyle(
+              color: AppColor.black,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Text(
+            '. Telephone: $telephone',
+            maxLines: null,
+            overflow: TextOverflow.clip,
+            style: TextStyle(
+              color: AppColor.black,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Text(
+            '. Phone: $phone',
+            maxLines: null,
+            overflow: TextOverflow.clip,
+            style: TextStyle(
+              color: AppColor.black,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Text(
+            '. $description',
+            maxLines: null,
+            overflow: TextOverflow.clip,
+            style: TextStyle(
+              color: AppColor.black,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SkeletonizerCategoryInfo extends StatelessWidget {
+  const SkeletonizerCategoryInfo({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(3), // Border width
+            decoration: BoxDecoration(
+              color: AppColor.blue,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(5),
+              ),
+            ),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(5),
+              ),
+              child: SizedBox.fromSize(
+                size: const Size.fromRadius(50), // Image radius
+                child: Image.asset("assets/images/image_store_adidas.png"),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Text(
+            "Adidas",
+            style: TextStyle(
+                fontSize: 22,
+                color: AppColor.blue,
+                fontWeight: FontWeight.bold),
+          ),
+          Text(
+            '. Category: name ',
+            maxLines: null,
+            overflow: TextOverflow.clip,
+            style: TextStyle(
+              color: AppColor.black,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Text(
+            '. Address: address',
+            maxLines: null,
+            overflow: TextOverflow.clip,
+            style: TextStyle(
+              color: AppColor.black,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Text(
+            '. Telephone: telephone',
+            maxLines: null,
+            overflow: TextOverflow.clip,
+            style: TextStyle(
+              color: AppColor.black,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Text(
+            '. Phone: phone',
+            maxLines: null,
+            overflow: TextOverflow.clip,
+            style: TextStyle(
+              color: AppColor.black,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Text(
+            '. description',
+            maxLines: null,
+            overflow: TextOverflow.clip,
+            style: TextStyle(
+              color: AppColor.black,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

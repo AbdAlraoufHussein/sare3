@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wael/controller/onboarding_controller.dart';
-import 'package:wael/controller/signin_controller.dart';
 import 'package:wael/core/constant/routes.dart';
+import 'package:wael/core/services/authentication_service.dart';
 import 'package:wael/view/widget/auth/btnsignin_up.dart';
 import 'package:wael/view/widget/auth/bodyofsignin.dart';
 import 'package:wael/view/widget/auth/headofsignin_up.dart';
@@ -19,9 +19,6 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  late final SigninControllerImplement signinController =
-      Get.put(SigninControllerImplement());
-
   @override
   void initState() {
     super.initState();
@@ -30,6 +27,8 @@ class _SignInState extends State<SignIn> {
   }
 
   GlobalKey<FormState> _formState = GlobalKey();
+  final _passwordController = TextEditingController();
+  final _emailController = TextEditingController();
   bool isSecure = true;
   @override
   Widget build(BuildContext context) {
@@ -45,6 +44,7 @@ class _SignInState extends State<SignIn> {
                 HeadOfSignInUp(text: 'Sign In_top'.tr),
                 const BodyofSignIn(),
                 TextFdSignInUp(
+                  controller: _emailController,
                   texthint: 'Enter your email here_signIn'.tr,
                   textlabel: 'Email_signIn'.tr,
                   keyboardType: TextInputType.emailAddress,
@@ -64,17 +64,7 @@ class _SignInState extends State<SignIn> {
                   height: 20.h,
                 ),
                 TextFdPassSignInUp(
-                  isSecure: isSecure,
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isSecure = !isSecure;
-                      });
-                    },
-                    icon: isSecure == true
-                        ? const Icon(Icons.visibility_off)
-                        : const Icon(Icons.visibility),
-                  ),
+                  controller: _passwordController,
                   texthint: 'Enter your Password here_signIn'.tr,
                   txetlabel: 'Password_signIn'.tr,
                   onChanged: (p0) => 0,
@@ -85,15 +75,16 @@ class _SignInState extends State<SignIn> {
                     } else if (value.length < 8) {
                       return 'Password must be equel or more than 8 character.';
                     }
+                    return null;
                   },
                 ),
                 SizedBox(
                   height: 15.h,
                 ),
-                TextBtnSugnInUp(
-                  text: 'Forget Password'.tr,
-                  onPressed: signinController.signin,
-                ),
+                // TextBtnSugnInUp(
+                //   text: 'Forget Password'.tr,
+                //   onPressed: signinController.signin,
+                // ),
                 TextBtnSugnInUp(
                   text: 'Create an acount ?'.tr,
                   onPressed: () {
@@ -103,11 +94,29 @@ class _SignInState extends State<SignIn> {
                 SizedBox(
                   height: 50.h,
                 ),
+
                 BtnSignInUp(
                   txet: 'Sign In_btn'.tr,
                   onPressed: () async {
                     if (_formState.currentState!.validate()) {
-                      Get.toNamed(AppRoute.mainPage);
+                      final error = await AuthenticationService.logIN(
+                        email: _emailController.text.toString(),
+                        password: _passwordController.text.toString(),
+                      );
+                      if (error == null) {
+                        _emailController.clear();
+                        _passwordController.clear();
+                        Get.toNamed(AppRoute.mainPage);
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Container(
+                              child: Column(children: [Text("Warning")]),
+                            );
+                          },
+                        );
+                      }
                     }
                   },
                 )

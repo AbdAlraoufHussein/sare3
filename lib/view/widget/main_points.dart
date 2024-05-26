@@ -3,19 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wael/core/constant/color.dart';
 
 class MainPoints extends StatelessWidget {
-  MainPoints(
-      {super.key,
-      required this.text,
-      required this.widthspace,
-      required this.onTap});
+  const MainPoints({super.key, required this.text, required this.onTap});
   final String text;
-  final double widthspace;
-  Function()? onTap;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 25.w),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -26,8 +21,8 @@ class MainPoints extends StatelessWidget {
                 fontSize: 20.sp,
                 color: AppColor.blue),
           ),
-          SizedBox(
-            width: widthspace,
+          const Spacer(
+            flex: 1,
           ),
           GestureDetector(
             onTap: onTap,

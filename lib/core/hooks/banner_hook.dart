@@ -1,22 +1,23 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:wael/core/services/banner_service.dart';
-import 'package:wael/data/model/api/banner.dart';
+import 'package:wael/data/model/api/models/banner_model.dart';
 
-(bool, List<Banner>) useBannerHook() {
+(bool, List<BannerModel>) useBannerHook() {
   return use(_BannersHook());
 }
 
-class _BannersHook extends Hook<(bool, List<Banner>)> {
+class _BannersHook extends Hook<(bool, List<BannerModel>)> {
   const _BannersHook();
   @override
   _BannerHookState createState() => _BannerHookState();
 }
 
-class _BannerHookState extends HookState<(bool, List<Banner>), _BannersHook> {
+class _BannerHookState
+    extends HookState<(bool, List<BannerModel>), _BannersHook> {
   bool loading = true;
 
-  List<Banner> banners = [];
+  List<BannerModel> banners = [];
 
   final BannerService bannerService = BannerService();
 
@@ -31,5 +32,5 @@ class _BannerHookState extends HookState<(bool, List<Banner>), _BannersHook> {
   }
 
   @override
-  (bool, List<Banner>) build(BuildContext context) => (loading, banners);
+  (bool, List<BannerModel>) build(BuildContext context) => (loading, banners);
 }

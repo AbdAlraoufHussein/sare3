@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wael/core/constant/routes.dart';
+import 'package:wael/core/services/authentication_service.dart';
 import 'package:wael/view/widget/auth/btnsignin_up.dart';
 import 'package:wael/view/widget/auth/headofsignin_up.dart';
 import 'package:wael/view/widget/auth/textbtnsignin_up.dart';
@@ -20,7 +21,10 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     GlobalKey<FormState> _formState = GlobalKey();
-    bool isSecure = true;
+    final _nameController = TextEditingController();
+    final _passwordController = TextEditingController();
+    final _phoneController = TextEditingController();
+    final _emailController = TextEditingController();
     return SafeArea(
       child: Scaffold(
         body: Form(
@@ -38,6 +42,7 @@ class _SignUpState extends State<SignUp> {
                       height: 100.h,
                     ),
                     TextFdSignInUp(
+                      controller: _nameController,
                       texthint: 'Enter your name here'.tr,
                       textlabel: 'Full Name'.tr,
                       keyboardType: TextInputType.name,
@@ -53,6 +58,7 @@ class _SignUpState extends State<SignUp> {
                       height: 20.h,
                     ),
                     TextFdSignInUp(
+                      controller: _emailController,
                       texthint: 'Enter your email here_signUp'.tr,
                       textlabel: 'Email_signUp'.tr,
                       keyboardType: TextInputType.emailAddress,
@@ -71,17 +77,7 @@ class _SignUpState extends State<SignUp> {
                       height: 20.h,
                     ),
                     TextFdPassSignInUp(
-                      isSecure: isSecure,
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            isSecure = !isSecure;
-                          });
-                        },
-                        icon: isSecure == true
-                            ? const Icon(Icons.visibility_off)
-                            : const Icon(Icons.visibility),
-                      ),
+                      controller: _passwordController,
                       texthint: 'Enter your Password here_signUp'.tr,
                       txetlabel: 'Password_signUp'.tr,
                       onChanged: (p0) => 0,
@@ -98,6 +94,7 @@ class _SignUpState extends State<SignUp> {
                       height: 20.h,
                     ),
                     TextFdNumSignInUp(
+                      controller: _phoneController,
                       textprefix: '0 988 556 633',
                       textlabel: 'Phone'.tr,
                       keyboardType: TextInputType.number,
@@ -124,9 +121,22 @@ class _SignUpState extends State<SignUp> {
                     ),
                     BtnSignInUp(
                         txet: 'Sign Up_btn'.tr,
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formState.currentState!.validate()) {
-                            Get.toNamed(AppRoute.mainPage);
+                            final error = await AuthenticationService.signup(
+                              username: _nameController.text,
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                              phone: _phoneController.text,
+                            );
+                            if (error == null) {
+                              _emailController.clear();
+                              _passwordController.clear();
+                              Get.toNamed(AppRoute.mainPage);
+                            } else {
+                              Get.defaultDialog(
+                                  content: Text(error.toString()));
+                            }
                           }
                         }),
                   ],

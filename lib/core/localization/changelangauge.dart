@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:get/get.dart';
-import 'package:wael/core/services/services.dart';
+import 'package:wael/core/services/my_services.dart';
 
 class LocaleController extends GetxController {
   Locale? langauge;

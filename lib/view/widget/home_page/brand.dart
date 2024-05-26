@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:wael/core/class/base_api_class.dart';
 import 'package:wael/core/constant/color.dart';
-import 'package:wael/view/screen/main_page/store.dart';
 
 class Brand extends StatelessWidget {
-  const Brand({super.key, this.name, this.imageUrl});
-
-  final String? name;
-
-  final String? imageUrl;
+  const Brand({super.key, required this.name, required this.imageUrl, required this.onTap});
+  final String name;
+  final String imageUrl;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.w),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: Column(
         children: [
           GestureDetector(
-            onTap: () {
-              Get.to(const StorePage());
-            },
+            onTap: onTap,
             child: Container(
               padding: EdgeInsets.all(3.r), // Border width
               decoration: BoxDecoration(
@@ -35,18 +29,15 @@ class Brand extends StatelessWidget {
                   Radius.circular(5.r),
                 ),
                 child: SizedBox.fromSize(
-                  size: Size.fromRadius(30.r), // Image radius
-                  child: imageUrl != null
-                      ? Image.network(BaseApi.domain + imageUrl!)
-                      : Image.asset("assets/images/hfhfe.png"),
-                ),
+                    size: Size.fromRadius(30.r), // Image radius
+                    child: Image.network(imageUrl)),
               ),
             ),
           ),
           Padding(
             padding: EdgeInsets.only(top: 5.h),
             child: Text(
-              name ?? "hfhfe",
+              name,
               style: TextStyle(
                   fontSize: 14.sp,
                   color: AppColor.grey,

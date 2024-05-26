@@ -8,13 +8,15 @@ class TextFdSignInUp extends StatelessWidget {
     required this.texthint,
     required this.keyboardType,
     required this.textlabel,
-    required this.onChanged,
+    this.onChanged,
     required this.validator,
+    required this.controller,
   });
   final String texthint;
   final String textlabel;
   final String? Function(String? value)? validator;
-  final void Function(String) onChanged;
+  final void Function(String)? onChanged;
+  final TextEditingController controller;
 
   final TextInputType? keyboardType;
   @override
@@ -22,6 +24,7 @@ class TextFdSignInUp extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24.w),
       child: TextFormField(
+        controller: controller,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         onChanged: onChanged,
         validator: validator,

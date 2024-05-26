@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wael/core/constant/color.dart';
-import 'package:wael/view/widget/product.dart';
 import 'package:wael/view/widget/product_page/head_of_product_page.dart';
 import 'package:wael/view/widget/product_page/image_product.dart';
 
@@ -209,11 +208,11 @@ class ProductPage extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           child: Row(
                             children: [
-                              Product(),
-                              Product(),
-                              Product(),
-                              Product(),
-                              Product(),
+                              // Product(),
+                              // Product(),
+                              // Product(),
+                              // Product(),
+                              // Product(),
                             ],
                           ),
                         ),

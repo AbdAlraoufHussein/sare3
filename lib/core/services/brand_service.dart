@@ -1,14 +1,23 @@
-import 'package:wael/core/class/base_api_class.dart';
-import 'package:wael/data/model/api/brand.dart';
+import 'dart:convert';
+import 'package:wael/data/model/api/base_api_class.dart';
+import 'package:wael/data/model/api/models/brand_model.dart';
 
 class BrandService extends BaseApi {
-  Future<List<Brand>> getAll() async {
-    // GET, POST, PUT, DELETE
-    final response = await dio.get(
-      'brands?populate=Image',
-    );
+  Future<List<BrandModel>> getAllBrands() async {
+    final response = await BaseApi().getRequest(endPoint: 'brands');
+    final data = (jsonDecode(response)['data'] as List)
+        .map((e) => BrandModel.fromJson(e)).toList();
+    return data;
+  }
 
-    final Map<String, dynamic> data = response.data;
-    return (data['data'] as List).map((e) => Brand.fromJson(e)).toList();
+  Future<List<BrandModel>> getBrandsOnCategory(
+      {required String category}) async {
+    final brandResponse = await BaseApi().getRequest(endPoint: 'brands');
+    Map<String, dynamic> brandData = jsonDecode(brandResponse)['data'];
+    final filteredBrands = brandData['categories']['name']
+        .where((brand) => (brand['name']).contains(category))
+        .toList();
+    print(' $brandData, $filteredBrands');
+    return filteredBrands;
   }
 }

@@ -1,20 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:wael/controller/counter_controller.dart';
 import 'package:wael/core/constant/color.dart';
-import 'package:wael/view/widget/product_page/favorite_button.dart';
+import 'package:wael/view/widget/product.dart';
 
-class ProductOfCart extends StatelessWidget {
-  const ProductOfCart({super.key});
+class ProductCart extends StatefulWidget {
+  const ProductCart({
+    super.key,
+    required this.count,
+    required this.discountPercentage,
+    required this.discountPrice,
+    required this.realPrice,
+    required this.image,
+    required this.name,
+    required this.onClose,
+    required this.onDecreament,
+    required this.onIncreament,
+  });
+  final int count;
+  final double discountPercentage;
+  final double discountPrice;
+  final double realPrice;
+  final String image;
+  final String name;
+  final void Function() onClose;
+  final void Function() onDecreament;
+  final void Function() onIncreament;
 
   @override
-  Widget build(BuildContext context) {
-    final counterController = Get.put(CounterController(), permanent: true);
+  State<ProductCart> createState() => _ProductCartState();
+}
 
+class _ProductCartState extends State<ProductCart> {
+  List<Product> products = [];
+  @override
+  Widget build(BuildContext context) {
     return Container(
       height: 130.h,
-      margin: EdgeInsets.only(left: 25.w, right: 25.w, bottom: 10.h),
+      margin: EdgeInsets.only(left: 24.w, right: 24.w, bottom: 16.h),
       decoration: BoxDecoration(
         color: AppColor.greyfateh,
         borderRadius: BorderRadius.circular(15.r),
@@ -46,8 +68,8 @@ class ProductOfCart extends StatelessWidget {
                     bottomRight: Radius.circular(95.r),
                   ),
                   child: Image.asset(
+                    widget.image,
                     fit: BoxFit.cover,
-                    'assets/images/product_image_bijama.png',
                   ),
                 ),
               ),
@@ -55,7 +77,7 @@ class ProductOfCart extends StatelessWidget {
                 right: 2,
                 bottom: 2,
                 child: Text(
-                  '30%',
+                  '${widget.discountPercentage.toString()}%',
                   style: TextStyle(
                     color: AppColor.yellow,
                     fontSize: 17.sp,
@@ -66,23 +88,31 @@ class ProductOfCart extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: EdgeInsets.only(left: 8, top: 8, bottom: 8),
+            padding: const EdgeInsets.only(left: 8, top: 0, bottom: 8),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Cotton Pajamas',
-                  style: TextStyle(
+                Row(
+                  children: [
+                    Text(
+                      widget.name,
+                      style: TextStyle(
+                          color: AppColor.blue,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.start,
+                    ),
+                    IconButton(
+                      onPressed: widget.onClose,
+                      icon: const Icon(Icons.close),
+                      iconSize: 16,
                       color: AppColor.blue,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.start,
-                ),
-                SizedBox(
-                  height: 5.h,
+                    )
+                  ],
                 ),
                 Text(
-                  '500,000 L.S',
+                  '${widget.discountPrice} L.S',
                   style: TextStyle(
                     color: AppColor.blue,
                     fontSize: 15.sp,
@@ -91,7 +121,7 @@ class ProductOfCart extends StatelessWidget {
                   textAlign: TextAlign.start,
                 ),
                 Text(
-                  '545,000 L.S',
+                  '${widget.realPrice} L.S',
                   style: TextStyle(
                     decorationColor: AppColor.yellow,
                     decoration: TextDecoration.lineThrough,
@@ -104,13 +134,10 @@ class ProductOfCart extends StatelessWidget {
                   flex: 1,
                 ),
                 Counter(
-                  onDecreament: () {
-                    counterController.decreament();
-                  },
-                  onIncreament: () {
-                    counterController.increament();
-                  },
-                ),
+                  count: widget.count,
+                  onDecreament: widget.onDecreament,
+                  onIncreament: widget.onIncreament,
+                )
               ],
             ),
           ),
@@ -125,113 +152,58 @@ class Counter extends StatelessWidget {
     super.key,
     required this.onIncreament,
     required this.onDecreament,
+    required this.count,
   });
   final void Function()? onIncreament;
   final void Function()? onDecreament;
-
+  final int count;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          height: 30.h,
-          width: 120.w,
-          decoration: BoxDecoration(
-            color: AppColor.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(5.r),
+    return Container(
+      height: 30.h,
+      width: 120.w,
+      decoration: BoxDecoration(
+        color: AppColor.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(5.r),
+        ),
+        border: Border.all(color: AppColor.blue, width: 2.w),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          InkWell(
+            onTap: onDecreament,
+            child: Icon(
+              Icons.remove,
+              color: AppColor.blue,
+              size: 20,
             ),
-            border: Border.all(color: AppColor.blue, width: 2.w),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                onTap: onDecreament,
-                child: Icon(
-                  Icons.remove,
-                  color: AppColor.blue,
-                  size: 20,
-                ),
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              GetBuilder<CounterController>(
-                builder: (controller) {
-                  return Text(
-                    controller.counter.toString(),
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      color: AppColor.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              InkWell(
-                onTap: onIncreament,
-                child: Icon(
-                  Icons.add,
-                  color: AppColor.blue,
-                  size: 20,
-                ),
-              ),
-            ],
+          const SizedBox(
+            width: 16,
           ),
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: Image.asset(
-            'assets/images/delete.png',
-            height: 20.h,
+          Text(
+            count.toString(),
+            style: TextStyle(
+              fontSize: 18.sp,
+              color: AppColor.blue,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-      ],
+          const SizedBox(
+            width: 16,
+          ),
+          InkWell(
+            onTap: onIncreament,
+            child: Icon(
+              Icons.add,
+              color: AppColor.blue,
+              size: 20,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
-
-// Container(
-//                 height: 130.h,
-//                 width: 140.w,
-//                 decoration: BoxDecoration(
-//                   color: AppColor.red,
-//                   borderRadius: BorderRadius.only(
-//                     topLeft: Radius.circular(15.r),
-//                     bottomLeft: Radius.circular(15.r),
-//                   ),
-//                 ),
-//               ),
-//               SizedBox(
-//                 height: 130.h,
-//                 width: 141.5.w,
-//                 child: ClipRRect(
-//                   borderRadius: BorderRadius.only(
-//                     topLeft: Radius.circular(15.r),
-//                     bottomLeft: Radius.circular(15.r),
-//                     bottomRight: Radius.circular(100.r),
-//                   ),
-//                   child: Image.asset(
-//                     width: 142.w,
-//                     'assets/images/product_image_bijama.png',
-//                     fit: BoxFit.cover,
-//                   ),
-//                 ),
-//               ),
-//               Positioned(
-//                 bottom: 5.h,
-//                 right: 3.w,
-//                 child: Text(
-//                   '30%',
-//                   style: TextStyle(
-//                     color: AppColor.yellow,
-//                     fontSize: 17.sp,
-//                     fontWeight: FontWeight.bold,
-//                   ),
-//                 ),
-//               ),

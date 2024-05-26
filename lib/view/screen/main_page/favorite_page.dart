@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wael/core/constant/color.dart';
+import 'package:wael/core/services/product_service.dart';
 import 'package:wael/view/widget/favorite_page/product_favorite.dart';
 
 class FavoratePage extends StatelessWidget {
@@ -9,12 +10,12 @@ class FavoratePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
           children: [
             Padding(
-              padding:  EdgeInsets.only(top: 50.h, left: 25.w),
+              padding: EdgeInsets.only(top: 50.h, left: 25.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -27,7 +28,7 @@ class FavoratePage extends StatelessWidget {
                       height: 15.h,
                     ),
                   ),
-                   SizedBox(
+                  SizedBox(
                     width: 60.h,
                   ),
                   Text(
@@ -40,22 +41,35 @@ class FavoratePage extends StatelessWidget {
                 ],
               ),
             ),
-             SizedBox(
+            SizedBox(
               height: 40.h,
             ),
-            Expanded(
-              child: ListView(
-                children: const[
-                  ProductFavorite(),
-                  ProductFavorite(),
-                  ProductFavorite(),
-                  ProductFavorite(),
-                  ProductFavorite(),
-                  ProductFavorite(),
-                  ProductFavorite(),
-                  ProductFavorite(),
-                ],
-              ),
+            FutureBuilder(
+              future: ProductServices().getFavoriteProducts(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData)
+                  return ProductFavorite(
+                    onChange: (isFavorite) {},
+                    product_id: 1,
+                  );
+                final favProducts = snapshot.data!;
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: favProducts.length,
+                    itemBuilder: (context, index) {
+                      return ProductFavorite(
+                        onChange: (isFavorite) {
+                          favProducts[index].is_favorite_for_current_user =
+                              isFavorite;
+                        },
+                        product_id: favProducts[index].id,
+                        isFavorite:
+                            favProducts[index].is_favorite_for_current_user,
+                      );
+                    },
+                  ),
+                );
+              },
             ),
           ],
         ),

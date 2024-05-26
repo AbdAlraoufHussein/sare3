@@ -4,13 +4,13 @@ import 'package:get/get.dart';
 import 'package:wael/core/constant/color.dart';
 import 'package:wael/view/screen/main_page/favorite_page.dart';
 
-class HeadOfSearch_logo extends StatelessWidget {
-  const HeadOfSearch_logo({super.key});
+class HeadOfSearchLogo extends StatelessWidget {
+  const HeadOfSearchLogo({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      padding: const EdgeInsets.only(left: 8, top: 24, right: 8, bottom: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

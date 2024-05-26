@@ -9,16 +9,20 @@ class TextFdNumSignInUp extends StatelessWidget {
     required this.keyboardType,
     required this.textlabel,
     required this.validator,
+    required this.controller,
   });
   final String textprefix;
   final String textlabel;
   final String? Function(String? value)? validator;
   final TextInputType? keyboardType;
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24.w),
       child: TextFormField(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        controller: controller,
         validator: validator,
         keyboardType: keyboardType,
         textAlign: TextAlign.left,

@@ -1,14 +1,16 @@
-import 'package:wael/core/class/base_api_class.dart';
-import 'package:wael/data/model/api/banner.dart';
+import 'dart:convert';
+
+import 'package:wael/data/model/api/base_api_class.dart';
+import 'package:wael/data/model/api/models/banner_model.dart';
 
 class BannerService extends BaseApi {
-  Future<List<Banner>> getAll() async {
+  Future<List<BannerModel>> getAll() async {
     // GET, POST, PUT, DELETE
-    final response = await dio.get(
-      'banners?populate=Image',
-    );
+    final response = await BaseApi().getRequest(endPoint: 'banners');
 
-    final Map<String, dynamic> data = response.data;
-    return (data['data'] as List).map((e) => Banner.fromJson(e)).toList();
+    final data = (jsonDecode(response)['data'] as List)
+        .map((e) => BannerModel.fromJson(e))
+        .toList();
+    return data;
   }
 }
