@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:wael/controller/product/product_cubit.dart';
 import 'package:wael/core/constant/color.dart';
 import 'package:wael/core/services/banner_service.dart';
 import 'package:wael/core/services/brand_service.dart';
-import 'package:wael/core/services/product_service.dart';
 import 'package:wael/view/screen/main_page/categories_page.dart';
 import 'package:wael/view/screen/main_page/store.dart';
 import 'package:wael/view/widget/head_of_search_logo.dart';
@@ -16,136 +17,54 @@ import 'package:wael/view/widget/main_points.dart';
 import 'package:wael/view/widget/product.dart';
 import 'package:wael/view/widget/product_page/favorite_button.dart';
 
-//63186
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
   static const String id = 'HomeScreen';
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 8),
+    return SafeArea(
+      child: SingleChildScrollView(
         child: Column(
           children: [
-            const HeadOfSearchLogo(),
-            SizedBox(
-              height: 22.h,
-            ),
-            FutureBuilder(
-              future: BannerService().getAll(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return const Skeletonizer(
-                    enabled: true,
-                    child: SkeletonizerCaroselSlider(),
-                  );
-                }
-                final bannerData = snapshot.data!;
-                return CaroselSlider(
-                  carosellImages: bannerData.map((e) => e.image).toList(),
-                  itemCount: bannerData.length,
-                );
-              },
-            ),
-            MainPoints(
-                text: 'Brands',
-                onTap: () {
-                  Get.to(() => const AllBrands());
-                }),
-            FutureBuilder(
-              future: BrandService().getAllBrands(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return const SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Skeletonizer(
-                      enabled: true,
-                      child: Row(
-                        children: [
-                          SkeletonizerBrand(),
-                          SkeletonizerBrand(),
-                          SkeletonizerBrand(),
-                          SkeletonizerBrand(),
-                        ],
-                      ),
-                    ),
-                  );
-                }
-                final brandData = snapshot.data!;
-                return SizedBox(
-                  height: 120.h,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: brandData.length,
-                    itemBuilder: (context, index) {
-                      return Brand(
-                        onTap: () {
-                          Get.to(() => StorePage(brandId: brandData[index].id));
-                        },
-                        imageUrl: brandData[index].image,
-                        name: brandData[index].name,
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-            MainPoints(
-                text: 'New Products',
-                onTap: () {
-                  // Get.to(()=> const)
-                }),
-            FutureBuilder(
-              future: ProductServices().getAllProducts(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
+            BlocBuilder<ProductCubit, ProductState>(
+              bloc: ProductCubit(),
+              builder: (context, state) {
+                if (state is ProductFetched) {
+                  final productData = state.productData;
                   return SizedBox(
-                    height: 270.h,
-                    child: const SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Skeletonizer(
-                        enabled: true,
-                        child: Row(
-                          children: [
-                            SkeletonizerProduct(),
-                            SkeletonizerProduct(),
-                            SkeletonizerProduct(),
-                          ],
-                        ),
-                      ),
+                    height: 300,
+                    child: ListView.builder(
+                      itemCount: productData.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          width: 200,
+                          child: Column(
+                            children: [
+                              Image.network(productData[index].image),
+                              Text('Name: ${productData[index].name}'),
+                              Text(
+                                  'Description: ${productData[index].description}'),
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   );
+                } else if (state is ProductFailure) {
+                  return Container(
+                    width: 200,
+                    height: 200,
+                    color: Colors.red,
+                    child: Text(state.errorMessage),
+                  );
+                } else {
+                  return const CircularProgressIndicator(
+                    color: Colors.blue,
+                  );
                 }
-                final productData = snapshot.data!;
-                return SizedBox(
-                  height: 270.h,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: productData.length,
-                    itemBuilder: (context, index) {
-                      return Product(
-                        onChange: (isFavorite) {
-                          productData[index].is_favorite_for_current_user =
-                              isFavorite;
-                        },
-                        isFavorite:
-                            productData[index].is_favorite_for_current_user,
-                        product_id: productData[index].id,
-                        discountPercentage:
-                            productData[index].discount_percentage,
-                        discountPrice: productData[index].sale_price,
-                        image: productData[index].image,
-                        name: productData[index].name,
-                        realPrice: productData[index].regular_price,
-                      );
-                    },
-                  ),
-                );
               },
-            ),
+            )
           ],
         ),
       ),

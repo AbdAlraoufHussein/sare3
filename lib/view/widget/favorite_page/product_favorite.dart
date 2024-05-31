@@ -132,9 +132,9 @@ class _ProductFavoriteState extends State<ProductFavorite> {
               setState(() {
                 isFavorite = !isFavorite;
                 if (isFavorite) {
-                  ProductServices().likeProduct(product_id: widget.product_id!);
+                  ProductServices.likeProduct(product_id: widget.product_id!);
                 } else {
-                  ProductServices()
+                  ProductServices
                       .dislikeProduct(product_id: widget.product_id!);
                 }
                 if (widget.onChange != null) {

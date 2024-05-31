@@ -22,7 +22,7 @@ class AllBrands extends StatelessWidget {
               ),
             ),
             FutureBuilder(
-              future: BrandService().getAllBrands(),
+              future: BrandService.getAllBrands(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return Loading();
                 final brandData = snapshot.data!;

@@ -14,13 +14,15 @@ class CaroselSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: CarouselSlider.builder(
         itemCount: itemCount,
         itemBuilder: (_, int itemIndex, __) => SizedBox(
-          child:  Image.network(carosellImages[itemIndex]),
+          child: Image.network(
+            carosellImages[itemIndex],
+            fit: BoxFit.cover,
+          ),
         ),
         options: CarouselOptions(
           height: 130.h,
@@ -46,13 +48,10 @@ class CaroselSlider extends StatelessWidget {
   }
 }
 
-
-
-    class SkeletonizerCaroselSlider extends StatelessWidget {
+class SkeletonizerCaroselSlider extends StatelessWidget {
   const SkeletonizerCaroselSlider({
     super.key,
   });
-
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +66,7 @@ class CaroselSlider extends StatelessWidget {
       child: CarouselSlider.builder(
         itemCount: images.length,
         itemBuilder: (_, int itemIndex, __) => SizedBox(
-          child:  Image.asset(images[itemIndex]),
+          child: Image.asset(images[itemIndex]),
         ),
         options: CarouselOptions(
           height: 130.h,

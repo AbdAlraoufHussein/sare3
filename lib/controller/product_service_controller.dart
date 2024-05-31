@@ -11,7 +11,7 @@ class ProductServiceController extends GetxController {
 
   Future<List<ProductModel>> fetchAllProducts() async {
     final List<ProductModel> allProductsData =
-        await ProductServices().getAllProducts();
+        await ProductServices.getAllProducts();
     isAllProductsLoading == false;
     favoriteProductsListLength = allProductsData.length;
     return allProductsData;
@@ -19,14 +19,14 @@ class ProductServiceController extends GetxController {
 
   Future<ProductModel> fetchOneProduct({required int product_id}) async {
     final ProductModel allProductsData =
-        await ProductServices().getOneProduct(product_id: product_id);
+        await ProductServices.getOneProduct(product_id: product_id);
     isOneProductLoading == false;
     return allProductsData;
   }
 
   Future<List<ProductModel>> fetchFavoriteProducts() async {
     final List<ProductModel> allProductsData =
-        await ProductServices().getFavoriteProducts();
+        await ProductServices.getFavoriteProducts();
     isFavoriteProductsLoading == false;
     productsListLength = allProductsData.length;
     return allProductsData.toList();

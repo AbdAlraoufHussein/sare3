@@ -7,7 +7,7 @@ import 'package:wael/view/widget/product.dart';
 class CartServices extends BaseApi {
   Future<List<CartModel>> getCart() async {
     final response = await BaseApi().getRequest(endPoint: 'carts');
-    final data = (jsonDecode(response)['data'] as List)
+    final data = (jsonDecode(response.body)['data'] as List)
         .map((e) => CartModel.fromJason(e))
         .toList();
     return data;

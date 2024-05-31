@@ -129,6 +129,7 @@ class _SignUpState extends State<SignUp> {
                               password: _passwordController.text,
                               phone: _phoneController.text,
                             );
+                            print(_phoneController.text);
                             if (error == null) {
                               _emailController.clear();
                               _passwordController.clear();

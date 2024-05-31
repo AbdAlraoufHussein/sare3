@@ -10,19 +10,20 @@ class Product extends StatefulWidget {
   const Product(
       {super.key,
       this.isFavorite = false,
-      this.product_id,
+      required this.product_id,
       this.onChange,
       required this.discountPercentage,
       required this.discountPrice,
       required this.realPrice,
       required this.image,
-      required this.name});
-  final bool? isFavorite;
-  final int? product_id;
+      required this.name, this.onAddToCartTap});
+  final bool isFavorite;
+  final int product_id;
   final Function(bool isFavorite)? onChange;
+  final Function()? onAddToCartTap;
   final double discountPercentage;
-  final double discountPrice;
-  final double realPrice;
+  final int discountPrice;
+  final int realPrice;
   final String image;
   final String name;
 
@@ -31,7 +32,7 @@ class Product extends StatefulWidget {
 }
 
 class _ProductState extends State<Product> {
-  late bool isFavorite = widget.isFavorite!;
+  late bool isFavorite = widget.isFavorite;
   @override
   Widget build(BuildContext context) {
     // List<Map> products = [];
@@ -75,7 +76,7 @@ class _ProductState extends State<Product> {
                           topRight: Radius.circular(15.r),
                           bottomRight: Radius.circular(95.r),
                         ),
-                        child: Image.network(
+                        child: Image.asset(
                           widget.image,
                           fit: BoxFit.cover,
                         ),
@@ -99,6 +100,7 @@ class _ProductState extends State<Product> {
                     left: 0,
                     bottom: -20,
                     child: GestureDetector(
+                      onTap: widget.onAddToCartTap,
                       child: Image.asset(
                         'assets/images/product_btn_addtocart.png',
                         height: 42.h,
@@ -156,11 +158,11 @@ class _ProductState extends State<Product> {
                             setState(() {
                               isFavorite = !isFavorite;
                               if (isFavorite) {
-                                ProductServices().likeProduct(
-                                    product_id: widget.product_id!);
+                                ProductServices.likeProduct(
+                                    product_id: widget.product_id);
                               } else {
-                                ProductServices().dislikeProduct(
-                                    product_id: widget.product_id!);
+                                ProductServices.dislikeProduct(
+                                    product_id: widget.product_id);
                               }
                               if (widget.onChange != null) {
                                 widget.onChange!(isFavorite);

@@ -1,44 +1,52 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wael/data/model/api/base_api_class.dart';
 import 'package:wael/data/model/api/models/product_model.dart';
+import 'package:http/http.dart' as http;
 
-class ProductServices extends BaseApi {
-  Future<List<ProductModel>> getAllProducts() async {
-    try {
-      final response = await BaseApi().getRequest(endPoint: 'products');
-      print(response);
-      return (jsonDecode(response)['data'] as List)
-          .map((e) => ProductModel.fromJson(e))
-          .toList();
-    } on HttpException catch (e) {
-      throw Exception('$e');
+abstract class ProductServices extends BaseApi {
+  static Future<List<ProductModel>> getAllProducts() async {
+    final sharedPrefs = await SharedPreferences.getInstance();
+    final token = sharedPrefs.getString('token');
+    final response = await http
+        .get(Uri.parse('http://127.0.0.1:8000/api/products'), headers: {
+      HttpHeaders.acceptHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    });
+    print(response.body);
+    final data = (jsonDecode(response.body)['data'] as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return data;
     }
+    throw Exception('Something went wrong');
   }
 
-  Future<ProductModel> getOneProduct({required int product_id}) async {
+  static Future<ProductModel> getOneProduct({required int product_id}) async {
     final response =
         await BaseApi().getRequest(endPoint: 'products/$product_id');
-    final data = jsonDecode(response)['data'];
+    final data = jsonDecode(response.body)['data'];
     return data;
   }
 
-  Future<List<ProductModel>> getFavoriteProducts() async {
+  static Future<List<ProductModel>> getFavoriteProducts() async {
     final response = await BaseApi().getRequest(endPoint: 'products/favorites');
-    final data = (jsonDecode(response)['data'] as List)
+    final data = (jsonDecode(response.body)['data'] as List)
         .map((e) => ProductModel.fromJson(e))
         .toList();
     return data;
   }
 
-  void likeProduct({required int product_id}) async {
+  static void likeProduct({required int product_id}) async {
     await BaseApi()
         .postRequest(endPoint: 'products/$product_id/favorite', data: {
       'product_id': product_id,
     });
   }
 
-  void dislikeProduct({required int product_id}) async {
+  static void dislikeProduct({required int product_id}) async {
     await BaseApi()
         .postRequest(endPoint: 'products/$product_id/unfavorite', data: {
       'product_id': product_id,

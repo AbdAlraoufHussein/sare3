@@ -15,7 +15,7 @@ class BaseApi {
   //   ),
   // );
 
-  Future<String> getRequest({
+  Future<http.Response> getRequest({
     required String endPoint,
   }) async {
     final sharedPrefs = await SharedPreferences.getInstance();
@@ -27,7 +27,7 @@ class BaseApi {
     });
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      return response.body;
+      return response;
     } else {
       return throw Exception(
           'There is a problem with Status code: ${response.statusCode.toString()} Message: ${response.body.toString()}');

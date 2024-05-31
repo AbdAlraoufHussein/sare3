@@ -28,7 +28,7 @@ class StorePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       FutureBuilder(
-                        future: BrandService().getAllBrands(),
+                        future: BrandService.getAllBrands(),
                         builder: (context, snapshot) {
                           if (!snapshot.hasData) {
                             return const SkeletonizerCategoryInfo();
@@ -63,7 +63,7 @@ class StorePage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: FutureBuilder(
-                          future: ProductServices().getAllProducts(),
+                          future: ProductServices.getAllProducts(),
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
                               return SizedBox(
@@ -120,7 +120,7 @@ class StorePage extends StatelessWidget {
                             onTap: () {},
                           ),
                           FutureBuilder(
-                            future: ProductServices().getAllProducts(),
+                            future: ProductServices.getAllProducts(),
                             builder: (context, snapshot) {
                               if (!snapshot.hasData) {
                                 return Skeletonizer(
@@ -140,7 +140,7 @@ class StorePage extends StatelessWidget {
                               }
                               final productData = snapshot.data!
                                   .where((element) =>
-                                      element.discount_percentage ==
+                                      element.discount_percentage <=
                                       element.regular_price * 50 / 100)
                                   .toList();
                               if (productData == []) {

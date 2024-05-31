@@ -100,14 +100,14 @@ class _SignInState extends State<SignIn> {
                   onPressed: () async {
                     if (_formState.currentState!.validate()) {
                       final error = await AuthenticationService.logIN(
-                        email: _emailController.text.toString(),
-                        password: _passwordController.text.toString(),
+                        email: _emailController.text,
+                        password: _passwordController.text,
                       );
                       if (error == null) {
                         _emailController.clear();
                         _passwordController.clear();
                         Get.toNamed(AppRoute.mainPage);
-                      } else {
+                      } 
                         showDialog(
                           context: context,
                           builder: (context) {
@@ -116,7 +116,7 @@ class _SignInState extends State<SignIn> {
                             );
                           },
                         );
-                      }
+                      
                     }
                   },
                 )

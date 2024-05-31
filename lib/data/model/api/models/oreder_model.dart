@@ -1,9 +1,8 @@
-class OrderModel {
-  final List order_items;
+import 'package:wael/data/model/api/models/product_model.dart';
 
-  OrderModel({required this.order_items});
-
-  factory OrderModel.fromJson(Map<String, dynamic> jsonData) {
-    return OrderModel(order_items: jsonData['order_items']);
+abstract class OrderModel {
+  static List<ProductModel> order_items = [];
+  static void addProductToCart({required ProductModel product}) {
+    order_items.add(product);
   }
 }

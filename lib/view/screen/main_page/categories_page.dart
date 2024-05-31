@@ -78,7 +78,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                         ),
                       ),
                       child: FutureBuilder(
-                        future: BrandService().getAllBrands(),
+                        future: BrandService.getAllBrands(),
                         builder: (context, snapshot) {
                           if (!snapshot.hasData) {
                             return Skeletonizer(

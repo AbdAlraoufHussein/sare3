@@ -2,7 +2,7 @@ class AuthInfoModel {
   final String name;
   final String email;
   final String password;
-  final String phone;
+  final int phone;
 
   AuthInfoModel(
       {required this.name,

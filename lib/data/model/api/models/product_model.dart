@@ -3,8 +3,8 @@ class ProductModel {
   final String name;
   final String description;
   final String image;
-  final double regular_price;
-  final double sale_price;
+  final int regular_price;
+  final int sale_price;
   final bool on_sale;
   final double discount_percentage;
   bool is_favorite_for_current_user;

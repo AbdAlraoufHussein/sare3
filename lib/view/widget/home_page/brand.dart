@@ -3,7 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wael/core/constant/color.dart';
 
 class Brand extends StatelessWidget {
-  const Brand({super.key, required this.name, required this.imageUrl, required this.onTap});
+  const Brand(
+      {super.key,
+      required this.name,
+      required this.imageUrl,
+      required this.onTap});
   final String name;
   final String imageUrl;
   final void Function() onTap;
@@ -30,7 +34,10 @@ class Brand extends StatelessWidget {
                 ),
                 child: SizedBox.fromSize(
                     size: Size.fromRadius(30.r), // Image radius
-                    child: Image.network(imageUrl)),
+                    child: Image.network(
+                      imageUrl,
+                      fit: BoxFit.cover,
+                    )),
               ),
             ),
           ),

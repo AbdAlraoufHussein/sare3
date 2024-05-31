@@ -3,19 +3,22 @@ import 'package:wael/data/model/api/base_api_class.dart';
 import 'package:wael/data/model/api/models/brand_model.dart';
 
 class BrandService extends BaseApi {
-  Future<List<BrandModel>> getAllBrands() async {
+  static Future<List<BrandModel>> getAllBrands() async {
     final response = await BaseApi().getRequest(endPoint: 'brands');
-    print(response);
-    final data = (jsonDecode(response)['data'] as List)
+    final data = (jsonDecode(response.body)['data'] as List)
         .map((e) => BrandModel.fromJson(e))
         .toList();
-    return data;
+    print(response.body);
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return data;
+    }
+    throw Exception('No Brand');
   }
 
   Future<List<BrandModel>> getBrandsOnCategory(
       {required String category}) async {
     final brandResponse = await BaseApi().getRequest(endPoint: 'brands');
-    Map<String, dynamic> brandData = jsonDecode(brandResponse)['data'];
+    Map<String, dynamic> brandData = jsonDecode(brandResponse.body)['data'];
     final filteredBrands = brandData['categories']['name']
         .where((brand) => (brand['name']).contains(category))
         .toList();

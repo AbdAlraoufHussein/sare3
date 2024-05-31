@@ -45,7 +45,7 @@ class FavoratePage extends StatelessWidget {
               height: 40.h,
             ),
             FutureBuilder(
-              future: ProductServices().getFavoriteProducts(),
+              future: ProductServices.getFavoriteProducts(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData)
                   return ProductFavorite(

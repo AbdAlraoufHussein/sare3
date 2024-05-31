@@ -6,7 +6,7 @@ import 'package:wael/data/model/api/models/category_model.dart';
 class CategoryServices extends BaseApi {
   Future<List<CategoryModel>> getCategories() async {
     final response = await BaseApi().getRequest(endPoint: 'categories');
-    final data = (jsonDecode(response)['data'] as List)
+    final data = (jsonDecode(response.body)['data'] as List)
         .map((e) => CategoryModel.fromJson(e))
         .toList();
     print(data);

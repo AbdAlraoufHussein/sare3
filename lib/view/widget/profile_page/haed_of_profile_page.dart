@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:wael/core/constant/color.dart';
 import 'package:wael/core/services/authentication_service.dart';
+import 'package:wael/data/model/api/models/auth_info_model.dart';
 import 'package:wael/view/widget/auth/textfdnumsignin_up.dart';
 import 'package:wael/view/widget/auth/textfdsignin_up.dart';
 
@@ -14,11 +15,12 @@ class HeadOfProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _nameController = TextEditingController();
     final _phoneController = TextEditingController();
-    return FutureBuilder(
+    var userData;
+    return FutureBuilder<AuthInfoModel>(
       future: AuthenticationService.getUserInfo(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData)
-          {return Column(
+        if (!snapshot.hasData) {
+          return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
@@ -77,7 +79,7 @@ class HeadOfProfilePage extends StatelessWidget {
                                     return 'Phone number is required';
                                   } else if (!RegExp(r'^(\+?963|0)?9\d{8}$')
                                       .hasMatch(value)) {
-                                    return 'Make sureto enter syrian number';
+                                    return 'Make sure to enter syrian number';
                                   }
                                   return null;
                                 },
@@ -126,8 +128,11 @@ class HeadOfProfilePage extends StatelessWidget {
                 thickness: 3.w,
               ),
             ],
-          );}
-        final userData = snapshot.data!;
+          );
+        }
+
+        userData = snapshot.data;
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -135,7 +140,7 @@ class HeadOfProfilePage extends StatelessWidget {
               height: 80.h,
             ),
             Text(
-              userData.name,
+              userData!.name,
               style: TextStyle(
                   color: AppColor.blue,
                   fontSize: 25.sp,

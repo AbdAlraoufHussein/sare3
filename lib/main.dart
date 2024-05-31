@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -35,8 +34,8 @@ class MyHttpOverrides extends HttpOverrides {
 void main() async {
   await dotenv.load(fileName: ".env");
   Stripe.publishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY']!;
-  WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
+  WidgetsFlutterBinding.ensureInitialized();
   await initialServices();
   runApp(const MyWidget());
 }
@@ -69,20 +68,17 @@ class MyWidget extends StatelessWidget {
           GetPage(
               name: AppRoute.favoritePage, page: () => const FavoratePage()),
           GetPage(
-              name: AppRoute.notifications, page: () => const Notifications()),
+              name: AppRoute.notifications,
+              page: () => const Notifications()),
           GetPage(name: AppRoute.homePage, page: () => const HomePage()),
           GetPage(
               name: AppRoute.cateroriesPage,
               page: () => const CategoriesPage()),
           GetPage(name: AppRoute.cartPage, page: () => const CartPage()),
-          GetPage(name: AppRoute.profilePage, page: () => const ProfilePage()),
+          GetPage(
+              name: AppRoute.profilePage, page: () => const ProfilePage()),
         ],
       ),
     );
   }
 }
-// fail to open file: No such file or directory
-// D/ProfileInstaller( 6269): Installing profile for com.example.wael
-
-// get AllImpl object = android.common.MiuiFrameworkFactoryImpl@7f4476e
-// W/MirrorManager( 6269): this model don't Support
