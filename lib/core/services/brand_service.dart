@@ -5,8 +5,10 @@ import 'package:wael/data/model/api/models/brand_model.dart';
 class BrandService extends BaseApi {
   Future<List<BrandModel>> getAllBrands() async {
     final response = await BaseApi().getRequest(endPoint: 'brands');
+    print(response);
     final data = (jsonDecode(response)['data'] as List)
-        .map((e) => BrandModel.fromJson(e)).toList();
+        .map((e) => BrandModel.fromJson(e))
+        .toList();
     return data;
   }
 

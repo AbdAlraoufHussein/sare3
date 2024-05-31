@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:wael/data/model/api/base_api_class.dart';
 import 'package:wael/data/model/api/models/product_model.dart';
 
@@ -10,7 +11,7 @@ class ProductServices extends BaseApi {
       return (jsonDecode(response)['data'] as List)
           .map((e) => ProductModel.fromJson(e))
           .toList();
-    } on Exception catch (e) {
+    } on HttpException catch (e) {
       throw Exception('$e');
     }
   }
