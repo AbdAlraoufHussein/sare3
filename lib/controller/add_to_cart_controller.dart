@@ -54,7 +54,7 @@ class CartController extends GetxController {
       _carts[product] = 1;
       Get.snackbar('Notice', 'You have already added the product.');
     }
-
+    
     update();
   }
 

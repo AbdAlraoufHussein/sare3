@@ -13,6 +13,7 @@ class SearchModel extends SearchDelegate {
       brandsItems.add(d);
     }
   }
+
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -50,14 +51,12 @@ class SearchModel extends SearchDelegate {
     return ListView.builder(
       itemCount: matchQuery.length,
       itemBuilder: (context, index) {
-        final result = matchQuery[index];
+        final result = matchQuery[index].name;
         return ListTile(
           onTap: () {
-            
-              Get.to(() => StorePage(brandId: brandsItems[index].id));
-            
+            Get.to(() => StorePage(brandId: brandsItems[index].id));
           },
-          title: Text(result.name),
+          title: Text(result),
         );
       },
     );
@@ -74,13 +73,12 @@ class SearchModel extends SearchDelegate {
     return ListView.builder(
       itemCount: matchQuery.length,
       itemBuilder: (context, index) {
-        final result = matchQuery[index];
+        final result = matchQuery[index].name;
         return ListTile(
           onTap: () {
-              Get.to(() => StorePage(brandId: brandsItems[index].id));
-            
+            Get.to(() => StorePage(brandId: brandsItems[index].id));
           },
-          title: Text(result.name),
+          title: Text(result),
         );
       },
     );

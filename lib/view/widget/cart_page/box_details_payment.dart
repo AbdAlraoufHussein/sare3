@@ -93,7 +93,7 @@ class BoxDetailsPayment extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                StripeHelper.stripe();
+                StripeHelper.stripe(salePrice: costAfterDiscounte);
               },
               child: Text(
                 'Payment for reservation',
