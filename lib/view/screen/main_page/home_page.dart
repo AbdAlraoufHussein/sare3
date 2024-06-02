@@ -114,7 +114,6 @@ class HomePage extends StatelessWidget {
                             itemCount: productData.length,
                             itemBuilder: (context, index) {
                               return Product(
-                              
                                 onProductTap: () {
                                   Get.to(() => ProductPage(
                                         product_id: productData[index].id,

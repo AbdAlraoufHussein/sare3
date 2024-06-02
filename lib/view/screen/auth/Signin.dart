@@ -107,16 +107,9 @@ class _SignInState extends State<SignIn> {
                         _emailController.clear();
                         _passwordController.clear();
                         Get.toNamed(AppRoute.mainPage);
-                      } 
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return Container(
-                              child: Column(children: [Text("Warning")]),
-                            );
-                          },
-                        );
-                      
+                      } else {
+                        Get.snackbar('Warning', error);
+                      }
                     }
                   },
                 )

@@ -64,7 +64,7 @@ class AuthenticationService extends BaseApi {
 
   static Future<AuthInfoModel> getUserInfo() async {
     final response = await BaseApi().getRequest(endPoint: 'user');
-    final data = jsonDecode(response.body)['data'];
+    final data = AuthInfoModel.fromJson(jsonDecode(response.body)['data']);
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return data;
     }

@@ -151,7 +151,6 @@ class ProductPage extends StatelessWidget {
                                                     is_favorite_for_current_user:
                                                         productData
                                                             .is_favorite_for_current_user));
-                                                            Get.defaultDialog(title: 'asafaf');
                                           },
                                           child: const Padding(
                                             padding: EdgeInsets.symmetric(

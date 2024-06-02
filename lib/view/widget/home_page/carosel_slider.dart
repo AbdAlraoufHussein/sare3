@@ -17,12 +17,14 @@ class CaroselSlider extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: CarouselSlider.builder(
-        itemCount: itemCount,
+        itemCount: carosellImages.length,
         itemBuilder: (_, int itemIndex, __) => SizedBox(
-          child: Image.network(
-            carosellImages[itemIndex],
-            fit: BoxFit.cover,
-          ),
+          child: carosellImages.isNotEmpty
+              ? Image.network(
+                  carosellImages[itemIndex],
+                  fit: BoxFit.cover,
+                )
+              : Image.asset('assets/images/carosel1.png'),
         ),
         options: CarouselOptions(
           height: 130.h,

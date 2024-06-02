@@ -134,7 +134,7 @@ class _SignUpState extends State<SignUp> {
                               _passwordController.clear();
                               Get.toNamed(AppRoute.mainPage);
                             } else {
-                              Get.defaultDialog(title: error);
+                              Get.snackbar('Warning', error);
                             }
                           }
                         }),

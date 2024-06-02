@@ -1,37 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wael/controller/add_to_cart_controller.dart';
 import 'package:wael/core/constant/color.dart';
-import 'package:wael/view/widget/product.dart';
+import 'package:wael/data/model/api/models/product_model.dart';
 
-class ProductCart extends StatefulWidget {
+class ProductCart extends StatelessWidget {
   const ProductCart({
     super.key,
-    required this.count,
-    required this.discountPercentage,
-    required this.discountPrice,
-    required this.realPrice,
-    required this.image,
-    required this.name,
-    required this.onClose,
-    required this.onDecreament,
-    required this.onIncreament,
+    required this.quantity,
+    required this.product,
+    required this.controller,
+    required this.index,
   });
-  final int count;
-  final double discountPercentage;
-  final double discountPrice;
-  final double realPrice;
-  final String image;
-  final String name;
-  final void Function() onClose;
-  final void Function() onDecreament;
-  final void Function() onIncreament;
+  final int quantity;
+  final ProductModel product;
+  final CartController controller;
+  final int index;
 
-  @override
-  State<ProductCart> createState() => _ProductCartState();
-}
-
-class _ProductCartState extends State<ProductCart> {
-  List<Product> products = [];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -68,7 +53,7 @@ class _ProductCartState extends State<ProductCart> {
                     bottomRight: Radius.circular(95.r),
                   ),
                   child: Image.asset(
-                    widget.image,
+                    product.image,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -77,7 +62,7 @@ class _ProductCartState extends State<ProductCart> {
                 right: 2,
                 bottom: 2,
                 child: Text(
-                  '${widget.discountPercentage.toString()}%',
+                  '${product.discount_percentage.toString()}%',
                   style: TextStyle(
                     color: AppColor.yellow,
                     fontSize: 17.sp,
@@ -96,7 +81,7 @@ class _ProductCartState extends State<ProductCart> {
                 Row(
                   children: [
                     Text(
-                      widget.name,
+                      product.name,
                       style: TextStyle(
                           color: AppColor.blue,
                           fontSize: 16.sp,
@@ -104,7 +89,9 @@ class _ProductCartState extends State<ProductCart> {
                       textAlign: TextAlign.start,
                     ),
                     IconButton(
-                      onPressed: widget.onClose,
+                      onPressed: () {
+                        controller.removeFromCart(product: product);
+                      },
                       icon: const Icon(Icons.close),
                       iconSize: 16,
                       color: AppColor.blue,
@@ -112,7 +99,7 @@ class _ProductCartState extends State<ProductCart> {
                   ],
                 ),
                 Text(
-                  '${widget.discountPrice} L.S',
+                  '${product.sale_price} L.S',
                   style: TextStyle(
                     color: AppColor.blue,
                     fontSize: 15.sp,
@@ -121,7 +108,7 @@ class _ProductCartState extends State<ProductCart> {
                   textAlign: TextAlign.start,
                 ),
                 Text(
-                  '${widget.realPrice} L.S',
+                  '${product.regular_price} L.S',
                   style: TextStyle(
                     decorationColor: AppColor.yellow,
                     decoration: TextDecoration.lineThrough,
@@ -133,73 +120,57 @@ class _ProductCartState extends State<ProductCart> {
                 const Spacer(
                   flex: 1,
                 ),
-                Counter(
-                  count: widget.count,
-                  onDecreament: widget.onDecreament,
-                  onIncreament: widget.onIncreament,
+                Container(
+                  height: 30.h,
+                  width: 120.w,
+                  decoration: BoxDecoration(
+                    color: AppColor.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(5.r),
+                    ),
+                    border: Border.all(color: AppColor.blue, width: 2.w),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          controller.decreament(product: product);
+                        },
+                        child: Icon(
+                          Icons.remove,
+                          color: AppColor.blue,
+                          size: 20,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      Text(
+                        quantity.toString(),
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          color: AppColor.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          controller.increament(product: product);
+                        },
+                        child: Icon(
+                          Icons.add,
+                          color: AppColor.blue,
+                          size: 20,
+                        ),
+                      ),
+                    ],
+                  ),
                 )
               ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class Counter extends StatelessWidget {
-  const Counter({
-    super.key,
-    required this.onIncreament,
-    required this.onDecreament,
-    required this.count,
-  });
-  final void Function()? onIncreament;
-  final void Function()? onDecreament;
-  final int count;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 30.h,
-      width: 120.w,
-      decoration: BoxDecoration(
-        color: AppColor.white,
-        borderRadius: BorderRadius.all(
-          Radius.circular(5.r),
-        ),
-        border: Border.all(color: AppColor.blue, width: 2.w),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          InkWell(
-            onTap: onDecreament,
-            child: Icon(
-              Icons.remove,
-              color: AppColor.blue,
-              size: 20,
-            ),
-          ),
-          const SizedBox(
-            width: 16,
-          ),
-          Text(
-            count.toString(),
-            style: TextStyle(
-              fontSize: 18.sp,
-              color: AppColor.blue,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(
-            width: 16,
-          ),
-          InkWell(
-            onTap: onIncreament,
-            child: Icon(
-              Icons.add,
-              color: AppColor.blue,
-              size: 20,
             ),
           ),
         ],

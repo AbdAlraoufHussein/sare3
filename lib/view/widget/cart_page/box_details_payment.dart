@@ -6,10 +6,8 @@ import 'package:wael/helpers/stripe_helper.dart';
 class BoxDetailsPayment extends StatelessWidget {
   const BoxDetailsPayment(
       {super.key,
-      required this.cost,
       required this.costBeforeDiscount,
       required this.costAfterDiscounte});
-  final int cost;
   final int costBeforeDiscount;
   final int costAfterDiscounte;
   @override
