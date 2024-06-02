@@ -49,11 +49,12 @@ class _CartPageState extends State<CartPage> {
               child: ListView.builder(
                 itemCount: controller.carts.length,
                 itemBuilder: (context, index) {
+                  controller.quantity = controller.carts.values.toList()[index];
                   return ProductCart(
                     controller: controller,
                     index: index,
                     product: controller.carts.keys.toList()[index],
-                    quantity: controller.carts.values.toList()[index],
+                    quantity: controller.quantity,
                   );
                 },
               ),
@@ -64,14 +65,5 @@ class _CartPageState extends State<CartPage> {
             ),
           ],
         ));
-  }
-}
-
-class CartWidget extends StatelessWidget {
-  const CartWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }

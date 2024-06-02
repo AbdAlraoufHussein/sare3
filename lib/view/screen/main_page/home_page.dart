@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:wael/controller/cubits/product/product_cubit.dart';
 import 'package:wael/core/constant/color.dart';
+import 'package:wael/core/constant/routes.dart';
 import 'package:wael/core/services/banner_service.dart';
 import 'package:wael/core/services/brand_service.dart';
 import 'package:wael/view/screen/main_page/categories_page.dart';
@@ -33,7 +34,11 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8),
             child: Column(
               children: [
-                const HeadOfSearchLogo(),
+                HeadOfSearchLogo(
+                  onFavoritePressed: () {
+                    Get.offNamed(AppRoute.favoritePage);
+                  },
+                ),
                 FutureBuilder(
                   future: BannerService().getAllBanners(),
                   builder: (context, snapshot) {
@@ -108,7 +113,7 @@ class HomePage extends StatelessWidget {
                       if (state is ProductFetched) {
                         final productData = state.productData;
                         return SizedBox(
-                          height: 270.h,
+                          height: 250.h,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: productData.length,

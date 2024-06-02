@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:wael/core/constant/color.dart';
 import 'package:wael/data/model/search_model.dart';
-import 'package:wael/view/screen/main_page/favorite_page.dart';
 
 class HeadOfSearchLogo extends StatefulWidget {
-  const HeadOfSearchLogo({super.key});
+  const HeadOfSearchLogo({super.key, required this.onFavoritePressed});
+  final void Function() onFavoritePressed;
 
   @override
   State<HeadOfSearchLogo> createState() => _HeadOfSearchLogoState();
@@ -54,9 +53,7 @@ class _HeadOfSearchLogoState extends State<HeadOfSearchLogo> {
               ),
             ),
             child: IconButton(
-              onPressed: () {
-                Get.to(() => const FavoratePage());
-              },
+              onPressed: widget.onFavoritePressed,
               padding: const EdgeInsets.all(0),
               icon: Icon(
                 Icons.favorite_rounded,

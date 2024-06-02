@@ -66,6 +66,7 @@ class AuthenticationService extends BaseApi {
     final response = await BaseApi().getRequest(endPoint: 'user');
     final data = AuthInfoModel.fromJson(jsonDecode(response.body)['data']);
     if (response.statusCode >= 200 && response.statusCode < 300) {
+      print(response.statusCode);
       return data;
     }
     throw Exception('There is no data');

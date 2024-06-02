@@ -2,28 +2,32 @@ import 'package:get/get.dart';
 import 'package:wael/data/model/api/models/product_model.dart';
 
 class CartController extends GetxController {
-  RxMap _carts = {}.obs;
+  RxMap cart = {}.obs;
 
-  get carts => _carts;
+  get carts => cart;
+
+  List<ProductModel> productList = [];
+
+  int quantity = 0;
 
   void increament({required ProductModel product}) {
-    _carts[product] += 1;
+    cart[product] += 1;
   }
 
   void decreament({required ProductModel product}) {
-    _carts[product] -= 1;
+    cart[product] -= 1;
   }
 
   int totalDiscountPrice() {
     int total = 0;
-    for (var i = 0; i < _carts.length; i++) {}
+    for (var i = 0; i < cart.length; i++) {}
     return total;
   }
 
-  List get totalList => _carts.entries
+  List get totalList => cart.entries
       .map((product) => product.key.regular_price * product.value)
       .toList();
-  List get totalSaleList => _carts.entries
+  List get totalSaleList => cart.entries
       .map((product) => product.key.sale_price * product.value)
       .toList();
 
@@ -48,18 +52,20 @@ class CartController extends GetxController {
   }
 
   void addToCart({required ProductModel product}) {
-    if (_carts.containsKey(product)) {
-      _carts[product] += 1;
+    if (cart.containsKey(product)) {
+      productList.add(product);
+      cart[product] += 1;
     } else {
-      _carts[product] = 1;
+      cart[product] = 1;
       Get.snackbar('Notice', 'You have already added the product.');
     }
-    
+
     update();
   }
 
   void removeFromCart({required ProductModel product}) {
-    _carts.removeWhere((key, value) => key == product);
+    productList.remove(product);
+    cart.removeWhere((key, value) => key == product);
     update();
   }
 }

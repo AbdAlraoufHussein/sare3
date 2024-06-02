@@ -7,6 +7,7 @@ import 'package:wael/view/screen/main_page/store.dart';
 
 class SearchModel extends SearchDelegate {
   static List<BrandModel> brandsItems = [];
+
   static void brands() async {
     final data = await BrandService.getAllBrands();
     for (var d in data) {
@@ -45,7 +46,9 @@ class SearchModel extends SearchDelegate {
     List<BrandModel> matchQuery = [];
     for (var brand in brandsItems) {
       if (brand.name.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(brand);
+        if (!matchQuery.contains(brand)) {
+          matchQuery.add(brand);
+        }
       }
     }
     return ListView.builder(
@@ -67,7 +70,9 @@ class SearchModel extends SearchDelegate {
     List<BrandModel> matchQuery = [];
     for (var brand in brandsItems) {
       if (brand.name.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(brand);
+        if (!matchQuery.contains(brand)) {
+          matchQuery.add(brand);
+        }
       }
     }
     return ListView.builder(

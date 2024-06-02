@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:wael/data/model/api/base_api_class.dart';
 import 'package:wael/data/model/api/models/cart_model.dart';
-import 'package:wael/data/model/api/models/product_model.dart';
 
 abstract class CartServices extends BaseApi {
   Future<List<CartModel>> getCart() async {
@@ -13,10 +12,12 @@ abstract class CartServices extends BaseApi {
   }
 
   static Future<void> postCart({
-    required List<ProductModel> orderItems,
+    required int product_id,
+    required int quantity,
   }) async {
     await BaseApi().postRequest(endPoint: 'carts', data: {
-      'order_items': orderItems,
+      'product_id': product_id,
+      'quantity': quantity,
     });
   }
 }

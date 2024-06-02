@@ -133,31 +133,36 @@ class HeadOfProfilePage extends StatelessWidget {
                       ],
                     );
                   } else {
-                    return Skeletonizer(
-                        child: Column(
+                    return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Abd alraouf hussein',
-                          style: TextStyle(
-                              color: AppColor.blue,
-                              fontSize: 25.sp,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          '0968645606',
-                          style: TextStyle(
-                              color: AppColor.blue,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
+                        Skeletonizer(
+                            child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Abd alraouf hussein',
+                              style: TextStyle(
+                                  color: AppColor.blue,
+                                  fontSize: 25.sp,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              '0968645606',
+                              style: TextStyle(
+                                  color: AppColor.blue,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        )),
                         EditProfileButton(
                           nameController: _nameController,
                           phoneController: _phoneController,
                           onPressed: () {},
                         ),
                       ],
-                    ));
+                    );
                   }
                 },
               ),

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:wael/controller/cubits/brand_on_category/brand_on_category_cubit.dart';
 import 'package:wael/core/constant/color.dart';
+import 'package:wael/core/constant/routes.dart';
 import 'package:wael/core/services/category_service.dart';
 import 'package:wael/view/screen/main_page/store.dart';
 import 'package:wael/view/widget/head_of_search_logo.dart';
@@ -31,24 +32,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
     CategoryButton(
       text: 'clothes',
     ),
-    CategoryButton(
-      text: 'clothes',
-    ),
-    CategoryButton(
-      text: 'clothes',
-    ),
-    CategoryButton(
-      text: 'clothes',
-    ),
-    CategoryButton(
-      text: 'clothes',
-    ),
-    CategoryButton(
-      text: 'clothes',
-    ),
-    CategoryButton(
-      text: 'clothes',
-    ),
   ];
   int categoryId = 1;
   @override
@@ -57,7 +40,11 @@ class _CategoriesPageState extends State<CategoriesPage> {
       create: (context) => BrandOnCategoryCubit(),
       child: Column(
         children: [
-          const HeadOfSearchLogo(),
+          HeadOfSearchLogo(
+            onFavoritePressed: () {
+              Get.offNamed(AppRoute.favoritePage);
+            },
+          ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),

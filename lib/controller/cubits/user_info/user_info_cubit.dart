@@ -7,7 +7,7 @@ part 'user_info_state.dart';
 
 class UserInfoCubit extends Cubit<UserInfoState> {
   UserInfoCubit() : super(UserInfoInitial());
-  void getuserInfo()async{
+  void getuserInfo() async {
     emit(UserInfoLoading());
     try {
       final userInfo = await AuthenticationService.getUserInfo();

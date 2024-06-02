@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:wael/controller/cubits/product/product_cubit.dart';
 import 'package:wael/core/constant/color.dart';
+import 'package:wael/core/constant/routes.dart';
 import 'package:wael/view/widget/favorite_page/product_favorite.dart';
 
 class FavoratePage extends StatelessWidget {
@@ -23,7 +24,7 @@ class FavoratePage extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () {
-                      Get.back();
+                      Get.offNamed(AppRoute.mainPage);
                     },
                     icon: Image.asset(
                       'assets/images/btn_back.png',
