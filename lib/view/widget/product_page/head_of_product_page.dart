@@ -11,7 +11,7 @@ class HeadOfProductPage extends StatelessWidget {
       children: [
         Padding(
           padding:
-              const EdgeInsets.only(left: 20, right: 25, top: 55, bottom: 10),
+              const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
           child: Row(
             children: [
               const SizedBox(

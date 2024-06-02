@@ -15,14 +15,12 @@ class BrandService extends BaseApi {
     throw Exception('No Brand');
   }
 
-  Future<List<BrandModel>> getBrandsOnCategory(
-      {required String category}) async {
-    final brandResponse = await BaseApi().getRequest(endPoint: 'brands');
-    Map<String, dynamic> brandData = jsonDecode(brandResponse.body)['data'];
-    final filteredBrands = brandData['categories']['name']
-        .where((brand) => (brand['name']).contains(category))
+  static Future<List<BrandModel>> getBrandOnCategory({required int categoryId}) async {
+  final resposne = await BaseApi().getRequest(endPoint: 'category/$categoryId/brand');
+  final data = (jsonDecode(resposne.body)['data'] as List)
+        .map((e) => BrandModel.fromJson(e))
         .toList();
-    print(' $brandData, $filteredBrands');
-    return filteredBrands;
+        print(data);
+        return data;
   }
 }

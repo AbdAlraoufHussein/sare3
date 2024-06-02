@@ -2,15 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wael/core/constant/color.dart';
+import 'package:wael/data/model/search_model.dart';
 import 'package:wael/view/screen/main_page/favorite_page.dart';
 
-class HeadOfSearchLogo extends StatelessWidget {
+class HeadOfSearchLogo extends StatefulWidget {
   const HeadOfSearchLogo({super.key});
+
+  @override
+  State<HeadOfSearchLogo> createState() => _HeadOfSearchLogoState();
+}
+
+class _HeadOfSearchLogoState extends State<HeadOfSearchLogo> {
+  @override
+  void initState() {
+    SearchModel.brands();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 8, top: 24, right: 8, bottom: 16),
+      padding: const EdgeInsets.all(16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -57,11 +69,17 @@ class HeadOfSearchLogo extends StatelessWidget {
             height: 55.h,
             width: 219.w,
             child: TextField(
-              onChanged: null,
+              onTap: () {
+                showSearch(
+                  context: context,
+                  delegate: SearchModel(),
+                );
+              },
+              cursorColor: AppColor.blue,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.start,
               decoration: InputDecoration(
-                prefixIcon: Transform.scale(
+                suffixIcon: Transform.scale(
                   scale: 0.3,
                   child: const Image(
                     image: AssetImage(
@@ -69,12 +87,16 @@ class HeadOfSearchLogo extends StatelessWidget {
                     ),
                   ),
                 ),
-                hintText: ' search',
+                hintText: ' Search a brand',
                 hintStyle: TextStyle(
                     color: Colors.grey,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold),
                 focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(25.r),
+                    topRight: Radius.circular(25.r),
+                  ),
                   borderSide: BorderSide(
                     color: AppColor.blue,
                     width: 2.w,

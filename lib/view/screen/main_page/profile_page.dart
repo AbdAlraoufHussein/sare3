@@ -19,9 +19,6 @@ class ProfilePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const HeadOfProfilePage(),
-            SizedBox(
-              height: 20.h,
-            ),
             RowProfile(
               image: 'assets/images/rule_image_profile.png',
               text: 'Terms and Conditions',

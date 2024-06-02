@@ -14,7 +14,9 @@ class Brand extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      width: 100.w,
+      height: 100.h,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: Column(
         children: [
@@ -44,9 +46,10 @@ class Brand extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 5.h),
             child: Text(
+              textAlign: TextAlign.center,
               name,
               style: TextStyle(
-                  fontSize: 14.sp,
+                  fontSize: 12.sp,
                   color: AppColor.grey,
                   fontWeight: FontWeight.bold),
             ),

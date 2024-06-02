@@ -1,20 +1,26 @@
 class AuthInfoModel {
+  final int id;
   final String name;
-  final String email;
-  final String password;
-  final int phone;
+  final String phone;
+  
 
-  AuthInfoModel(
-      {required this.name,
-      required this.email,
-      required this.password,
-      required this.phone});
+  AuthInfoModel({required this.id, required this.name,required this.phone,});
 
   factory AuthInfoModel.fromJson(Map<String, dynamic> jsonData) {
     return AuthInfoModel(
+        id: jsonData['id'],
         name: jsonData['name'],
-        email: jsonData['email'],
-        password: jsonData['password'],
-        phone: jsonData['phone']);
+        phone: jsonData['phone'],
+        );
+  }
+}
+
+class UserInfo {
+  final int id;
+  final String name;
+
+  UserInfo({required this.id, required this.name});
+  factory UserInfo.fromJson(Map<String, dynamic> jsonData) {
+    return UserInfo(id: jsonData['id'], name: jsonData['name']);
   }
 }

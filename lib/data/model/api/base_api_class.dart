@@ -5,16 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class BaseApi {
   static String get baseUrl => 'http://127.0.0.1:8000/api/';
 
-  // final dio = Dio(
-  //   BaseOptions(
-  //     baseUrl: baseUrl,5
-  //     headers: {
-  //       HttpHeaders.contentTypeHeader: 'application/json',
-  //       HttpHeaders.acceptHeader: 'application/json',
-  //     },
-  //   ),
-  // );
-
   Future<http.Response> getRequest({
     required String endPoint,
   }) async {
@@ -29,7 +19,7 @@ class BaseApi {
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return response;
     } else {
-      return throw Exception(
+      throw Exception(
           'There is a problem with Status code: ${response.statusCode.toString()} Message: ${response.body.toString()}');
     }
   }

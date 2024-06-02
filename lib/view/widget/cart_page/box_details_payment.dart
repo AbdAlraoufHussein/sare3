@@ -9,9 +9,9 @@ class BoxDetailsPayment extends StatelessWidget {
       required this.cost,
       required this.costBeforeDiscount,
       required this.costAfterDiscounte});
-  final double cost;
-  final double costBeforeDiscount;
-  final double costAfterDiscounte;
+  final int cost;
+  final int costBeforeDiscount;
+  final int costAfterDiscounte;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,7 +35,7 @@ class BoxDetailsPayment extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Text(
-            'Cost: $cost',
+            'Cost:',
             style: TextStyle(
               color: AppColor.black,
               fontWeight: FontWeight.bold,

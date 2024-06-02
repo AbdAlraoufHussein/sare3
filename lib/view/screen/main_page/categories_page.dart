@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:wael/controller/cubits/brand_on_category/brand_on_category_cubit.dart';
 import 'package:wael/core/constant/color.dart';
-import 'package:wael/core/services/brand_service.dart';
 import 'package:wael/core/services/category_service.dart';
 import 'package:wael/view/screen/main_page/store.dart';
 import 'package:wael/view/widget/head_of_search_logo.dart';
@@ -17,165 +18,179 @@ class CategoriesPage extends StatefulWidget {
 }
 
 class _CategoriesPageState extends State<CategoriesPage> {
+  List<Widget> categoriesList = const [
+    CategoryButton(
+      text: 'clothes',
+    ),
+    CategoryButton(
+      text: 'clothes',
+    ),
+    CategoryButton(
+      text: 'clothes',
+    ),
+    CategoryButton(
+      text: 'clothes',
+    ),
+    CategoryButton(
+      text: 'clothes',
+    ),
+    CategoryButton(
+      text: 'clothes',
+    ),
+    CategoryButton(
+      text: 'clothes',
+    ),
+    CategoryButton(
+      text: 'clothes',
+    ),
+    CategoryButton(
+      text: 'clothes',
+    ),
+    CategoryButton(
+      text: 'clothes',
+    ),
+  ];
+  int categoryId = 1;
   @override
   Widget build(BuildContext context) {
-    List<Widget> categoriesList = const [
-      CategoryButton(
-        text: 'clothes',
-      ),
-      CategoryButton(
-        text: 'clothes',
-      ),
-      CategoryButton(
-        text: 'clothes',
-      ),
-      CategoryButton(
-        text: 'clothes',
-      ),
-      CategoryButton(
-        text: 'clothes',
-      ),
-      CategoryButton(
-        text: 'clothes',
-      ),
-      CategoryButton(
-        text: 'clothes',
-      ),
-      CategoryButton(
-        text: 'clothes',
-      ),
-      CategoryButton(
-        text: 'clothes',
-      ),
-      CategoryButton(
-        text: 'clothes',
-      ),
-    ];
-    String category = '';
-    return Column(
-      children: [
-        const HeadOfSearchLogo(),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(15.r),
-                          topLeft: Radius.circular(15.r),
+    return BlocProvider(
+      create: (context) => BrandOnCategoryCubit(),
+      child: Column(
+        children: [
+          const HeadOfSearchLogo(),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(15.r),
+                            topLeft: Radius.circular(15.r),
+                          ),
+                          border: Border(
+                            bottom: BorderSide(
+                                color: AppColor.greyfateh, width: 3.w),
+                            top: BorderSide(
+                                color: AppColor.greyfateh, width: 3.w),
+                            left: BorderSide(
+                                color: AppColor.greyfateh, width: 3.w),
+                          ),
                         ),
-                        border: Border(
-                          bottom:
-                              BorderSide(color: AppColor.greyfateh, width: 3.w),
-                          top:
-                              BorderSide(color: AppColor.greyfateh, width: 3.w),
-                          left:
-                              BorderSide(color: AppColor.greyfateh, width: 3.w),
-                        ),
-                      ),
-                      child: FutureBuilder(
-                        future: BrandService.getAllBrands(),
-                        builder: (context, snapshot) {
-                          if (!snapshot.hasData) {
-                            return Skeletonizer(
-                              child: GridView(
+                        child: BlocBuilder<BrandOnCategoryCubit,
+                            BrandOnCategoryState>(
+                          bloc: BrandOnCategoryCubit()
+                            ..getBrandOnCategory(categoryId: categoryId),
+                          builder: (context, state) {
+                            if (state is BrandOnCategoryFetched) {
+                              final brandData = state.brandData;
+                              return GridView.builder(
+                                itemCount: brandData.length,
+                                padding: EdgeInsets.all(10.r),
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
+                                  mainAxisExtent: 130,
                                   childAspectRatio: 3 / 3.3,
-                                  crossAxisSpacing: 10,
-                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 8,
+                                  mainAxisSpacing: 8,
                                 ),
-                                children: const [
-                                  SkeletonizerBrand(),
-                                  SkeletonizerBrand(),
-                                  SkeletonizerBrand(),
-                                  SkeletonizerBrand(),
-                                  SkeletonizerBrand(),
-                                  SkeletonizerBrand(),
-                                  SkeletonizerBrand(),
-                                  SkeletonizerBrand(),
-                                ],
+                                itemBuilder: (context, index) {
+                                  return Brand(
+                                    onTap: () {
+                                      Get.to(() => StorePage(
+                                            brandId: brandData[index].id,
+                                          ));
+                                    },
+                                    name: brandData[index].name,
+                                    imageUrl: brandData[index].image,
+                                  );
+                                },
+                              );
+                            } else if (state is BrandOnCategoryFailure) {
+                              return Container(
+                                width: 200,
+                                height: 200,
+                                color: AppColor.blue,
+                                child: Text(state.errorMessage),
+                              );
+                            } else {
+                              return Skeletonizer(
+                                child: GridView(
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    childAspectRatio: 3 / 3.3,
+                                    crossAxisSpacing: 8,
+                                    mainAxisSpacing: 8,
+                                  ),
+                                  children: const [
+                                    SkeletonizerBrand(),
+                                    SkeletonizerBrand(),
+                                    SkeletonizerBrand(),
+                                    SkeletonizerBrand(),
+                                    SkeletonizerBrand(),
+                                    SkeletonizerBrand(),
+                                    SkeletonizerBrand(),
+                                    SkeletonizerBrand(),
+                                  ],
+                                ),
+                              );
+                            }
+                          },
+                        )),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(15.r),
+                          bottomRight: Radius.circular(15.r),
+                        ),
+                        border: Border.all(color: AppColor.blue, width: 3.w),
+                      ),
+                      child: FutureBuilder(
+                        future: CategoryServices().getCategories(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return Skeletonizer(
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: categoriesList,
+                                ),
                               ),
                             );
                           }
-                          final brandData = snapshot.data!;
-                          return GridView.builder(
-                            itemCount: brandData.length,
-                            padding: EdgeInsets.all(10.r),
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 3 / 3.3,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                            ),
+                          final categoryData = snapshot.data!;
+                          return ListView.builder(
+                            itemCount: categoryData.length,
                             itemBuilder: (context, index) {
-                              return Brand(
+                              return CategoryButton(
                                 onTap: () {
-                                  Get.to(() => StorePage(
-                                        brandId: brandData[index].id,
-                                      ));
+                                  setState(() {
+                                    categoryId = categoryData[index].id;
+                                    print(categoryId);
+                                  });
                                 },
-                                name: brandData[index].name,
-                                imageUrl: brandData[index].image,
+                                text: categoryData[index].name,
                               );
                             },
                           );
                         },
-                      )),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 4),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(15.r),
-                        bottomRight: Radius.circular(15.r),
                       ),
-                      border: Border.all(color: AppColor.blue, width: 3.w),
-                    ),
-                    child: FutureBuilder(
-                      future: CategoryServices().getCategories(),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
-                          return Skeletonizer(
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: categoriesList,
-                              ),
-                            ),
-                          );
-                        }
-                        final categoryData = snapshot.data!;
-                        return ListView.builder(
-                          itemCount: categoryData.length,
-                          itemBuilder: (context, index) {
-                            return CategoryButton(
-                              onTap: () {
-                                setState(() {
-                                  category = categoryData[index].name;
-                                  print(category);
-                                });
-                              },
-                              text: categoryData[index].name,
-                            );
-                          },
-                        );
-                      },
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

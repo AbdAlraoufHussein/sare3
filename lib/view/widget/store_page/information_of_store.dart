@@ -10,19 +10,21 @@ class CategoryInfo extends StatelessWidget {
       required this.address,
       required this.telephone,
       required this.phone,
-      required this.description});
+      required this.description,
+      required this.brandId});
   final String image;
   final String name;
-  final List categories;
+  final List<String> categories;
   final String address;
   final String telephone;
   final String phone;
   final String description;
+  final int brandId;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -54,16 +56,16 @@ class CategoryInfo extends StatelessWidget {
                 color: AppColor.blue,
                 fontWeight: FontWeight.bold),
           ),
-          Text(
-            '. Category: $categories ',
-            maxLines: null,
-            overflow: TextOverflow.clip,
-            style: TextStyle(
-              color: AppColor.black,
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+         Text(
+                  '. Category: $categories ',
+                  maxLines: null,
+                  overflow: TextOverflow.clip,
+                  style: TextStyle(
+                    color: AppColor.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
           Text(
             '. Address: $address',
             maxLines: null,
@@ -95,7 +97,7 @@ class CategoryInfo extends StatelessWidget {
             ),
           ),
           Text(
-            '. $description',
+            '. Description: $description',
             maxLines: null,
             overflow: TextOverflow.clip,
             style: TextStyle(

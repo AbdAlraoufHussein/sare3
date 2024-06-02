@@ -1,19 +1,10 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wael/data/model/api/base_api_class.dart';
 import 'package:wael/data/model/api/models/product_model.dart';
-import 'package:http/http.dart' as http;
 
 abstract class ProductServices extends BaseApi {
   static Future<List<ProductModel>> getAllProducts() async {
-    final sharedPrefs = await SharedPreferences.getInstance();
-    final token = sharedPrefs.getString('token');
-    final response = await http
-        .get(Uri.parse('http://127.0.0.1:8000/api/products'), headers: {
-      HttpHeaders.acceptHeader: 'application/json',
-      HttpHeaders.authorizationHeader: 'Bearer $token',
-    });
+    final response = await BaseApi().getRequest(endPoint: 'products');
     print(response.body);
     final data = (jsonDecode(response.body)['data'] as List)
         .map((e) => ProductModel.fromJson(e))
@@ -32,24 +23,35 @@ abstract class ProductServices extends BaseApi {
   }
 
   static Future<List<ProductModel>> getFavoriteProducts() async {
-    final response = await BaseApi().getRequest(endPoint: 'products/favorites');
+    final response = await BaseApi().getRequest(endPoint: 'products');
     final data = (jsonDecode(response.body)['data'] as List)
         .map((e) => ProductModel.fromJson(e))
+        .where((element) => element.is_favorite_for_current_user == true)
         .toList();
     return data;
   }
 
-  static void likeProduct({required int product_id}) async {
+  static void likeProduct({required String product_id}) async {
     await BaseApi()
         .postRequest(endPoint: 'products/$product_id/favorite', data: {
       'product_id': product_id,
     });
   }
 
-  static void dislikeProduct({required int product_id}) async {
+  static void dislikeProduct({required String product_id}) async {
     await BaseApi()
         .postRequest(endPoint: 'products/$product_id/unfavorite', data: {
       'product_id': product_id,
     });
+  }
+
+  static Future<List<ProductModel>> getBrandProduct(
+      {required int brandId}) async {
+    final response = await BaseApi().getRequest(endPoint: 'brand/$brandId/product');
+    final products = (jsonDecode(response.body)['data'] as List)
+        .map((e) => ProductModel.fromJson(e))
+        .toList();
+    print(products);
+    return products;
   }
 }

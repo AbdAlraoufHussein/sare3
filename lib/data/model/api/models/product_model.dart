@@ -6,7 +6,7 @@ class ProductModel {
   final int regular_price;
   final int sale_price;
   final bool on_sale;
-  final double discount_percentage;
+  final int discount_percentage;
   bool is_favorite_for_current_user;
 
   ProductModel(

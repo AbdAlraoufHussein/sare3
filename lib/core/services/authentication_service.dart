@@ -43,7 +43,7 @@ class AuthenticationService extends BaseApi {
     final token = jsonDecode(response.body)['token'];
     final errorMessage = jsonDecode(response.body)['message'];
     final sharedPrefs = await SharedPreferences.getInstance();
-    if (response.statusCode <= 200 && response.statusCode < 300) {
+    if (response.statusCode >= 200 && response.statusCode < 300) {
       await sharedPrefs.setString('token', token);
       print(token);
       return null;
@@ -64,12 +64,8 @@ class AuthenticationService extends BaseApi {
 
   static Future<AuthInfoModel> getUserInfo() async {
     final response = await BaseApi().getRequest(endPoint: 'user');
-    print("Response: $response");
-
-    final data = jsonDecode(response.body);
-
+    final data = jsonDecode(response.body)['data'];
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      print('User info are: $data');
       return data;
     }
     throw Exception('There is no data');

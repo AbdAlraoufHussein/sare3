@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:wael/core/constant/color.dart';
 import 'package:wael/core/services/product_service.dart';
-import 'package:wael/view/screen/main_page/product_page.dart';
 import 'package:wael/view/widget/product_page/favorite_button.dart';
 
 class Product extends StatefulWidget {
@@ -16,16 +14,16 @@ class Product extends StatefulWidget {
       required this.discountPrice,
       required this.realPrice,
       required this.image,
-      required this.name, this.onAddToCartTap});
+      required this.name, required this.onProductTap,});
   final bool isFavorite;
   final int product_id;
   final Function(bool isFavorite)? onChange;
-  final Function()? onAddToCartTap;
-  final double discountPercentage;
+  final int discountPercentage;
   final int discountPrice;
   final int realPrice;
   final String image;
   final String name;
+  final void Function() onProductTap;
 
   @override
   State<Product> createState() => _ProductState();
@@ -38,10 +36,9 @@ class _ProductState extends State<Product> {
     // List<Map> products = [];
     // final List<Change> product =
     //     products.map((e) => Change(isFavorite: false)).toList();
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        return Container(
+    return Container(
           margin: const EdgeInsets.symmetric(horizontal: 8),
+          height: 270.h,
           width: 155.w,
           decoration: BoxDecoration(
               color: AppColor.greyfateh,
@@ -64,9 +61,7 @@ class _ProductState extends State<Product> {
                     width: 155.w,
                   ),
                   InkWell(
-                    onTap: () {
-                      Get.to(const ProductPage());
-                    },
+                    onTap: widget.onProductTap,
                     child: SizedBox(
                       height: 156.h,
                       width: 155.3.w,
@@ -76,7 +71,7 @@ class _ProductState extends State<Product> {
                           topRight: Radius.circular(15.r),
                           bottomRight: Radius.circular(95.r),
                         ),
-                        child: Image.asset(
+                        child: Image.network(
                           widget.image,
                           fit: BoxFit.cover,
                         ),
@@ -95,22 +90,11 @@ class _ProductState extends State<Product> {
                       ),
                     ),
                   ),
-                  Positioned(
-                    right: 0,
-                    left: 0,
-                    bottom: -20,
-                    child: GestureDetector(
-                      onTap: widget.onAddToCartTap,
-                      child: Image.asset(
-                        'assets/images/product_btn_addtocart.png',
-                        height: 42.h,
-                      ),
-                    ),
-                  ),
+                  
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 8, top: 24, bottom: 8),
+                padding: const EdgeInsets.only(left: 8, top: 8, bottom: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -132,7 +116,7 @@ class _ProductState extends State<Product> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '${widget.realPrice} L.S',
+                              '${widget.discountPercentage} L.S',
                               style: TextStyle(
                                 color: AppColor.blue,
                                 fontSize: 15.sp,
@@ -141,7 +125,7 @@ class _ProductState extends State<Product> {
                               textAlign: TextAlign.start,
                             ),
                             Text(
-                              '${widget.discountPrice} L.S',
+                              '${widget.realPrice} L.S',
                               style: TextStyle(
                                 decorationColor: AppColor.yellow,
                                 decoration: TextDecoration.lineThrough,
@@ -159,10 +143,10 @@ class _ProductState extends State<Product> {
                               isFavorite = !isFavorite;
                               if (isFavorite) {
                                 ProductServices.likeProduct(
-                                    product_id: widget.product_id);
+                                    product_id: widget.product_id.toString());
                               } else {
                                 ProductServices.dislikeProduct(
-                                    product_id: widget.product_id);
+                                    product_id: widget.product_id.toString());
                               }
                               if (widget.onChange != null) {
                                 widget.onChange!(isFavorite);
@@ -178,7 +162,6 @@ class _ProductState extends State<Product> {
             ],
           ),
         );
-      },
-    );
+      
   }
 }
