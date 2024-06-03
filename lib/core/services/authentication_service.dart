@@ -7,7 +7,6 @@ class AuthenticationService extends BaseApi {
   static Future<String?> logIN(
       {required String email, required String password}) async {
     // GET, POST, PUT, DELETE
-
     final response = await BaseApi().postRequest(
       endPoint: 'login',
       data: {
@@ -17,13 +16,14 @@ class AuthenticationService extends BaseApi {
     );
     final String token = jsonDecode(response.body)['token'] as String;
     final sharedPrefs = await SharedPreferences.getInstance();
-
+    final errorMessage = jsonDecode(response.body)['message'];
     if (response.statusCode >= 200 && response.statusCode < 300) {
       await sharedPrefs.setString('token', token);
       print(token);
       return null;
+    } else {
+      return errorMessage;
     }
-    return jsonDecode(response.body)['message'];
   }
 
   static Future<String?> signup({

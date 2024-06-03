@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -99,16 +101,19 @@ class _SignInState extends State<SignIn> {
                   txet: 'Sign In_btn'.tr,
                   onPressed: () async {
                     if (_formState.currentState!.validate()) {
-                      final error = await AuthenticationService.logIN(
-                        email: _emailController.text,
-                        password: _passwordController.text,
-                      );
-                      if (error == null) {
+                      try {
+                        await AuthenticationService.logIN(
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                        );
+
                         _emailController.clear();
                         _passwordController.clear();
                         Get.toNamed(AppRoute.mainPage);
+                      } on HttpException catch (e) {
+                        Get.snackbar('Warning', e.message,
+                                  snackPosition: SnackPosition.BOTTOM);
                       }
-                      Get.snackbar('title', 'message');
                     }
                   },
                 )

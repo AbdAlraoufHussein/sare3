@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,8 +20,8 @@ class BaseApi {
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return response;
     } else {
-      throw Exception(
-          'There is a problem with Status code: ${response.statusCode.toString()} Message: ${response.body.toString()}');
+      final errorMessage = jsonDecode(response.body)['message'];
+      throw HttpException(errorMessage);
     }
   }
 
@@ -37,8 +38,8 @@ class BaseApi {
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return response;
     } else {
-      throw Exception(
-          'There is a problem with Status code: ${response.statusCode.toString()} Message: ${response.body.toString()}');
+      final errorMessage = jsonDecode(response.body)['message'];
+      throw HttpException(errorMessage);
     }
   }
 
@@ -57,8 +58,8 @@ class BaseApi {
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return response;
     } else {
-      throw Exception(
-          'There is a problem with Status code: ${response.statusCode.toString()} Message: ${response.body.toString()}');
+      final errorMessage = jsonDecode(response.body)['message'];
+      throw HttpException(errorMessage);
     }
   }
 }

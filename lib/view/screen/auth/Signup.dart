@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -123,18 +125,19 @@ class _SignUpState extends State<SignUp> {
                         txet: 'Sign Up_btn'.tr,
                         onPressed: () async {
                           if (_formState.currentState!.validate()) {
-                            final error = await AuthenticationService.signup(
-                              username: _nameController.text,
-                              email: _emailController.text,
-                              password: _passwordController.text,
-                              phone: _phoneController.text,
-                            );
-                            if (error == null) {
+                            try {
+                              await AuthenticationService.signup(
+                                username: _nameController.text,
+                                email: _emailController.text,
+                                password: _passwordController.text,
+                                phone: _phoneController.text,
+                              );
                               _emailController.clear();
                               _passwordController.clear();
                               Get.toNamed(AppRoute.mainPage);
-                            } else {
-                              Get.snackbar('Warning', error);
+                            } on HttpException catch (e) {
+                              Get.snackbar('Warning', e.message,
+                                  snackPosition: SnackPosition.BOTTOM);
                             }
                           }
                         }),
