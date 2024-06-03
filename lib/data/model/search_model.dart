@@ -43,7 +43,8 @@ class SearchModel extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    List<BrandModel> matchQuery = [];
+    Set<BrandModel> setQuery = {};
+    List<BrandModel> matchQuery = setQuery.toList();
     for (var brand in brandsItems) {
       if (brand.name.toLowerCase().contains(query.toLowerCase())) {
         if (!matchQuery.contains(brand)) {
@@ -52,9 +53,9 @@ class SearchModel extends SearchDelegate {
       }
     }
     return ListView.builder(
-      itemCount: matchQuery.length,
+      itemCount: matchQuery.toList().length,
       itemBuilder: (context, index) {
-        final result = matchQuery[index].name;
+        final result = matchQuery.toList()[index].name;
         return ListTile(
           onTap: () {
             Get.to(() => StorePage(brandId: brandsItems[index].id));
@@ -67,7 +68,8 @@ class SearchModel extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<BrandModel> matchQuery = [];
+    Set<BrandModel> setQuery = {};
+    List<BrandModel> matchQuery = setQuery.toList();
     for (var brand in brandsItems) {
       if (brand.name.toLowerCase().contains(query.toLowerCase())) {
         if (!matchQuery.contains(brand)) {
@@ -76,9 +78,9 @@ class SearchModel extends SearchDelegate {
       }
     }
     return ListView.builder(
-      itemCount: matchQuery.length,
+      itemCount: matchQuery.toList().length,
       itemBuilder: (context, index) {
-        final result = matchQuery[index].name;
+        final result = matchQuery.toList()[index].name;
         return ListTile(
           onTap: () {
             Get.to(() => StorePage(brandId: brandsItems[index].id));

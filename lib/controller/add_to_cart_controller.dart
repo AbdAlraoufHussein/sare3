@@ -9,6 +9,7 @@ class CartController extends GetxController {
   List<ProductModel> productList = [];
 
   int quantity = 0;
+  // int count = 0;
 
   void increament({required ProductModel product}) {
     _carts[product] += 1;
@@ -48,13 +49,13 @@ class CartController extends GetxController {
       tt.add(totalSaleList[i]);
       total = total + tt[i];
     }
-  return total;
+    return total;
   }
 
   void addToCart({required ProductModel product}) {
-    if (_carts.containsKey(product)) {
+    if (_carts[product] != 1 && _carts.containsKey(product)) {
       productList.add(product);
-      _carts[product] +=1;
+      _carts[product] += 1;
     } else {
       _carts[product] = 1;
     }
