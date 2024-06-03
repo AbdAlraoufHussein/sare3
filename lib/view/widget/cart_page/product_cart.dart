@@ -74,12 +74,15 @@ class ProductCart extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8, top: 0, bottom: 8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [ const Spacer(
+                      flex: 2,
+                    ),
                     Text(
                       product.name,
                       style: TextStyle(
@@ -88,7 +91,82 @@ class ProductCart extends StatelessWidget {
                           fontWeight: FontWeight.bold),
                       textAlign: TextAlign.start,
                     ),
-                    IconButton(
+                    const SizedBox(height: 8,),
+                    Text(
+                      '${product.sale_price} L.S',
+                      style: TextStyle(
+                        color: AppColor.blue,
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.start,
+                    ),
+                    Text(
+                      '${product.regular_price} L.S',
+                      style: TextStyle(
+                        decorationColor: AppColor.yellow,
+                        decoration: TextDecoration.lineThrough,
+                        color: AppColor.yellow,
+                        fontSize: 12.sp,
+                      ),
+                      textAlign: TextAlign.start,
+                    ),
+                    const Spacer(
+                      flex: 3,
+                    ),
+                    Container(
+                      height: 30.h,
+                      width: 120.w,
+                      decoration: BoxDecoration(
+                        color: AppColor.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5.r),
+                        ),
+                        border: Border.all(color: AppColor.blue, width: 2.w),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              controller.decreament(product: product);
+                            },
+                            child: Icon(
+                              Icons.remove,
+                              color: AppColor.blue,
+                              size: 20,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          Text(
+                            quantity.toString(),
+                            style: TextStyle(
+                              fontSize: 18.sp,
+                              color: AppColor.blue,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              controller.increament(product: product);
+                            },
+                            child: Icon(
+                              Icons.add,
+                              color: AppColor.blue,
+                              size: 20,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  
+                   ],
+                ),IconButton(
                       onPressed: () {
                         controller.removeFromCart(product: product);
                       },
@@ -96,80 +174,6 @@ class ProductCart extends StatelessWidget {
                       iconSize: 16,
                       color: AppColor.blue,
                     )
-                  ],
-                ),
-                Text(
-                  '${product.sale_price} L.S',
-                  style: TextStyle(
-                    color: AppColor.blue,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.start,
-                ),
-                Text(
-                  '${product.regular_price} L.S',
-                  style: TextStyle(
-                    decorationColor: AppColor.yellow,
-                    decoration: TextDecoration.lineThrough,
-                    color: AppColor.yellow,
-                    fontSize: 12.sp,
-                  ),
-                  textAlign: TextAlign.start,
-                ),
-                const Spacer(
-                  flex: 1,
-                ),
-                Container(
-                  height: 30.h,
-                  width: 120.w,
-                  decoration: BoxDecoration(
-                    color: AppColor.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5.r),
-                    ),
-                    border: Border.all(color: AppColor.blue, width: 2.w),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          controller.decreament(product: product);
-                        },
-                        child: Icon(
-                          Icons.remove,
-                          color: AppColor.blue,
-                          size: 20,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      Text(
-                        quantity.toString(),
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          color: AppColor.blue,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          controller.increament(product: product);
-                        },
-                        child: Icon(
-                          Icons.add,
-                          color: AppColor.blue,
-                          size: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
               ],
             ),
           ),
