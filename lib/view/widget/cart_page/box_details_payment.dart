@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:wael/controller/cubits/product_cart/product_cart_cubit.dart';
 import 'package:wael/core/constant/color.dart';
-import 'package:wael/core/services/cart_service.dart';
-import 'package:wael/data/model/api/models/product_model.dart';
 import 'package:wael/helpers/stripe_helper.dart';
 
 class BoxDetailsPayment extends StatelessWidget {
@@ -97,10 +93,10 @@ class BoxDetailsPayment extends StatelessWidget {
                 ),
               ),
               onPressed: () async {
-                final List<ProductModel> cart = context.read<ProductCartCubit>().productList;
-                await CartServices.postCart(
-                    product_id: cart.first.id,
-                    quantity: context.read<ProductCartCubit>().quantity);
+                // final List<ProductModel> cart = context.read<ProductCartCubit>().productList;
+                // await CartServices.postCart(
+                //     product_id: cart.first.id,
+                //     quantity: context.read<ProductCartCubit>().quantity);
                 StripeHelper.stripe(salePrice: costAfterDiscounte);
               },
               child: Text(
