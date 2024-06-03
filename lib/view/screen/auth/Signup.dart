@@ -135,6 +135,9 @@ class _SignUpState extends State<SignUp> {
                               _emailController.clear();
                               _passwordController.clear();
                               Get.toNamed(AppRoute.mainPage);
+                              Get.snackbar(
+                                  'Congrats', 'You signed up succesfully.',
+                                  snackPosition: SnackPosition.BOTTOM);
                             } on HttpException catch (e) {
                               Get.snackbar('Warning', e.message,
                                   snackPosition: SnackPosition.BOTTOM);

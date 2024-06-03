@@ -110,6 +110,8 @@ class _SignInState extends State<SignIn> {
                         _emailController.clear();
                         _passwordController.clear();
                         Get.toNamed(AppRoute.mainPage);
+                        Get.snackbar('Congrats', 'You signed in succesfully.',
+                                  snackPosition: SnackPosition.BOTTOM);
                       } on HttpException catch (e) {
                         Get.snackbar('Warning', e.message,
                                   snackPosition: SnackPosition.BOTTOM);
