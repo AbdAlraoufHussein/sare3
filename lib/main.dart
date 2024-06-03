@@ -1,8 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
+import 'package:wael/controller/cubits/product/product_cubit.dart';
+import 'package:wael/controller/cubits/product_cart/product_cart_cubit.dart';
 import 'package:wael/core/constant/routes.dart';
 import 'package:wael/core/localization/changelangauge.dart';
 import 'package:wael/core/localization/translation.dart';
@@ -37,7 +40,17 @@ void main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   await initialServices();
-  runApp(const MyWidget());
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider(
+        create: (context) => ProductCubit(),
+      ),
+      BlocProvider(
+        create: (context) => ProductCartCubit(),
+      ),
+    ],
+    child: const MyWidget(),
+  ));
 }
 
 class MyWidget extends StatelessWidget {
@@ -68,15 +81,13 @@ class MyWidget extends StatelessWidget {
           GetPage(
               name: AppRoute.favoritePage, page: () => const FavoratePage()),
           GetPage(
-              name: AppRoute.notifications,
-              page: () => const Notifications()),
+              name: AppRoute.notifications, page: () => const Notifications()),
           GetPage(name: AppRoute.homePage, page: () => const HomePage()),
           GetPage(
               name: AppRoute.cateroriesPage,
               page: () => const CategoriesPage()),
           GetPage(name: AppRoute.cartPage, page: () => const CartPage()),
-          GetPage(
-              name: AppRoute.profilePage, page: () => const ProfilePage()),
+          GetPage(name: AppRoute.profilePage, page: () => const ProfilePage()),
         ],
       ),
     );

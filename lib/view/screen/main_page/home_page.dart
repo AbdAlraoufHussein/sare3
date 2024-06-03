@@ -26,150 +26,147 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => ProductCubit(),
-      child: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: Column(
-              children: [
-                HeadOfSearchLogo(
-                  onFavoritePressed: () {
-                    Get.offNamed(AppRoute.favoritePage);
-                  },
-                ),
-                FutureBuilder(
-                  future: BannerService().getAllBanners(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return const Skeletonizer(
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Column(
+            children: [
+              HeadOfSearchLogo(
+                onFavoritePressed: () {
+                  Get.offNamed(AppRoute.favoritePage);
+                },
+              ),
+              FutureBuilder(
+                future: BannerService().getAllBanners(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Skeletonizer(
+                      enabled: true,
+                      child: SkeletonizerCaroselSlider(),
+                    );
+                  }
+                  final bannerData = snapshot.data!;
+                  return CaroselSlider(
+                    carosellImages: bannerData.map((e) => e.image).toList(),
+                    itemCount: bannerData.length,
+                  );
+                },
+              ),
+              MainPoints(
+                  text: 'Brands',
+                  onTap: () {
+                    Get.to(() => const AllBrands());
+                  }),
+              FutureBuilder(
+                future: BrandService.getAllBrands(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Skeletonizer(
                         enabled: true,
-                        child: SkeletonizerCaroselSlider(),
+                        child: Row(
+                          children: [
+                            SkeletonizerBrand(),
+                            SkeletonizerBrand(),
+                            SkeletonizerBrand(),
+                            SkeletonizerBrand(),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+                  final brandData = snapshot.data!;
+                  return SizedBox(
+                    height: 120.h,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: brandData.length,
+                      itemBuilder: (context, index) {
+                        return Brand(
+                          onTap: () {
+                            Get.to(() =>
+                                StorePage(brandId: brandData[index].id));
+                          },
+                          imageUrl: brandData[index].image,
+                          name: brandData[index].name,
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+              MainPoints(
+                  text: 'New Products',
+                  onTap: () {
+                    Get.to(() => const ProductsPage());
+                  }),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: BlocBuilder<ProductCubit, ProductState>(
+                  bloc: ProductCubit()..getProducts(),
+                  builder: (context, state) {
+                    if (state is ProductFetched) {
+                      final productData = state.productData;
+                      return SizedBox(
+                        height: 250.h,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: productData.length,
+                          itemBuilder: (context, index) {
+                            return Product(
+                              onProductTap: () {
+                                Get.to(() => ProductPage(
+                                      product_id: productData[index].id,
+                                    ));
+                              },
+                              onChange: (isFavorite) {
+                                productData[index]
+                                        .is_favorite_for_current_user =
+                                    isFavorite;
+                              },
+                              isFavorite: productData[index]
+                                  .is_favorite_for_current_user,
+                              product_id: productData[index].id,
+                              discountPercentage:
+                                  productData[index].discount_percentage,
+                              discountPrice: productData[index].sale_price,
+                              image: productData[index].image,
+                              name: productData[index].name,
+                              realPrice: productData[index].regular_price,
+                            );
+                          },
+                        ),
+                      );
+                    } else if (state is ProductFailure) {
+                      return Container(
+                        width: 200,
+                        height: 200,
+                        child: Text(state.errorMessage),
                       );
                     }
-                    final bannerData = snapshot.data!;
-                    return CaroselSlider(
-                      carosellImages: bannerData.map((e) => e.image).toList(),
-                      itemCount: bannerData.length,
-                    );
-                  },
-                ),
-                MainPoints(
-                    text: 'Brands',
-                    onTap: () {
-                      Get.to(() => const AllBrands());
-                    }),
-                FutureBuilder(
-                  future: BrandService.getAllBrands(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return const SingleChildScrollView(
+                    return SizedBox(
+                      height: 270.h,
+                      child: const SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Skeletonizer(
                           enabled: true,
                           child: Row(
                             children: [
-                              SkeletonizerBrand(),
-                              SkeletonizerBrand(),
-                              SkeletonizerBrand(),
-                              SkeletonizerBrand(),
+                              SkeletonizerProduct(),
+                              SkeletonizerProduct(),
+                              SkeletonizerProduct(),
                             ],
                           ),
                         ),
-                      );
-                    }
-                    final brandData = snapshot.data!;
-                    return SizedBox(
-                      height: 120.h,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: brandData.length,
-                        itemBuilder: (context, index) {
-                          return Brand(
-                            onTap: () {
-                              Get.to(() =>
-                                  StorePage(brandId: brandData[index].id));
-                            },
-                            imageUrl: brandData[index].image,
-                            name: brandData[index].name,
-                          );
-                        },
                       ),
                     );
                   },
                 ),
-                MainPoints(
-                    text: 'New Products',
-                    onTap: () {
-                      Get.to(() => const ProductsPage());
-                    }),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: BlocBuilder<ProductCubit, ProductState>(
-                    bloc: ProductCubit()..getProducts(),
-                    builder: (context, state) {
-                      if (state is ProductFetched) {
-                        final productData = state.productData;
-                        return SizedBox(
-                          height: 250.h,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: productData.length,
-                            itemBuilder: (context, index) {
-                              return Product(
-                                onProductTap: () {
-                                  Get.to(() => ProductPage(
-                                        product_id: productData[index].id,
-                                      ));
-                                },
-                                onChange: (isFavorite) {
-                                  productData[index]
-                                          .is_favorite_for_current_user =
-                                      isFavorite;
-                                },
-                                isFavorite: productData[index]
-                                    .is_favorite_for_current_user,
-                                product_id: productData[index].id,
-                                discountPercentage:
-                                    productData[index].discount_percentage,
-                                discountPrice: productData[index].sale_price,
-                                image: productData[index].image,
-                                name: productData[index].name,
-                                realPrice: productData[index].regular_price,
-                              );
-                            },
-                          ),
-                        );
-                      } else if (state is ProductFailure) {
-                        return Container(
-                          width: 200,
-                          height: 200,
-                          child: Text(state.errorMessage),
-                        );
-                      }
-                      return SizedBox(
-                        height: 270.h,
-                        child: const SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Skeletonizer(
-                            enabled: true,
-                            child: Row(
-                              children: [
-                                SkeletonizerProduct(),
-                                SkeletonizerProduct(),
-                                SkeletonizerProduct(),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ),
       ),

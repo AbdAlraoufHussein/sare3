@@ -16,165 +16,192 @@ class HeadOfProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _nameController = TextEditingController();
     final _phoneController = TextEditingController();
-    return BlocProvider(
-      create: (context) => UserInfoCubit(),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 80, bottom: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BlocBuilder<UserInfoCubit, UserInfoState>(
-                bloc: UserInfoCubit()..getuserInfo(),
-                builder: (context, state) {
-                  if (state is UserInfoFetched) {
-                    final userInfo = state.userInfo;
-                    _nameController.text = userInfo.name;
-                    _phoneController.text = userInfo.phone;
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          userInfo.name,
-                          style: TextStyle(
-                              color: AppColor.blue,
-                              fontSize: 25.sp,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          userInfo.phone,
-                          style: TextStyle(
-                              color: AppColor.blue,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        EditProfileButton(
-                          nameController: _nameController,
-                          phoneController: _phoneController,
-                          onPressed: () {
-                            _nameController.text = userInfo.name;
-                            _phoneController.text = userInfo.phone;
-                            Get.defaultDialog(
-                              title: 'Edit Profile',
-                              content: SizedBox(
-                                width: 300.w,
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      TextFdSignInUp(
-                                        controller: _nameController,
-                                        keyboardType: TextInputType.name,
-                                        texthint: 'Enter your full name',
-                                        textlabel: 'Full name',
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 80, bottom: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BlocBuilder<UserInfoCubit, UserInfoState>(
+              bloc: UserInfoCubit()..getuserInfo(),
+              builder: (context, state) {
+                if (state is UserInfoFetched) {
+                  final userInfo = state.userInfo;
+                  _nameController.text = userInfo.name;
+                  _phoneController.text = userInfo.phone;
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        userInfo.name,
+                        style: TextStyle(
+                            color: AppColor.blue,
+                            fontSize: 25.sp,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        userInfo.phone,
+                        style: TextStyle(
+                            color: AppColor.blue,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      EditProfileButton(
+                        nameController: _nameController,
+                        phoneController: _phoneController,
+                        onPressed: () {
+                          _nameController.text = userInfo.name;
+                          _phoneController.text = userInfo.phone;
+                          Get.defaultDialog(
+                            title: 'Edit Profile',
+                            content: SizedBox(
+                              width: 300.w,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    TextFdSignInUp(
+                                      controller: _nameController,
+                                      keyboardType: TextInputType.name,
+                                      texthint: 'Enter your full name',
+                                      textlabel: 'Full name',
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'This filed is required';
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    TextFdNumSignInUp(
+                                        textprefix: '0 933 666 555',
+                                        keyboardType: TextInputType.number,
+                                        textlabel: 'Phone number',
                                         validator: (value) {
                                           if (value!.isEmpty) {
-                                            return 'This filed is required';
+                                            return 'Phone number is required';
+                                          } else if (!RegExp(
+                                                  r'^(\+?963|0)?9\d{8}$')
+                                              .hasMatch(value)) {
+                                            return 'Make sure to enter syrian number';
                                           }
                                           return null;
                                         },
-                                      ),
-                                      const SizedBox(
-                                        height: 16,
-                                      ),
-                                      TextFdNumSignInUp(
-                                          textprefix: '0 933 666 555',
-                                          keyboardType: TextInputType.number,
-                                          textlabel: 'Phone number',
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'Phone number is required';
-                                            } else if (!RegExp(
-                                                    r'^(\+?963|0)?9\d{8}$')
-                                                .hasMatch(value)) {
-                                              return 'Make sure to enter syrian number';
-                                            }
-                                            return null;
-                                          },
-                                          controller: _phoneController)
-                                    ],
-                                  ),
+                                        controller: _phoneController)
+                                  ],
                                 ),
                               ),
-                              textConfirm: 'confirm',
-                              onConfirm: () async {
-                                final error =
-                                    await AuthenticationService.updateUserInfo(
-                                        name: _nameController.text,
-                                        phone: _phoneController.text);
-                                print('pressed');
-                                if (error == null) {
-                                  _nameController.clear();
-                                  _phoneController.clear();
-                                  Get.back();
-                                }
-                              },
-                              textCancel: 'cancel',
-                              buttonColor: AppColor.blue,
-                            );
-                          },
-                        ),
-                      ],
-                    );
-                  } else if (state is UserInfoFailure) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 200,
-                          height: 200,
-                          color: AppColor.blue,
-                          child: Text(state.errorMessage),
-                        ),
-                        EditProfileButton(
-                          nameController: _nameController,
-                          phoneController: _phoneController,
-                          onPressed: () {},
-                        ),
-                      ],
-                    );
-                  } else {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Skeletonizer(
-                            child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Abd alraouf hussein',
-                              style: TextStyle(
-                                  color: AppColor.blue,
-                                  fontSize: 25.sp,
-                                  fontWeight: FontWeight.bold),
                             ),
-                            Text(
-                              '0968645606',
-                              style: TextStyle(
-                                  color: AppColor.blue,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        )),
-                        EditProfileButton(
-                          nameController: _nameController,
-                          phoneController: _phoneController,
-                          onPressed: () {},
-                        ),
-                      ],
-                    );
-                  }
-                },
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Divider(
-                color: AppColor.yellow,
-                thickness: 3.w,
-              ),
-            ],
-          ),
+                            textConfirm: 'confirm',
+                            onConfirm: () async {
+                              final error =
+                                  await AuthenticationService.updateUserInfo(
+                                      name: _nameController.text,
+                                      phone: _phoneController.text);
+                              print('pressed');
+                              if (error == null) {
+                                _nameController.clear();
+                                _phoneController.clear();
+                                Get.back();
+                              }
+                            },
+                            textCancel: 'cancel',
+                            buttonColor: AppColor.blue,
+                          );
+                        },
+                      ),
+                    ],
+                  );
+                } else if (state is UserInfoFailure) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Skeletonizer(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Abd alraouf hussein',
+                            style: TextStyle(
+                                color: AppColor.blue,
+                                fontSize: 25.sp,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            '0968645606',
+                            style: TextStyle(
+                                color: AppColor.blue,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      )),
+                      EditProfileButton(
+                        nameController: _nameController,
+                        phoneController: _phoneController,
+                        onPressed: () {},
+                      ),
+                    ],
+                  );
+                  // Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     Container(
+                  //       width: 200,
+                  //       height: 200,
+                  //       color: AppColor.blue,
+                  //       child: Text(state.errorMessage),
+                  //     ),
+                  //     EditProfileButton(
+                  //       nameController: _nameController,
+                  //       phoneController: _phoneController,
+                  //       onPressed: () {},
+                  //     ),
+                  //   ],
+                  // );
+                } else {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Skeletonizer(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Abd alraouf hussein',
+                            style: TextStyle(
+                                color: AppColor.blue,
+                                fontSize: 25.sp,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            '0968645606',
+                            style: TextStyle(
+                                color: AppColor.blue,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      )),
+                      EditProfileButton(
+                        nameController: _nameController,
+                        phoneController: _phoneController,
+                        onPressed: () {},
+                      ),
+                    ],
+                  );
+                }
+              },
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Divider(
+              color: AppColor.yellow,
+              thickness: 3.w,
+            ),
+          ],
         ),
       ),
     );

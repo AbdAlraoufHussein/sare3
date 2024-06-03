@@ -11,12 +11,15 @@ import 'package:wael/view/widget/product_page/image_product.dart';
 import 'package:wael/view/widget/product_page/skeletonizer_one_product.dart';
 import 'package:wael/view/widget/store_page/head_of_storepage.dart';
 
+// ignore: must_be_immutable
 class ProductPage extends StatelessWidget {
-  const ProductPage({
+  ProductPage({
     super.key,
     required this.product_id,
   });
   final int product_id;
+  int count = 0;
+
   @override
   Widget build(BuildContext context) {
     final cartController = Get.put(CartController(), permanent: true);
@@ -132,25 +135,37 @@ class ProductPage extends StatelessWidget {
                                             ),
                                           ),
                                           onPressed: () {
-                                            cartController.addToCart(
-                                                product: ProductModel(
-                                                    id: productData.id,
-                                                    name: productData.name,
-                                                    description:
-                                                        productData.description,
-                                                    image: productData.image,
-                                                    regular_price: productData
-                                                        .regular_price,
-                                                    sale_price:
-                                                        productData.sale_price,
-                                                    on_sale:
-                                                        productData.on_sale,
-                                                    discount_percentage:
-                                                        productData
-                                                            .discount_percentage,
-                                                    is_favorite_for_current_user:
-                                                        productData
-                                                            .is_favorite_for_current_user));
+                                            if (count == 0) {
+                                              cartController.addToCart(
+                                                  product: ProductModel(
+                                                      id: productData.id,
+                                                      name: productData.name,
+                                                      description: productData
+                                                          .description,
+                                                      image: productData.image,
+                                                      regular_price: productData
+                                                          .regular_price,
+                                                      sale_price: productData
+                                                          .sale_price,
+                                                      on_sale:
+                                                          productData.on_sale,
+                                                      discount_percentage:
+                                                          productData
+                                                              .discount_percentage,
+                                                      is_favorite_for_current_user:
+                                                          productData
+                                                              .is_favorite_for_current_user));
+                                                              Get.snackbar('Congrats',
+                                                  "The product has beed added succesfully.",
+                                                  snackPosition:
+                                                      SnackPosition.BOTTOM);
+                                              count += 1;
+                                            } else {
+                                              Get.snackbar('Notice',
+                                                  "You can't add the same product twice.",
+                                                  snackPosition:
+                                                      SnackPosition.BOTTOM);
+                                            }
                                           },
                                           child: const Padding(
                                             padding: EdgeInsets.symmetric(

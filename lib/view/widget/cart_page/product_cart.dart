@@ -52,7 +52,7 @@ class ProductCart extends StatelessWidget {
                     bottomLeft: Radius.circular(15.r),
                     bottomRight: Radius.circular(95.r),
                   ),
-                  child: Image.asset(
+                  child: Image.network(
                     product.image,
                     fit: BoxFit.cover,
                   ),
