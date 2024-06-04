@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wael/controller/add_to_cart_controller.dart';
 import 'package:wael/core/constant/color.dart';
-import 'package:wael/core/services/order_service.dart';
+import 'package:wael/core/services/cart_service.dart';
 import 'package:wael/data/model/api/models/cart_model.dart';
 import 'package:wael/helpers/stripe_helper.dart';
 
@@ -14,7 +14,8 @@ class BoxDetailsPayment extends StatelessWidget {
       {super.key,
       required this.costBeforeDiscount,
       required this.costAfterDiscounte,
-      required this.orderItems, required this.controller});
+      required this.orderItems,
+      required this.controller});
   final int costBeforeDiscount;
   final int costAfterDiscounte;
   final List<CartModel> orderItems;
@@ -103,9 +104,11 @@ class BoxDetailsPayment extends StatelessWidget {
               ),
               onPressed: () async {
                 try {
-                  await OrderService.postOrder(orderItems: orderItems);
-                  controller.cartList.clear();
                   StripeHelper.stripe(salePrice: costAfterDiscounte);
+                  await CartServices.postorder();
+                  controller.cartList.clear();
+                  controller.quantity=0.obs;
+                  controller.update();
                   Get.snackbar(
                       'Congrats', 'Your order has been added succesfully.',
                       snackPosition: SnackPosition.BOTTOM);

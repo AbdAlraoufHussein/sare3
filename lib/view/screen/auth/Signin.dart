@@ -106,7 +106,6 @@ class _SignInState extends State<SignIn> {
                           email: _emailController.text,
                           password: _passwordController.text,
                         );
-
                         _emailController.clear();
                         _passwordController.clear();
                         Get.toNamed(AppRoute.mainPage);

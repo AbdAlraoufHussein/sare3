@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:wael/controller/add_to_cart_controller.dart';
 import 'package:wael/controller/cubits/get_cart/get_cart_cubit.dart';
 import 'package:wael/core/constant/color.dart';
+import 'package:wael/view/screen/main_page/update_product_page.dart';
 import 'package:wael/view/widget/cart_page/box_details_payment.dart';
 import 'package:wael/view/widget/cart_page/product_cart.dart';
 
@@ -20,7 +21,8 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: CartController()..refresh(),
+      // ignore: invalid_use_of_protected_member
+      init: CartController()..refresh,
       builder: (controller) {
         return Column(
           children: [
@@ -38,10 +40,16 @@ class _CartPageState extends State<CartPage> {
                       itemBuilder: (context, index) {
                         return ProductCart(
                           controller: controller,
-                          cart: cartData[index],
+                          cartId: cartData[index].id,
                           onRemovePressed: () {
                             controller.removeProductFromCart(
                                 cartId: cartData[index].id);
+                            controller.quantity = 0.obs;
+                          },
+                          onUpdatePressed: () {
+                            controller.quantity = cartData[index].quantity.obs;
+                            Get.to(() =>
+                                UpdateProductPage(cartId: cartData[index].id));
                           },
                         );
                       },

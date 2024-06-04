@@ -27,7 +27,7 @@ class CartController extends GetxController {
         Get.snackbar('Congrats', 'Product has been added succesfully.',
             snackPosition: SnackPosition.BOTTOM);
       } else {
-        Get.snackbar('Notice', 'You havr to add Quantity first.',
+        Get.snackbar('Notice', 'You have to add Quantity first.',
             snackPosition: SnackPosition.BOTTOM);
       }
     } on HttpException catch (e) {
@@ -51,11 +51,24 @@ class CartController extends GetxController {
     update();
   }
 
+  void updateCart({required String cartId,required String productId, required RxInt newQuantity}) async {
+    try {
+      await CartServices.putCart(cartId: cartId,productId: productId, quantity: newQuantity.toString());
+      Get.snackbar('Congrats', 'Product has been updated succesfully.',
+          snackPosition: SnackPosition.BOTTOM);
+    } on HttpException catch (e) {
+      Get.snackbar('Warning', e.toString(),
+          snackPosition: SnackPosition.BOTTOM);
+    }
+    update();
+  }
+
   int totalDiscountPrice() {
     int total = 0;
     for (var i = 0; i < cartList.length; i++) {
       total = total + (cartList[i].product.sale_price * cartList[i].quantity);
     }
+    update();
     return total;
   }
 

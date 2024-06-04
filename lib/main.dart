@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:wael/controller/cubits/get_cart/get_cart_cubit.dart';
+import 'package:wael/controller/cubits/get_one_product/one_product_cubit.dart';
 import 'package:wael/controller/cubits/product/product_cubit.dart';
 import 'package:wael/controller/cubits/product_cart/product_cart_cubit.dart';
 import 'package:wael/core/constant/routes.dart';
@@ -51,6 +52,9 @@ void main() async {
       ),
       BlocProvider(
         create: (context) => GetCartCubit(),
+      ),
+      BlocProvider(
+        create: (context) => OneProductCubit(),
       ),
     ],
     child: const MyWidget(),

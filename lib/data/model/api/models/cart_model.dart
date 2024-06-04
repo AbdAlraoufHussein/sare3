@@ -15,7 +15,7 @@ class ApiResponse {
 class CartModel {
   final int id;
   final ProductModel product;
-  final int quantity;
+  int quantity;
 
   CartModel({
     required this.id,

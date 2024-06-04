@@ -245,6 +245,7 @@ class ProductPage extends StatelessWidget {
                                             cartController.addProductToCart(
                                               productId: productData.id,
                                             );
+                                            cartController.quantity = 0.obs;
                                           },
                                           child: const Padding(
                                             padding: EdgeInsets.symmetric(

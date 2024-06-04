@@ -116,7 +116,7 @@ class _ProductState extends State<Product> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${widget.discountPercentage} L.S',
+                          '${widget.discountPrice} L.S',
                           style: TextStyle(
                             color: AppColor.blue,
                             fontSize: 15.sp,

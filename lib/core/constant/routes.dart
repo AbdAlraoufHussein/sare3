@@ -10,5 +10,6 @@ class AppRoute {
   static const homePage = '/homepage';
   static const cateroriesPage = '/cateroriespage';
   static const cartPage = '/cartpage';
+  static const updateCartPage = '/updatecartpage';
   static const profilePage = '/profilepage';
 }
