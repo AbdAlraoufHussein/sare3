@@ -31,7 +31,7 @@ class _CartPageState extends State<CartPage> {
               bloc: GetCartCubit()..getCrts(),
               builder: (context, state) {
                 if (state is GetCartFetched) {
-                  final cartData = state.productsCart;
+                  final cartData = controller.cartList;
                   return Expanded(
                     child: ListView.builder(
                       itemCount: cartData.length,
@@ -71,6 +71,8 @@ class _CartPageState extends State<CartPage> {
             BoxDetailsPayment(
               costAfterDiscounte: controller.totalDiscountPrice(),
               costBeforeDiscount: controller.totalPrice(),
+              orderItems: controller.cartList,
+              controller: controller,
             ),
           ],
         );

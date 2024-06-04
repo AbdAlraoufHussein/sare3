@@ -1,15 +1,24 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:wael/controller/add_to_cart_controller.dart';
 import 'package:wael/core/constant/color.dart';
+import 'package:wael/core/services/order_service.dart';
+import 'package:wael/data/model/api/models/cart_model.dart';
 import 'package:wael/helpers/stripe_helper.dart';
 
 class BoxDetailsPayment extends StatelessWidget {
   const BoxDetailsPayment(
       {super.key,
       required this.costBeforeDiscount,
-      required this.costAfterDiscounte});
+      required this.costAfterDiscounte,
+      required this.orderItems, required this.controller});
   final int costBeforeDiscount;
   final int costAfterDiscounte;
+  final List<CartModel> orderItems;
+  final CartController controller;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -93,11 +102,17 @@ class BoxDetailsPayment extends StatelessWidget {
                 ),
               ),
               onPressed: () async {
-                // final List<ProductModel> cart = context.read<ProductCartCubit>().productList;
-                // await CartServices.postCart(
-                //     product_id: cart.first.id,
-                //     quantity: context.read<ProductCartCubit>().quantity);
-                StripeHelper.stripe(salePrice: costAfterDiscounte);
+                try {
+                  await OrderService.postOrder(orderItems: orderItems);
+                  controller.cartList.clear();
+                  StripeHelper.stripe(salePrice: costAfterDiscounte);
+                  Get.snackbar(
+                      'Congrats', 'Your order has been added succesfully.',
+                      snackPosition: SnackPosition.BOTTOM);
+                } on HttpException catch (e) {
+                  Get.snackbar('Congrats', e.message,
+                      snackPosition: SnackPosition.BOTTOM);
+                }
               },
               child: Text(
                 'Payment for reservation',
