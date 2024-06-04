@@ -47,6 +47,7 @@ dependencies:
   http: ^1.2.0
   flutter_stripe_web: ^5.1.0
   flutter_bloc: ^8.1.5
+  share_plus: ^9.0.0
   # device_preview: ^1.1.0
 
 dev_dependencies:

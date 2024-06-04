@@ -4,10 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:wael/controller/cubits/product/product_cubit.dart';
+import 'package:wael/controller/cubits/brand_with_products/brand_with_products_cubit.dart';
 import 'package:wael/core/constant/color.dart';
-import 'package:wael/core/services/brand_service.dart';
-import 'package:wael/data/model/api/models/category_model.dart';
 import 'package:wael/view/screen/main_page/home_page.dart';
 import 'package:wael/view/screen/main_page/product_page.dart';
 import 'package:wael/view/widget/main_points.dart';
@@ -20,208 +18,240 @@ class StorePage extends StatelessWidget {
   final int brandId;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const HeadOfStorePage(),
-            Expanded(
-              child: ListView(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      FutureBuilder(
-                        future: BrandService.getAllBrands(),
-                        builder: (context, snapshot) {
-                          if (!snapshot.hasData) {
-                            return const Skeletonizer(
-                                child: SkeletonizerCategoryInfo());
-                          }
-                          final brandData = snapshot.data!.singleWhere(
-                              (element) => element.id == brandId);
-                          final categories = brandData.categories
-                              .map((e) => CategoryModel.fromJson(e).name)
-                              .toList();
-                          return CategoryInfo(
-                            image: brandData.image,
-                            name: brandData.name,
-                            categories: categories,
-                            address: brandData.address,
-                            telephone: brandData.telephone,
-                            phone: brandData.phone,
-                            description: brandData.description,
-                            brandId: brandData.id,
-                          );
-                        },
-                      ),
-                      Center(
-                        child: Text(
-                          'Products',
-                          style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            decorationColor: AppColor.yellow,
-                            decorationThickness: 2,
-                            fontSize: 22,
-                            color: AppColor.blue,
-                            fontWeight: FontWeight.bold,
+    return BlocProvider(
+      create: (context) => BrandWithProductsCubit(),
+      child: Scaffold(
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const HeadOfStorePage(),
+              Expanded(
+                child: ListView(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BlocBuilder(
+                            bloc: BrandWithProductsCubit()
+                              ..getBrandWithProducts(brandId: brandId),
+                            builder: (context, state) {
+                              if (state is BrandWithProductsFetched) {
+                                final brandData = state.brandWithProduct;
+                                return CategoryInfo(
+                                  image: brandData.image,
+                                  name: brandData.name,
+                                  categories: brandData.categories,
+                                  address: brandData.address,
+                                  telephone: brandData.telephone,
+                                  phone: brandData.phone,
+                                  description: brandData.description,
+                                  brandId: brandData.id,
+                                );
+                              } else if (state is BrandWithProductsFailure) {
+                                return Container(
+                                  width: 200,
+                                  height: 200,
+                                  color: AppColor.blue,
+                                  child: Text(state.errorMessage),
+                                );
+                              } else {
+                                return const Skeletonizer(
+                                    child: SkeletonizerCategoryInfo());
+                              }
+                            }),
+                        Center(
+                          child: Text(
+                            'Products',
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              decorationColor: AppColor.yellow,
+                              decorationThickness: 2,
+                              fontSize: 22,
+                              color: AppColor.blue,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                      MainPoints(text: 'New Products', onTap: () {}),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: BlocBuilder<ProductCubit, ProductState>(
-                          bloc: ProductCubit()
-                            ..getProducts(),
-                          builder: (context, state) {
-                            if (state is ProductFetched) {
-                              final productData = state.productData;
-                              return SizedBox(
-                                height: 270.h,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: productData.length,
-                                  itemBuilder: (context, index) {
-                                    return Product(
-                                      onProductTap: () {
-                                        Get.to(() => ProductPage(
-                                              product_id:
-                                                  productData[index].id,
-                                            ));
-                                      },
-                                      onChange: (isFavorite) {
-                                        productData[index]
-                                                .is_favorite_for_current_user =
-                                            isFavorite;
-                                      },
-                                      isFavorite: productData[index]
-                                          .is_favorite_for_current_user,
-                                      product_id: productData[index].id,
-                                      discountPercentage: productData[index]
-                                          .discount_percentage,
-                                      discountPrice:
-                                          productData[index].sale_price,
-                                      image: productData[index].image,
-                                      name: productData[index].name,
-                                      realPrice:
-                                          productData[index].regular_price,
-                                    );
-                                  },
-                                ),
-                              );
-                            } else if (state is ProductFailure) {
-                              return Container(
-                                width: 200,
-                                height: 200,
-                                child: Text(state.errorMessage),
-                              );
-                            }
-                            return SizedBox(
-                              height: 270.h,
-                              child: const SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Skeletonizer(
-                                  enabled: true,
-                                  child: Row(
-                                    children: [
-                                      SkeletonizerProduct(),
-                                      SkeletonizerProduct(),
-                                      SkeletonizerProduct(),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      Column(
-                        children: [
-                          MainPoints(
-                            text: 'The Big Discounts',
-                            onTap: () {},
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8),
-                            child: BlocBuilder<ProductCubit, ProductState>(
-                              bloc: ProductCubit()
-                                ..getBiggestDiscountProduct(),
-                              builder: (context, state) {
-                                if (state is ProductFetched) {
-                                  final productData = state.productData;
-                                  return SizedBox(
-                                    height: 270.h,
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: productData.length,
-                                      itemBuilder: (context, index) {
-                                        return Product(
-                                          onProductTap: () {
-                                            Get.to(() => ProductPage(
-                                                  product_id:
-                                                      productData[index].id,
-                                                ));
-                                          },
-                                          onChange: (isFavorite) {
-                                            productData[index]
-                                                    .is_favorite_for_current_user =
-                                                isFavorite;
-                                          },
-                                          isFavorite: productData[index]
-                                              .is_favorite_for_current_user,
-                                          product_id: productData[index].id,
-                                          discountPercentage:
-                                              productData[index]
-                                                  .discount_percentage,
-                                          discountPrice:
-                                              productData[index].sale_price,
-                                          image: productData[index].image,
-                                          name: productData[index].name,
-                                          realPrice: productData[index]
-                                              .regular_price,
-                                        );
-                                      },
-                                    ),
-                                  );
-                                } else if (state is ProductFailure) {
-                                  return Container(
-                                    width: 200,
-                                    height: 200,
-                                    child: Text(state.errorMessage),
-                                  );
-                                }
+                        MainPoints(text: 'New Products', onTap: () {}),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: BlocBuilder<BrandWithProductsCubit,
+                              BrandWithProductsState>(
+                            bloc: BrandWithProductsCubit()
+                              ..getBrandWithProducts(brandId: brandId),
+                            builder: (context, state) {
+                              if (state is BrandWithProductsFetched) {
+                                final productData =
+                                    state.brandWithProduct.products;
                                 return SizedBox(
                                   height: 270.h,
-                                  child: const SingleChildScrollView(
+                                  child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
-                                    child: Skeletonizer(
-                                      enabled: true,
-                                      child: Row(
-                                        children: [
-                                          SkeletonizerProduct(),
-                                          SkeletonizerProduct(),
-                                          SkeletonizerProduct(),
-                                        ],
-                                      ),
-                                    ),
+                                    itemCount: productData.length,
+                                    itemBuilder: (context, index) {
+                                      return Product(
+                                        onProductTap: () {
+                                          Get.to(() => ProductPage(
+                                                productId:
+                                                    productData[index].id,
+                                              ));
+                                        },
+                                        onChange: (isFavorite) {
+                                          productData[index]
+                                                  .isFavoriteForCurrentUser =
+                                              isFavorite;
+                                        },
+                                        isFavorite: productData[index]
+                                            .isFavoriteForCurrentUser,
+                                        product_id: productData[index].id,
+                                        discountPercentage: productData[index]
+                                            .discountPercentage,
+                                        discountPrice:
+                                            productData[index].salePrice,
+                                        image: productData[index].image,
+                                        name: productData[index].name,
+                                        realPrice:
+                                            productData[index].regularPrice,
+                                      );
+                                    },
                                   ),
                                 );
-                              },
+                              } else if (state is BrandWithProductsFailure) {
+                                return Container(
+                                  width: 200,
+                                  height: 200,
+                                  child: Text(state.errorMessage),
+                                );
+                              }
+                              return SizedBox(
+                                height: 270.h,
+                                child: const SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Skeletonizer(
+                                    enabled: true,
+                                    child: Row(
+                                      children: [
+                                        SkeletonizerProduct(),
+                                        SkeletonizerProduct(),
+                                        SkeletonizerProduct(),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            MainPoints(
+                              text: 'The Big Discounts',
+                              onTap: () {},
                             ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: BlocBuilder<BrandWithProductsCubit,
+                                  BrandWithProductsState>(
+                                bloc: BrandWithProductsCubit()
+                                  ..getBrandWithProducts(brandId: brandId),
+                                builder: (context, state) {
+                                  if (state is BrandWithProductsFetched) {
+                                    final productData =
+                                        state.brandWithProduct.products.where(
+                                      (element) =>
+                                          element.discountPercentage >= 50,
+                                    ).toList();
+                                    return SizedBox(
+                                      height: 270.h,
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: productData.length,
+                                        itemBuilder: (context, index) {
+                                          return Product(
+                                            onProductTap: () {
+                                              Get.to(() => ProductPage(
+                                                    productId:
+                                                        productData[index].id,
+                                                  ));
+                                            },
+                                            onChange: (isFavorite) {
+                                              productData[index].
+                                                      isFavoriteForCurrentUser =
+                                                  isFavorite;
+                                            },
+                                            isFavorite: productData[index]
+                                                .isFavoriteForCurrentUser,
+                                            product_id: productData[index].id,
+                                            discountPercentage:
+                                                productData[index]
+                                                    .discountPercentage,
+                                            discountPrice:
+                                                productData[index].salePrice,
+                                            image: productData[index].image,
+                                            name: productData[index].name,
+                                            realPrice: productData[index]
+                                                .regularPrice,
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  } else if (state is BrandWithProductsFailure) {
+                                    return Container(
+                                      width: 200,
+                                      height: 200,
+                                      child: Text(state.errorMessage),
+                                    );
+                                  }
+                                  return SizedBox(
+                                    height: 270.h,
+                                    child: const SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Skeletonizer(
+                                        enabled: true,
+                                        child: Row(
+                                          children: [
+                                            SkeletonizerProduct(),
+                                            SkeletonizerProduct(),
+                                            SkeletonizerProduct(),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
+//  return const Skeletonizer(
+//                                   child: SkeletonizerCategoryInfo());
+//                             }
+//                             final brandData = snapshot.data!.singleWhere(
+//                                 (element) => element.id == brandId);
+//                             final categories = brandData.categories
+//                                 .map((e) => CategoryModel.fromJson(e).name)
+//                                 .toList();
+//                             return CategoryInfo(
+//                               image: brandData.image,
+//                               name: brandData.name,
+//                               categories: categories,
+//                               address: brandData.address,
+//                               telephone: brandData.telephone,
+//                               phone: brandData.phone,
+//                               description: brandData.description,
+//                               brandId: brandData.id,
+//                             );

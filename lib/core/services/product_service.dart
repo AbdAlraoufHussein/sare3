@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:wael/data/model/api/base_api_class.dart';
 import 'package:wael/data/model/api/models/product_model.dart';
+import 'package:wael/data/model/api/models/product_with_brand_mode.dart';
 
 abstract class ProductServices extends BaseApi {
   static Future<List<ProductModel>> getAllProducts() async {
@@ -47,11 +48,22 @@ abstract class ProductServices extends BaseApi {
 
   static Future<List<ProductModel>> getBrandProduct(
       {required int brandId}) async {
-    final response = await BaseApi().getRequest(endPoint: 'brand/$brandId/product');
+    final response =
+        await BaseApi().getRequest(endPoint: 'brand/$brandId/product');
     final products = (jsonDecode(response.body)['data'] as List)
         .map((e) => ProductModel.fromJson(e))
         .toList();
     print(products);
     return products;
+  }
+
+  static Future<ProductWithBrand> getProductWithBrand(
+      {required int productId}) async {
+    final response =
+        await BaseApi().getRequest(endPoint: 'products/$productId');
+    final product =
+        ProductWithBrand.fromJson(jsonDecode(response.body)['data']);
+    print(product);
+    return product;
   }
 }

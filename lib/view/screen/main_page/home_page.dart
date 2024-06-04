@@ -119,7 +119,7 @@ class HomePage extends StatelessWidget {
                             return Product(
                               onProductTap: () {
                                 Get.to(() => ProductPage(
-                                      product_id: productData[index].id,
+                                      productId: productData[index].id,
                                     ));
                               },
                               onChange: (isFavorite) {

@@ -49,10 +49,104 @@ class Brand extends StatelessWidget {
               textAlign: TextAlign.center,
               name,
               style: TextStyle(
-                  fontSize: 12.sp,
+                  fontSize: 22.sp,
                   color: AppColor.grey,
                   fontWeight: FontWeight.bold),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BrandWithRightTitle extends StatelessWidget {
+  const BrandWithRightTitle(
+      {super.key, required this.name, required this.image});
+  final String name;
+  final String image;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100.h,
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: AppColor.blue,
+              borderRadius: BorderRadius.all(
+                Radius.circular(5.r),
+              ),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(
+                Radius.circular(5.r),
+              ),
+              child: SizedBox.fromSize(
+                  size: Size.fromRadius(30.r), // Image radius
+                  child: Image.network(
+                    image,
+                    fit: BoxFit.cover,
+                  )),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Text(
+            textAlign: TextAlign.center,
+            name,
+            style: TextStyle(
+                fontSize: 22.sp,
+                color: AppColor.blue,
+                fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SkeletonizerBrandWithRightTitle extends StatelessWidget {
+  const SkeletonizerBrandWithRightTitle({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100.h,
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: AppColor.blue,
+              borderRadius: BorderRadius.all(
+                Radius.circular(5.r),
+              ),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(
+                Radius.circular(5.r),
+              ),
+              child: SizedBox.fromSize(
+                  size: Size.fromRadius(30.r), // Image radius
+                  child: Image.asset(
+                    'assets/images/hfhfe.png',
+                    fit: BoxFit.cover,
+                  )),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Text(
+            textAlign: TextAlign.center,
+            'name',
+            style: TextStyle(
+                fontSize: 18.sp,
+                color: AppColor.blue,
+                fontWeight: FontWeight.bold),
           ),
         ],
       ),

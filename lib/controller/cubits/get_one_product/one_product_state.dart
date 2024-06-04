@@ -6,7 +6,7 @@ sealed class OneProductState {}
 final class OneProductInitial extends OneProductState {}
 final class OneProductLoading extends OneProductState {}
 final class OneProductFetched extends OneProductState {
-  final ProductModel product;
+  final ProductWithBrand product;
 
   OneProductFetched({required this.product});
 }

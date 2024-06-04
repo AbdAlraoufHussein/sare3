@@ -57,7 +57,7 @@ class CategoryInfo extends StatelessWidget {
                 fontWeight: FontWeight.bold),
           ),
          Text(
-                  '. Category: $categories ',
+                  '. Category: $categories. ',
                   maxLines: null,
                   overflow: TextOverflow.clip,
                   style: TextStyle(

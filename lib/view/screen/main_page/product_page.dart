@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:wael/controller/add_to_cart_controller.dart';
 import 'package:wael/controller/cubits/get_one_product/one_product_cubit.dart';
-import 'package:wael/controller/cubits/product/product_cubit.dart';
 import 'package:wael/core/constant/color.dart';
-import 'package:wael/data/model/api/models/product_model.dart';
+import 'package:wael/view/widget/home_page/brand.dart';
 import 'package:wael/view/widget/product_page/image_product.dart';
 import 'package:wael/view/widget/product_page/skeletonizer_one_product.dart';
 import 'package:wael/view/widget/store_page/head_of_storepage.dart';
@@ -15,10 +15,9 @@ import 'package:wael/view/widget/store_page/head_of_storepage.dart';
 class ProductPage extends StatelessWidget {
   ProductPage({
     super.key,
-    required this.product_id,
+    required this.productId,
   });
-  final int product_id;
-  int count = 0;
+  final int productId;
 
   @override
   Widget build(BuildContext context) {
@@ -34,17 +33,33 @@ class ProductPage extends StatelessWidget {
                 child: ListView(
                   children: [
                     BlocBuilder(
-                      bloc: ProductCubit()..getProducts(),
+                      bloc: OneProductCubit()..getProduct(productId: productId),
                       builder: (context, state) {
-                        if (state is ProductFetched) {
-                          final productData = state.productData.singleWhere(
-                              (element) => element.id == product_id);
+                        if (state is OneProductFetched) {
+                          final productData = state.product;
                           return Column(
                             children: [
                               ImageProduct(
                                 discount_percentage:
-                                    productData.discount_percentage,
+                                    productData.discountPercentage,
                                 image: productData.image,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    // TextStyle(
+                                    //             fontSize: 18,
+                                    //             color: Colors.white,
+                                    //           ),
+                                    BrandWithRightTitle(
+                                      name: productData.brand.name,
+                                      image: productData.brand.image,
+                                    ),
+                                  ],
+                                ),
                               ),
                               Padding(
                                 padding:
@@ -52,12 +67,23 @@ class ProductPage extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      productData.name,
-                                      style: TextStyle(
-                                          color: AppColor.blue,
-                                          fontSize: 22.sp,
-                                          fontWeight: FontWeight.bold),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Product: ',
+                                          style: TextStyle(
+                                              color: AppColor.blue,
+                                              fontSize: 18.sp,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          productData.name,
+                                          style: TextStyle(
+                                            color: AppColor.black,
+                                            fontSize: 16.sp,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     Row(
                                       children: [
@@ -77,42 +103,122 @@ class ProductPage extends StatelessWidget {
                                         ),
                                       ],
                                     ),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
                                     Divider(
                                       thickness: 4,
                                       color: AppColor.blue,
                                     ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          'Price: ',
-                                          style: TextStyle(
-                                              color: AppColor.blue,
-                                              fontSize: 18.sp,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          productData.regular_price.toString(),
-                                          style: TextStyle(
-                                            color: AppColor.black,
-                                            fontSize: 16.sp,
-                                          ),
-                                        ),
-                                      ],
+                                    const SizedBox(
+                                      height: 16,
                                     ),
                                     Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          'Discount price: ',
-                                          style: TextStyle(
-                                              color: AppColor.blue,
-                                              fontSize: 18.sp,
-                                              fontWeight: FontWeight.bold),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Price: ',
+                                                  style: TextStyle(
+                                                      color: AppColor.blue,
+                                                      fontSize: 18.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                Text(
+                                                  productData.regularPrice
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                    color: AppColor.black,
+                                                    fontSize: 16.sp,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  'Discount price: ',
+                                                  style: TextStyle(
+                                                      color: AppColor.blue,
+                                                      fontSize: 18.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                Text(
+                                                  productData.salePrice
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                    color: AppColor.black,
+                                                    fontSize: 16.sp,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
-                                        Text(
-                                          productData.sale_price.toString(),
-                                          style: TextStyle(
-                                            color: AppColor.black,
-                                            fontSize: 16.sp,
+                                        Obx(
+                                          ()=> Container(
+                                            height: 30.h,
+                                            width: 120.w,
+                                            decoration: BoxDecoration(
+                                              color: AppColor.white,
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(5.r),
+                                              ),
+                                              border: Border.all(
+                                                  color: AppColor.blue,
+                                                  width: 2.w),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    cartController.decreament();
+                                                  },
+                                                  child: Icon(
+                                                    Icons.remove,
+                                                    color: AppColor.blue,
+                                                    size: 20,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 16,
+                                                ),
+                                                Text(
+                                                  cartController.quantity
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                    fontSize: 18.sp,
+                                                    color: AppColor.blue,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 16,
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    cartController.increament();
+                                                  },
+                                                  child: Icon(
+                                                    Icons.add,
+                                                    color: AppColor.blue,
+                                                    size: 20,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -125,7 +231,8 @@ class ProductPage extends StatelessWidget {
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: AppColor.blue,
                                             shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
+                                              borderRadius:
+                                                  const BorderRadius.all(
                                                 Radius.circular(5),
                                               ),
                                               side: BorderSide(
@@ -135,37 +242,9 @@ class ProductPage extends StatelessWidget {
                                             ),
                                           ),
                                           onPressed: () {
-                                            if (count == 0) {
-                                              cartController.addToCart(
-                                                  product: ProductModel(
-                                                      id: productData.id,
-                                                      name: productData.name,
-                                                      description: productData
-                                                          .description,
-                                                      image: productData.image,
-                                                      regular_price: productData
-                                                          .regular_price,
-                                                      sale_price: productData
-                                                          .sale_price,
-                                                      on_sale:
-                                                          productData.on_sale,
-                                                      discount_percentage:
-                                                          productData
-                                                              .discount_percentage,
-                                                      is_favorite_for_current_user:
-                                                          productData
-                                                              .is_favorite_for_current_user));
-                                                              Get.snackbar('Congrats',
-                                                  "The product has beed added succesfully.",
-                                                  snackPosition:
-                                                      SnackPosition.BOTTOM);
-                                              count += 1;
-                                            } else {
-                                              Get.snackbar('Notice',
-                                                  "You can't add the same product twice.",
-                                                  snackPosition:
-                                                      SnackPosition.BOTTOM);
-                                            }
+                                            cartController.addProductToCart(
+                                              productId: productData.id,
+                                            );
                                           },
                                           child: const Padding(
                                             padding: EdgeInsets.symmetric(
@@ -190,10 +269,11 @@ class ProductPage extends StatelessWidget {
                           return Container(
                             width: 200,
                             height: 200,
+                            color: AppColor.blue,
                             child: Text(state.errorMessage),
                           );
                         } else {
-                          return SkeletonizerOneProduct();
+                          return const SkeletonizerOneProduct();
                         }
                       },
                     )

@@ -62,4 +62,25 @@ class BaseApi {
       throw HttpException(errorMessage);
     }
   }
+
+  Future<http.Response> deleteRequest({
+    required String endPoint,
+    required int id,
+  }) async {
+    final sharedPrefs = await SharedPreferences.getInstance();
+    final token = sharedPrefs.getString('token');
+    final response = await http.delete(
+      Uri.parse('$baseUrl$endPoint/$id'),
+      headers: {
+        HttpHeaders.acceptHeader: 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $token',
+      },
+    );
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      return response;
+    } else {
+      final errorMessage = jsonDecode(response.body)['message'];
+      throw HttpException(errorMessage);
+    }
+  }
 }

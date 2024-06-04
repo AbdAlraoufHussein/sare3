@@ -46,7 +46,7 @@ class ProductsPage extends StatelessWidget {
                             
                           onProductTap: () {
                             Get.to(() => ProductPage(
-                                  product_id: productData[index].id,
+                                  productId: productData[index].id,
                                 ));
                           },
                           onChange: (isFavorite) {

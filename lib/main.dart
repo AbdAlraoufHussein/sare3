@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
+import 'package:wael/controller/cubits/get_cart/get_cart_cubit.dart';
 import 'package:wael/controller/cubits/product/product_cubit.dart';
 import 'package:wael/controller/cubits/product_cart/product_cart_cubit.dart';
 import 'package:wael/core/constant/routes.dart';
@@ -47,6 +48,9 @@ void main() async {
       ),
       BlocProvider(
         create: (context) => ProductCartCubit(),
+      ),
+      BlocProvider(
+        create: (context) => GetCartCubit(),
       ),
     ],
     child: const MyWidget(),

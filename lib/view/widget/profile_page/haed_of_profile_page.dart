@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,9 +11,14 @@ import 'package:wael/core/services/authentication_service.dart';
 import 'package:wael/view/widget/auth/textfdnumsignin_up.dart';
 import 'package:wael/view/widget/auth/textfdsignin_up.dart';
 
-class HeadOfProfilePage extends StatelessWidget {
+class HeadOfProfilePage extends StatefulWidget {
   const HeadOfProfilePage({super.key});
 
+  @override
+  State<HeadOfProfilePage> createState() => _HeadOfProfilePageState();
+}
+
+class _HeadOfProfilePageState extends State<HeadOfProfilePage> {
   @override
   Widget build(BuildContext context) {
     final _nameController = TextEditingController();
@@ -27,13 +34,13 @@ class HeadOfProfilePage extends StatelessWidget {
               builder: (context, state) {
                 if (state is UserInfoFetched) {
                   final userInfo = state.userInfo;
-                  _nameController.text = userInfo.name;
+                  _nameController.text = userInfo.user.name;
                   _phoneController.text = userInfo.phone;
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        userInfo.name,
+                        userInfo.user.name,
                         style: TextStyle(
                             color: AppColor.blue,
                             fontSize: 25.sp,
@@ -50,7 +57,7 @@ class HeadOfProfilePage extends StatelessWidget {
                         nameController: _nameController,
                         phoneController: _phoneController,
                         onPressed: () {
-                          _nameController.text = userInfo.name;
+                          _nameController.text = userInfo.user.name;
                           _phoneController.text = userInfo.phone;
                           Get.defaultDialog(
                             title: 'Edit Profile',
@@ -95,15 +102,22 @@ class HeadOfProfilePage extends StatelessWidget {
                             ),
                             textConfirm: 'confirm',
                             onConfirm: () async {
-                              final error =
-                                  await AuthenticationService.updateUserInfo(
-                                      name: _nameController.text,
-                                      phone: _phoneController.text);
-                              print('pressed');
-                              if (error == null) {
+                              try {
+                                await AuthenticationService.updateUserInfo(
+                                    name: _nameController.text,
+                                    phone: _phoneController.text);
+
                                 _nameController.clear();
                                 _phoneController.clear();
-                                Get.back();
+                               setState(() {
+                                  Get.back();
+                               });
+                                Get.snackbar('Congrats',
+                                    'You information has been updated',
+                                    snackPosition: SnackPosition.BOTTOM);
+                              } on HttpException catch (e) {
+                                Get.snackbar('Congrats', e.message,
+                                    snackPosition: SnackPosition.BOTTOM);
                               }
                             },
                             textCancel: 'cancel',
@@ -118,25 +132,26 @@ class HeadOfProfilePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Skeletonizer(
-                          child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Abd alraouf hussein',
-                            style: TextStyle(
-                                color: AppColor.blue,
-                                fontSize: 25.sp,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            '0968645606',
-                            style: TextStyle(
-                                color: AppColor.blue,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      )),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Abd',
+                              style: TextStyle(
+                                  color: AppColor.blue,
+                                  fontSize: 25.sp,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              '0968645606',
+                              style: TextStyle(
+                                  color: AppColor.blue,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
                       EditProfileButton(
                         nameController: _nameController,
                         phoneController: _phoneController,

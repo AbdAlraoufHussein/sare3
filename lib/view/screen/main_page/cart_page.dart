@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:wael/controller/add_to_cart_controller.dart';
-import 'package:wael/data/model/api/models/product_model.dart';
+import 'package:wael/controller/cubits/get_cart/get_cart_cubit.dart';
+import 'package:wael/core/constant/color.dart';
 import 'package:wael/view/widget/cart_page/box_details_payment.dart';
 import 'package:wael/view/widget/cart_page/product_cart.dart';
 
@@ -15,55 +16,65 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  int count = 1;
-  int cost = 0;
-  int costAfterDiscounte = 0;
-  int costBeforeDiscount = 0;
-  void increament(ProductModel product) {
-    setState(() {
-      count++;
-      cost = count * product.sale_price;
-      costAfterDiscounte = count * product.sale_price;
-      costBeforeDiscount = count * product.regular_price;
-    });
-  }
-
-  void decreament(ProductModel product) {
-    setState(() {
-      count--;
-      cost = count * product.sale_price;
-      costAfterDiscounte = count * product.sale_price;
-      costBeforeDiscount = count * product.regular_price;
-    });
-  }
-
-  final controller = Get.put(CartController(), permanent: true);
+  int productId = 0;
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Column(
+    return GetBuilder(
+      init: CartController()..refresh(),
+      builder: (controller) {
+        return Column(
           children: [
             SizedBox(
               height: 30.h,
             ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: controller.carts.length,
-                itemBuilder: (context, index) {
-                  controller.quantity = controller.carts.values.toList()[index];
-                  return ProductCart(
-                    controller: controller,
-                    index: index,
-                    product: controller.carts.keys.toList()[index],
-                    quantity: controller.quantity,
+            BlocBuilder<GetCartCubit, GetCartState>(
+              bloc: GetCartCubit()..getCrts(),
+              builder: (context, state) {
+                if (state is GetCartFetched) {
+                  final cartData = state.productsCart;
+                  return Expanded(
+                    child: ListView.builder(
+                      itemCount: cartData.length,
+                      itemBuilder: (context, index) {
+                        return ProductCart(
+                          controller: controller,
+                          cart: cartData[index],
+                          onRemovePressed: () {
+                            controller.removeProductFromCart(
+                                cartId: cartData[index].id);
+                          },
+                        );
+                      },
+                    ),
                   );
-                },
-              ),
+                } else if (state is GetCartFailure) {
+                  return Container(
+                    width: 200,
+                    height: 200,
+                    color: AppColor.blue,
+                    child: Text(state.errorMessage),
+                  );
+                } else {
+                  return const Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SkeletonizerProductCart(),
+                          SkeletonizerProductCart(),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+              },
             ),
             BoxDetailsPayment(
-              costAfterDiscounte: controller.totalSalePrice(),
+              costAfterDiscounte: controller.totalDiscountPrice(),
               costBeforeDiscount: controller.totalPrice(),
             ),
           ],
-        ));
+        );
+      },
+    );
   }
 }
