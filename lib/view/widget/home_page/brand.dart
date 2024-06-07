@@ -49,7 +49,7 @@ class Brand extends StatelessWidget {
               textAlign: TextAlign.center,
               name,
               style: TextStyle(
-                  fontSize: 22.sp,
+                  fontSize: 18.sp,
                   color: AppColor.grey,
                   fontWeight: FontWeight.bold),
             ),

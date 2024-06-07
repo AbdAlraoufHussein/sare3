@@ -85,23 +85,19 @@ class ProductPage extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          'Description: ',
-                                          style: TextStyle(
-                                              color: AppColor.blue,
-                                              fontSize: 18.sp,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          productData.description,
-                                          style: TextStyle(
-                                            color: AppColor.black,
-                                            fontSize: 16.sp,
-                                          ),
-                                        ),
-                                      ],
+                                    Text(
+                                      'Description: ',
+                                      style: TextStyle(
+                                          color: AppColor.blue,
+                                          fontSize: 18.sp,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      productData.description,
+                                      style: TextStyle(
+                                        color: AppColor.black,
+                                        fontSize: 16.sp,
+                                      ),
                                     ),
                                     const SizedBox(
                                       height: 16,
@@ -146,6 +142,7 @@ class ProductPage extends StatelessWidget {
                                             Row(
                                               children: [
                                                 Text(
+                                                  softWrap: true,
                                                   'Discount price: ',
                                                   style: TextStyle(
                                                       color: AppColor.blue,
@@ -166,7 +163,7 @@ class ProductPage extends StatelessWidget {
                                           ],
                                         ),
                                         Obx(
-                                          ()=> Container(
+                                          () => Container(
                                             height: 30.h,
                                             width: 120.w,
                                             decoration: BoxDecoration(
