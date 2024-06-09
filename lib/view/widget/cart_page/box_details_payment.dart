@@ -1,11 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:wael/controller/add_to_cart_controller.dart';
 import 'package:wael/core/constant/color.dart';
-import 'package:wael/core/services/cart_service.dart';
 import 'package:wael/data/model/api/models/cart_model.dart';
 import 'package:wael/helpers/stripe_helper.dart';
 
@@ -103,19 +99,8 @@ class BoxDetailsPayment extends StatelessWidget {
                 ),
               ),
               onPressed: () async {
-                try {
-                  StripeHelper.stripe(salePrice: costAfterDiscounte);
-                  await CartServices.postorder();
-                  controller.cartList.clear();
-                  controller.quantity=0.obs;
-                  controller.update();
-                  Get.snackbar(
-                      'Congrats', 'Your order has been added succesfully.',
-                      snackPosition: SnackPosition.BOTTOM);
-                } on HttpException catch (e) {
-                  Get.snackbar('Congrats', e.message,
-                      snackPosition: SnackPosition.BOTTOM);
-                }
+                StripeHelper.stripe(
+                    salePrice: costAfterDiscounte, controller: controller);
               },
               child: Text(
                 'Payment for reservation',

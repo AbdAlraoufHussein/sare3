@@ -2,11 +2,16 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutter/material.dart';
+import 'package:wael/controller/add_to_cart_controller.dart';
+import 'package:wael/core/services/cart_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'dart:io';
 
 abstract class StripeHelper {
-  static void stripe({required int salePrice}) async {
-    final paymentIntent = await createPaymentIntent(salePrice.toString(), 'INR');
+  static void stripe(
+      {required int salePrice, required CartController controller}) async {
+    final paymentIntent =
+        await createPaymentIntent(salePrice.toString(), 'INR');
     await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
             billingDetails: BillingDetails(
@@ -24,7 +29,16 @@ abstract class StripeHelper {
                 paymentIntent!['client_secret'], //Gotten from payment intent
             style: ThemeMode.dark,
             merchantDisplayName: 'Ikay'));
-
+    try {
+      await CartServices.postorder();
+      controller.cartList.clear();
+      controller.quantity = 0.obs;
+      controller.update();
+      Get.snackbar('Congrats', 'Your order has been added succesfully.',
+          snackPosition: SnackPosition.BOTTOM);
+    } on HttpException catch (e) {
+      Get.snackbar('Congrats', e.message, snackPosition: SnackPosition.BOTTOM);
+    }
     displayPaymentSheet();
   }
 
